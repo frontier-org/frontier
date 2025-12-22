@@ -1,0 +1,9 @@
+[app]
+name = "Meu Super App"
+version = "1.0.0"
+description = "Um aplicativo incrível feito com Frontier"
+copyright = "2025 Minha Empresa Ltda"
+author = "Dev Mestre"
+
+# Ícone do Executável (Deve ser .ico)
+icon = "app/frontend/icon.ico"
