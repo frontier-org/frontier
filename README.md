@@ -1,4 +1,4 @@
-# ⚡ Frontier: Resumo Técnico do Projeto
+# 🔭 Frontier: Resumo Técnico do Projeto
 
 O **Frontier** é um Engine de Interface Gráfica (GUI) Poliglota e Nativo. Ele permite que desenvolvedores criem interfaces utilizando tecnologias Web (**HTML5, CSS3, JavaScript**) para controlar backends escritos em qualquer linguagem (**C, Python, Rust, Go, Node.js**), consolidando o resultado em um **Executável Único e Estático** para Windows.
 
@@ -61,3 +61,4 @@ Atua como CLI, sistema de build e orquestrador de pacotes.
 ---
 
 > **Nota Técnica:** O Frontier resolve o problema de distribuição de apps "web-based" eliminando o overhead do Electron e a complexidade de gerenciar múltiplas runtimes no cliente final.
+
