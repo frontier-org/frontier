@@ -5,3 +5,4 @@ app
 dist
 modules
 frontier.toml
+PROJECT.md
