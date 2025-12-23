@@ -1,7 +1,7 @@
-.frontier/assets
-.frontier/target
+.frontier/assets/
+.frontier/target/
 .frontier/Cargo.lock
-app
-dist
-modules
+app/
+dist/
+modules/
 frontier.toml

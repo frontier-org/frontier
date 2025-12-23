@@ -22,7 +22,7 @@ exit /b 0
 :DEV
 echo [Frontier] Modo DEV...
 set FRONTIER_DEV=true
-cargo run --manifest-path %MANIFEST% --bin frontier_core
+cargo run --manifest-path %MANIFEST% --bin core
 exit /b 0
 
 :CARGO_PASS_THROUGH

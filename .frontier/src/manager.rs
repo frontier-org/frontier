@@ -62,7 +62,7 @@ fn main() {
     copy_frontend();
 
     println!("⚙️  Compilando Core...");
-    run_cargo_build("frontier_core", &app_info);
+    run_cargo_build("core", &app_info);
 
     let final_name = app_info.name.clone().unwrap_or("MeuApp".into());
     finalize_dist_folder(&final_name);
@@ -115,7 +115,7 @@ fn run_cargo_build(bin_name: &str, info: &AppInfo) {
 fn finalize_dist_folder(app_name: &str) {
     let target_dir = Path::new(BASE_DIR).join("target/release");
     let dist_dir = Path::new(DIST_DIR);
-    let core_name = "frontier_core.exe";
+    let core_name = "core.exe";
     let final_exe_name = format!("{}.exe", app_name);
     
     let src_exe = target_dir.join(core_name);

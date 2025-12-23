@@ -245,4 +245,4 @@ Use o script `.\frontier` na raiz.
 
 ## 🛡️ Notas Técnicas
 
-1.  **Persistência:** Os dados da janela (e cookies/localstorage) são salvos em `%LOCALAPPDATA%\FrontierData\NomeDoApp`.
+1.  **Persistência:** Os dados da janela (e cookies/localstorage) são salvos em `%LOCALAPPDATA%\NomeDoApp`.

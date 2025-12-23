@@ -10,7 +10,7 @@ name = "manager"
 path = "src/manager.rs"  # Agora na raiz do src
 
 [[bin]]
-name = "frontier_core"
+name = "core"
 path = "src/core.rs"     # Agora na raiz do src
 
 # --- DEPENDÊNCIAS ---
@@ -28,6 +28,8 @@ regex = "1.10"
 evalexpr = "11.3"
 notify = "6.1"
 winapi = { version = "0.3", features = ["wincon"] }
+mime_guess = "2.0"
+native-dialog = "0.7"
 
 [build-dependencies]
 winres = "0.1"
