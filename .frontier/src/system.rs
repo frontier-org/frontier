@@ -55,6 +55,7 @@ pub struct SystemState {
 
 /// Execute a backend command with the given trigger and arguments
 pub fn execute_backend(system: &SystemState, trigger: &str, args: &str) -> String {
+    #[allow(unused_mut)]
     if let Some(mut meta) = system.commands.get(trigger).cloned() {
         // In dev mode, if the file is source code (C/C++/etc) with no interpreter,
         // try to compile it first

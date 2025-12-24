@@ -3,7 +3,7 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
-    // 1. Garante pastas do RustEmbed (PAYLOAD REMOVIDO)
+    // 1. Ensure folders for RustEmbed (PAYLOAD REMOVAL)
     let folders = ["assets", "assets/frontend"]; 
     
     for folder in folders {
@@ -12,38 +12,38 @@ fn main() {
         }
     }
     
-    // Arquivo dummy para evitar erro se assets estiver vazio
+    // Dummy file to avoid error if assets is empty
     if !Path::new("assets/.keep").exists() { 
         let _ = fs::write("assets/.keep", ""); 
     }
 
-    // 2. Configura Recursos do Windows (Ícone e Metadados)
+    // 2. Configure Windows Resources (Icon and Metadata)
     if cfg!(target_os = "windows") {
         let mut res = winres::WindowsResource::new();
         
-        // Tenta achar o ícone na pasta original do App (Caminho Relativo)
+        // Try to find the icon in the original App folder (Relative Path)
         let icon_original = Path::new("../app/frontend/icon.ico");
         
-        // Tenta usar caminho absoluto para garantir que o 'rc.exe' encontre
+        // Try to use absolute path to ensure 'rc.exe' can find it
         if let Ok(abs_path) = fs::canonicalize(icon_original) {
             res.set_icon(abs_path.to_str().unwrap());
         } else if Path::new("icon.ico").exists() {
-            // Fallback: Tenta na raiz do .frontier se existir
+            // Fallback: Try in the root of .frontier if it exists
             res.set_icon("icon.ico");
         }
 
-        // Injeta Metadados via Variáveis de Ambiente (Vindas do Manager)
+        // Inject metadata via Environment Variables (from Manager)
         if let Ok(v) = env::var("FRONTIER_APP_VERSION") { res.set("FileVersion", &v); res.set("ProductVersion", &v); }
         if let Ok(v) = env::var("FRONTIER_APP_NAME") { res.set("ProductName", &v); res.set("InternalName", &v); }
         if let Ok(v) = env::var("FRONTIER_APP_DESC") { res.set("FileDescription", &v); }
         if let Ok(v) = env::var("FRONTIER_APP_COPYRIGHT") { res.set("LegalCopyright", &v); }
 
         if let Err(e) = res.compile() {
-            println!("cargo:warning=Erro WinRes: {}", e);
+            println!("cargo:warning=WinRes Error: {}", e);
         }
     }
     
-    // Monitoramento
+    // Monitoring
     println!("cargo:rerun-if-changed=../app/frontend/icon.ico");
     println!("cargo:rerun-if-changed=icon.ico");
     println!("cargo:rerun-if-changed=build.rs");

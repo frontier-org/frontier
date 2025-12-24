@@ -50,15 +50,7 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 
 | Feature | Status | Technical Description |
 | :--- | :---: | :--- |
-| **Single Executable** | ✅ | Compilation via Static MSVC (Zero external DLLs). |
-| **Win32 Metadata** | ✅ | Version, Copyright and Icon injected via native resource. |
+| **Single Executable** | ✅ | A simple, small binary encompasses your entire application. |
 | **HTML Configuration** | ✅ | Layout and behavior defined by `<meta>` tags. |
-| **Window Persistence** | ✅ | State cache (Position/Size) in file system. |
 | **Hot Reload** | ✅ | Real-time update for Front and Backend. |
 | **Polyglot Support** | ✅ | Modular architecture that accepts any binary via `manifest.toml`. |
-| **Silent Console** | ✅ | Suppression of terminal windows (popups) for background processes. |
-
----
-
-> **Technical Note:** Frontier solves the problem of distributing "web-based" apps by eliminating Electron overhead and the complexity of managing multiple runtimes on the client end.
-

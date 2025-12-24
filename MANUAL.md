@@ -20,11 +20,10 @@ A healthy Frontier project follows this structure:
 │   │   └── style.css
 │   └── backend/           # Your Scripts and Source Code
 │       ├── calculate.c
-│       ├── script.py
-│       └── ComplexApp!java_gradle/  (Folder as Backend)
+│       └── script.py
 │
 ├── modules/               # Language Definitions (Compilers/Interpreters)
-│   ├── mod_c/
+│   ├── mod_gcc/
 │   └── mod_python/
 │
 └── .frontier/             # Engine (Rust, Cache, Build System) - Don't touch
@@ -61,7 +60,7 @@ Frontier treats HTML as the "window configuration". You control native window be
 
 | Meta Name | Example Value | Description |
 | :--- | :--- | :--- |
-| `frontier-title` | "My App" | Window Title (Or use `<title>` tag). |
+| `frontier-title` | `My App` | Window Title (Or use `<title>` tag). |
 | `frontier-width` | `800` | Initial width. |
 | `frontier-height` | `600` | Initial height. |
 | `frontier-min-width`| `400` | Minimum allowed width. |
@@ -140,13 +139,6 @@ Place your files in `app/backend/`. Frontier detects the extension and looks up 
     *   Frontier uses the file name as the trigger.
     *   Ex: `app/backend/analyze.py` -> Trigger: `analyze`.
 
-2.  **Project Folder (`Name!extension`)**
-    *   Use for complex projects (Java Gradle, C Make, Node Modules).
-    *   The folder must be named: `CommandName!module_extension`.
-    *   Ex: Folder `app/backend/Benchmark!java`.
-    *   Frontier enters the folder, runs the build defined in the `java` module and generates the executable.
-    *   Trigger: `Benchmark`.
-
 ### Arguments
 Everything you pass in JS (`window.ipc.postMessage('trigger|arg1 arg2')`) is forwarded to the binary/script as command-line arguments (`argv`).
 
@@ -171,18 +163,18 @@ interpreter = "python"
 # (Optional) If true, hides the black console window when running
 suppress_window = true
 
+# DEV CONFIGURATION (Hot Reload)
+[dev]
+# "interpreter": Does nothing on save, just runs. (Python, JS)
+# "build": Runs the [build] command every time the file is saved. (C, Go, Rust)
+strategy = "interpreter"
+
 # BUILD CONFIGURATION (Production and Dev "Build Strategy")
 [build]
 # Magic Variables:
 # %IN%  -> Absolute path of source file (or project folder)
 # %OUT% -> Absolute path where Frontier expects the final file
 command = "gcc %IN% -o %OUT%"
-
-# DEV CONFIGURATION (Hot Reload)
-[dev]
-# "interpreter": Does nothing on save, just runs. (Python, JS)
-# "build": Runs the [build] command every time the file is saved. (C, Go, Rust)
-strategy = "interpreter"
 ```
 
 ### Practical Examples
@@ -192,6 +184,7 @@ strategy = "interpreter"
 extension = "py"
 interpreter = "python"
 suppress_window = true
+
 [dev]
 strategy = "interpreter"
 ```
@@ -200,21 +193,12 @@ strategy = "interpreter"
 ```toml
 extension = "c"
 suppress_window = true
+
+[dev]
+strategy = "build"
+
 [build]
 command = "gcc %IN% -o %OUT%"
-[dev]
-strategy = "build"
-```
-
-**Java Gradle (Folder):**
-```toml
-extension = "java"
-interpreter = "java -jar"
-[build]
-# Frontier automatically sets the working directory inside the folder
-command = "call gradle build -x test && copy /Y build\\libs\\app.jar %OUT%"
-[dev]
-strategy = "build"
 ```
 
 ---
@@ -233,11 +217,6 @@ Use the `.\frontier` script at the root.
     *   Compiles all scripts and projects.
     *   Generates a single executable in `dist/`.
     *   This executable is **static** (doesn't need DLLs alongside).
-*   **`.\frontier install <url>`**
-    *   Downloads modules from the internet.
-    *   Supports `gh:user/repo` (GitHub).
-    *   Supports `https://.../file.zip`.
-    *   Supports `--folder name` to download subfolders from monorepos.
 *   **`.\frontier clean`**
     *   Cleans temporary folders (`target`, `assets`, `dist`). Use if something goes wrong.
 
