@@ -1,119 +1,119 @@
 # ⚡ Frontier Documentation
 
-O **Frontier** é um Engine de Interface Gráfica (GUI) agnóstico a linguagem. Ele permite criar aplicativos Desktop nativos e portáteis para Windows, onde o Backend pode ser escrito em qualquer linguagem (C, Python, Java, Go, Batch, Node) e o Frontend é feito com tecnologias Web modernas.
+**Frontier** is a language-agnostic Graphical User Interface (GUI) Engine. It allows you to create native and portable Desktop applications for Windows, where the Backend can be written in any language (C, Python, Java, Go, Batch, Node) and the Frontend is built with modern Web technologies.
 
 ---
 
-## 📂 1. Estrutura do Projeto
+## 📂 1. Project Structure
 
-Um projeto Frontier saudável segue esta estrutura:
+A healthy Frontier project follows this structure:
 
 ```text
-/MeuProjeto
+/MyProject
 │
-├── frontier.cmd           # CLI (Interface de Linha de Comando)
-├── frontier.toml          # Metadados do Executável (Versão, Ícone do EXE)
+├── frontier.cmd           # CLI (Command Line Interface)
+├── frontier.toml          # Executable Metadata (Version, EXE Icon)
 │
 ├── app/
-│   ├── frontend/          # HTML, CSS, JS e Ícones de Janela
+│   ├── frontend/          # HTML, CSS, JS and Window Icons
 │   │   ├── index.html
 │   │   └── style.css
-│   └── backend/           # Seus Scripts e Códigos Fonte
-│       ├── calculo.c
+│   └── backend/           # Your Scripts and Source Code
+│       ├── calculate.c
 │       ├── script.py
-│       └── ComplexApp!java_gradle/  (Pasta como Backend)
+│       └── ComplexApp!java_gradle/  (Folder as Backend)
 │
-├── modules/               # Definições de Linguagem (Compiladores/Interpretadores)
+├── modules/               # Language Definitions (Compilers/Interpreters)
 │   ├── mod_c/
 │   └── mod_python/
 │
-└── .frontier/             # Engine (Rust, Cache, Build System) - Não mexa aqui
+└── .frontier/             # Engine (Rust, Cache, Build System) - Don't touch
 ```
 
 ---
 
-## ⚙️ 2. Configuração do Executável (`frontier.toml`)
+## ⚙️ 2. Executable Configuration (`frontier.toml`)
 
-Este arquivo controla **apenas** os metadados do arquivo `.exe` final gerado no Windows. As configurações de janela (tamanho, posição) agora são controladas pelo HTML.
+This file controls **only** the metadata of the final `.exe` file generated on Windows. Window configurations (size, position) are now controlled by HTML.
 
-**Arquivo:** `frontier.toml`
+**File:** `frontier.toml`
 ```toml
 [app]
-name = "MeuSuperApp"       # Nome do arquivo final (ex: MeuSuperApp.exe)
-version = "1.0.0"          # Versão (aparece em Propriedades do Arquivo)
-description = "Descrição"  # Descrição do arquivo
-copyright = "© 2025 Corp"  # Direitos Autorais
-author = "Dev Name"        # Autor
+name = "MySuperApp"        # Final file name (e.g. MySuperApp.exe)
+version = "1.0.0"          # Version (appears in File Properties)
+description = "Description"  # File description
+copyright = "© 2025 Corp"  # Copyright
+author = "Dev Name"        # Author
 
 [window]
-# Ícone que aparece no Windows Explorer e Barra de Tarefas.
-# OBRIGATÓRIO SER .ICO VÁLIDO (não renomeie png).
+# Icon that appears in Windows Explorer and Taskbar.
+# MUST BE A VALID .ICO (don't rename png).
 icon = "app/frontend/icon.ico" 
 ```
 
 ---
 
-## 🖥️ 3. Frontend & Gerenciamento de Janelas
+## 🖥️ 3. Frontend & Window Management
 
-O Frontier trata o HTML como a "configuração da janela". Você controla o comportamento da janela nativa usando **Meta Tags** no `<head>`.
+Frontier treats HTML as the "window configuration". You control native window behavior using **Meta Tags** in the `<head>`.
 
-### Configurações Disponíveis (Meta Tags)
+### Available Settings (Meta Tags)
 
-| Meta Name | Valor Exemplo | Descrição |
+| Meta Name | Example Value | Description |
 | :--- | :--- | :--- |
-| `frontier-title` | "Meu App" | Título da Janela (Ou use a tag `<title>`). |
-| `frontier-width` | `800` | Largura inicial. |
-| `frontier-height` | `600` | Altura inicial. |
-| `frontier-min-width`| `400` | Largura mínima permitida. |
-| `frontier-min-height`| `300` | Altura mínima permitida. |
-| `frontier-x` | `(screen_w - win_w) / 2` | Posição Horizontal. Aceita Fórmulas Matemáticas. |
-| `frontier-y` | `0` | Posição Vertical (0 = Topo). Aceita Fórmulas. |
-| `frontier-resizable`| `true` / `false` | Permite redimensionar a borda. |
-| `frontier-maximized`| `true` / `false` | Inicia maximizado. |
-| `frontier-minimizable`| `true` / `false` | Mostra/Oculta botão de minimizar. |
-| `frontier-maximizable`| `true` / `false` | Mostra/Oculta botão de maximizar. |
-| `frontier-icon` | `icone.png` | Ícone da barra de título (caminho relativo ao HTML). |
-| `frontier-persistent`| `true` | Salva/Restaura posição e tamanho ao fechar. |
-| `frontier-id` | `main_window` | ID único para o arquivo de save da persistência. |
+| `frontier-title` | "My App" | Window Title (Or use `<title>` tag). |
+| `frontier-width` | `800` | Initial width. |
+| `frontier-height` | `600` | Initial height. |
+| `frontier-min-width`| `400` | Minimum allowed width. |
+| `frontier-min-height`| `300` | Minimum allowed height. |
+| `frontier-x` | `(screen_w - win_w) / 2` | Horizontal Position. Accepts Math Formulas. |
+| `frontier-y` | `0` | Vertical Position (0 = Top). Accepts Formulas. |
+| `frontier-resizable`| `true` / `false` | Allows border resizing. |
+| `frontier-maximized`| `true` / `false` | Starts maximized. |
+| `frontier-minimizable`| `true` / `false` | Shows/Hides minimize button. |
+| `frontier-maximizable`| `true` / `false` | Shows/Hides maximize button. |
+| `frontier-icon` | `icon.png` | Title bar icon (path relative to HTML). |
+| `frontier-persistent`| `true` | Save/Restore position and size on close. |
+| `frontier-id` | `main_window` | Unique ID for persistence save file. |
 
-### Fórmulas Matemáticas
-Nas tags `x` e `y`, você pode usar variáveis:
-*   `screen_w`: Largura do Monitor.
-*   `screen_h`: Altura do Monitor.
-*   `win_w`: Largura da Janela.
-*   `win_h`: Altura da Janela.
+### Math Formulas
+In `x` and `y` tags, you can use variables:
+*   `screen_w`: Monitor width.
+*   `screen_h`: Monitor height.
+*   `win_w`: Window width.
+*   `win_h`: Window height.
 
-**Exemplo de HTML Completo:**
+**Complete HTML Example:**
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Painel Admin</title>
-    <!-- Centralizar -->
+    <title>Admin Panel</title>
+    <!-- Center window -->
     <meta name="frontier-x" content="(screen_w - win_w) / 2">
     <meta name="frontier-y" content="(screen_h - win_h) / 2">
-    <!-- Tamanho e Ícone -->
+    <!-- Size and Icon -->
     <meta name="frontier-width" content="1024">
     <meta name="frontier-height" content="768">
     <meta name="frontier-icon" content="assets/admin.png">
-    <!-- Persistência -->
+    <!-- Persistence -->
     <meta name="frontier-persistent" content="true">
     <meta name="frontier-id" content="admin_panel">
 </head>
 <body>
-    <h1>App Rodando</h1>
-    <button onclick="run()">Executar Backend</button>
+    <h1>App Running</h1>
+    <button onclick="run()">Execute Backend</button>
     <script>
-        // API IPC
+        // IPC API
         function run() {
-            // Sintaxe: "arquivo_backend|argumentos"
-            window.ipc.postMessage('calculo|10 20');
+            // Syntax: "backend_file|arguments"
+            window.ipc.postMessage('calculate|10 20');
         }
         
-        // Receber Resposta
+        // Receive Response
         window.Frontier = {
-            dispatch: (tipo, msg) => {
-                console.log(msg); // Recebe do Rust
+            dispatch: (type, msg) => {
+                console.log(msg); // Receives from Rust
             }
         };
     </script>
@@ -121,71 +121,71 @@ Nas tags `x` e `y`, você pode usar variáveis:
 </html>
 ```
 
-### Abrindo Novas Janelas
-Você pode abrir janelas secundárias (popups) via JS:
+### Opening New Windows
+You can open secondary windows (popups) via JS:
 ```javascript
-// Abre o arquivo popup.html em uma nova janela nativa
+// Opens popup.html in a new native window
 window.ipc.postMessage('open|popup.html');
 ```
 
 ---
 
-## 🧱 4. Implementação de Backend
+## 🧱 4. Backend Implementation
 
-Coloque seus arquivos em `app/backend/`. O Frontier detecta a extensão e busca o módulo correspondente.
+Place your files in `app/backend/`. Frontier detects the extension and looks up the corresponding module.
 
-### Tipos de Backend Suportados
+### Supported Backend Types
 
-1.  **Arquivo Único (`script.py`, `codigo.c`)**
-    *   O Frontier pega o nome do arquivo como gatilho.
-    *   Ex: `app/backend/analise.py` -> Gatilho: `analise`.
+1.  **Single File (`script.py`, `code.c`)**
+    *   Frontier uses the file name as the trigger.
+    *   Ex: `app/backend/analyze.py` -> Trigger: `analyze`.
 
-2.  **Pasta de Projeto (`Nome!extensao`)**
-    *   Use para projetos complexos (Java Gradle, C Make, Node Modules).
-    *   A pasta deve ter o nome no formato: `NomeDoComando!extensao_do_modulo`.
-    *   Ex: Pasta `app/backend/Benchmark!java`.
-    *   O Frontier entra na pasta, roda o build definido no módulo `java` e gera o executável.
-    *   Gatilho: `Benchmark`.
+2.  **Project Folder (`Name!extension`)**
+    *   Use for complex projects (Java Gradle, C Make, Node Modules).
+    *   The folder must be named: `CommandName!module_extension`.
+    *   Ex: Folder `app/backend/Benchmark!java`.
+    *   Frontier enters the folder, runs the build defined in the `java` module and generates the executable.
+    *   Trigger: `Benchmark`.
 
-### Argumentos
-Tudo que você passa no JS (`window.ipc.postMessage('gatilho|arg1 arg2')`) é repassado para o binário/script como argumentos de linha de comando (`argv`).
+### Arguments
+Everything you pass in JS (`window.ipc.postMessage('trigger|arg1 arg2')`) is forwarded to the binary/script as command-line arguments (`argv`).
 
 ---
 
-## 📦 5. Criação de Módulos (`modules/`)
+## 📦 5. Module Creation (`modules/`)
 
-Um módulo ensina o Frontier a compilar ou rodar uma linguagem.
-Crie uma pasta em `modules/nome_do_modulo/` e adicione um `manifest.toml`.
+A module teaches Frontier how to compile or run a language.
+Create a folder in `modules/module_name/` and add a `manifest.toml`.
 
-### Referência do `manifest.toml`
+### `manifest.toml` Reference
 
 ```toml
-name = "Nome Legível"
-version = "1.0.0"       # Para sistema de update
-extension = "py"        # Extensão que este módulo controla
+name = "Readable Name"
+version = "1.0.0"       # For update system
+extension = "py"        # Extension this module controls
 
-# (Opcional) Interpretador para rodar o arquivo final
-# Use isso para linguagens de script (Python, JS, Bat) ou Bytecode (Java)
+# (Optional) Interpreter to run the final file
+# Use this for script languages (Python, JS, Bat) or Bytecode (Java)
 interpreter = "python" 
 
-# (Opcional) Se true, não mostra a janela preta do console ao rodar
+# (Optional) If true, hides the black console window when running
 suppress_window = true
 
-# CONFIGURAÇÃO DE BUILD (Produção e Dev "Build Strategy")
+# BUILD CONFIGURATION (Production and Dev "Build Strategy")
 [build]
-# Variáveis Mágicas:
-# %IN%  -> Caminho absoluto do arquivo fonte (ou pasta do projeto)
-# %OUT% -> Caminho absoluto onde o Frontier espera o arquivo final
+# Magic Variables:
+# %IN%  -> Absolute path of source file (or project folder)
+# %OUT% -> Absolute path where Frontier expects the final file
 command = "gcc %IN% -o %OUT%"
 
-# CONFIGURAÇÃO DE DEV (Hot Reload)
+# DEV CONFIGURATION (Hot Reload)
 [dev]
-# "interpreter": Não faz nada quando salva, apenas roda. (Python, JS)
-# "build": Roda o comando [build] toda vez que o arquivo é salvo. (C, Go, Rust)
+# "interpreter": Does nothing on save, just runs. (Python, JS)
+# "build": Runs the [build] command every time the file is saved. (C, Go, Rust)
 strategy = "interpreter"
 ```
 
-### Exemplos Práticos
+### Practical Examples
 
 **Python (Script):**
 ```toml
@@ -196,7 +196,7 @@ suppress_window = true
 strategy = "interpreter"
 ```
 
-**C (Nativo):**
+**C (Native):**
 ```toml
 extension = "c"
 suppress_window = true
@@ -206,12 +206,12 @@ command = "gcc %IN% -o %OUT%"
 strategy = "build"
 ```
 
-**Java Gradle (Pasta):**
+**Java Gradle (Folder):**
 ```toml
 extension = "java"
 interpreter = "java -jar"
 [build]
-# O Frontier define o diretório de trabalho automaticamente para dentro da pasta
+# Frontier automatically sets the working directory inside the folder
 command = "call gradle build -x test && copy /Y build\\libs\\app.jar %OUT%"
 [dev]
 strategy = "build"
@@ -219,30 +219,30 @@ strategy = "build"
 
 ---
 
-## 💻 6. CLI (Linha de Comando)
+## 💻 6. CLI (Command Line)
 
-Use o script `.\frontier` na raiz.
+Use the `.\frontier` script at the root.
 
 *   **`.\frontier dev`**
-    *   Inicia o modo de desenvolvimento.
-    *   Ativa **Hot Reload** (alterações no Front ou Back refletem na hora).
-    *   Lê arquivos diretamente da pasta `app/`.
-    *   Compila binários (C/Go) em cache temporário.
+    *   Starts development mode.
+    *   Enables **Hot Reload** (changes in Front or Back are reflected immediately).
+    *   Reads files directly from the `app/` folder.
+    *   Compiles binaries (C/Go) to temporary cache.
 *   **`.\frontier build`**
-    *   Inicia o modo de produção.
-    *   Compila todos os scripts e projetos.
-    *   Gera um executável único em `dist/`.
-    *   Este executável é **estático** (não precisa de DLLs ao lado).
+    *   Starts production mode.
+    *   Compiles all scripts and projects.
+    *   Generates a single executable in `dist/`.
+    *   This executable is **static** (doesn't need DLLs alongside).
 *   **`.\frontier install <url>`**
-    *   Baixa módulos da internet.
-    *   Suporta `gh:user/repo` (GitHub).
-    *   Suporta `https://.../arquivo.zip`.
-    *   Suporta `--folder nome` para baixar subpastas de monorepos.
+    *   Downloads modules from the internet.
+    *   Supports `gh:user/repo` (GitHub).
+    *   Supports `https://.../file.zip`.
+    *   Supports `--folder name` to download subfolders from monorepos.
 *   **`.\frontier clean`**
-    *   Limpa pastas temporárias (`target`, `assets`, `dist`). Use se algo estranho acontecer.
+    *   Cleans temporary folders (`target`, `assets`, `dist`). Use if something goes wrong.
 
 ---
 
-## 🛡️ Notas Técnicas
+## 🛡️ Technical Notes
 
-1.  **Persistência:** Os dados da janela (e cookies/localstorage) são salvos em `%LOCALAPPDATA%\NomeDoApp`.
+1.  **Persistence:** Window data (and cookies/localstorage) are saved in `%LOCALAPPDATA%\AppName`.

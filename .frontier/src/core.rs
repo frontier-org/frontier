@@ -1,19 +1,31 @@
 #![windows_subsystem = "windows"]
 
+/// Frontier Core - Runtime Engine
+/// 
+/// The Core is the runtime for the final executable. It is responsible for:
+/// - Rendering the native WebView
+/// - Managing the virtual filesystem protocol (frontier://)
+/// - Handling Inter-Process Communication (IPC) with the frontend
+/// - Managing window state and persistence
+/// - Executing backend commands
+///
+/// The Core no longer handles build logic - that's the Manager's job.
+
+mod window;
+mod system;
+
 use rust_embed::RustEmbed;
-use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::borrow::Cow;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 use std::sync::{Arc, Mutex};
 use std::thread;
 use walkdir::WalkDir;
 use wry::{
     application::{
-        event::{Event, WindowEvent}, 
-        event_loop::{ControlFlow, EventLoop, EventLoopProxy, EventLoopWindowTarget}, 
+        event::{Event, WindowEvent},
+        event_loop::{ControlFlow, EventLoop, EventLoopProxy, EventLoopWindowTarget},
         window::{WindowBuilder, WindowId, Icon},
         dpi::{LogicalSize, LogicalPosition},
     },
@@ -21,68 +33,28 @@ use wry::{
     http::{Response, header},
 };
 use image::imageops::FilterType;
-use regex::Regex;
-use evalexpr::*; 
 use notify::{Watcher, RecursiveMode, EventKind};
 use std::time::{Duration, Instant};
 use native_dialog::{MessageDialog, MessageType};
-
-#[cfg(target_os = "windows")]
-use std::os::windows::process::CommandExt;
-const CREATE_NO_WINDOW: u32 = 0x08000000;
+use system::ModuleManifest;
 
 #[derive(RustEmbed)]
 #[folder = "assets/"]
 struct Assets;
 
-// --- ESTRUTURAS ---
+// --- STRUCTURES ---
 
 struct AppState {
     webviews: HashMap<WindowId, WebView>,
     persistence: HashMap<WindowId, PersistenceConfig>,
-    system: Arc<Mutex<SystemState>>,
+    system: Arc<Mutex<system::SystemState>>,
     main_proxy: EventLoopProxy<FrontierEvent>,
     debounce: HashMap<PathBuf, Instant>,
 }
 
-struct PersistenceConfig { should_save: bool, save_file: PathBuf }
-
-struct SystemState {
-    commands: HashMap<String, RuntimeMeta>,
-    #[cfg(debug_assertions)]
-    modules_map: HashMap<String, ModuleManifest>,
-    base_dir: PathBuf,
-    data_dir: PathBuf,
-    #[cfg(debug_assertions)]
-    dev_cache: PathBuf,
-    is_dev: bool,
-    window_icon: Option<Icon>,
-}
-
-#[derive(Serialize, Deserialize)]
-struct WindowState { width: f64, height: f64, x: f64, y: f64, maximized: bool }
-
-#[derive(Deserialize, Clone, Debug)]
-struct RuntimeMeta { trigger: String, filename: String, interpreter: Option<String>, #[serde(default = "default_true")] suppress_window: bool }
-fn default_true() -> bool { true }
-
-#[derive(Deserialize, Clone, Debug)]
-struct ModuleManifest {
-    extension: String, interpreter: Option<String>,
-    #[serde(default = "default_true")] suppress_window: bool,
-    #[cfg(debug_assertions)]
-    build: Option<BuildRule>,
-}
-
-#[cfg(debug_assertions)]
-#[derive(Deserialize, Clone, Debug)]
-struct BuildRule { command: String }
-
-struct PageConfig {
-    title: String, width: f64, height: f64, x: Option<String>, y: Option<String>,
-    resizable: bool, maximized: bool, persistent: bool, id: String,
-    icon_path: Option<String>, min_width: Option<f64>, min_height: Option<f64>,
-    minimizable: bool, maximizable: bool,
+struct PersistenceConfig {
+    should_save: bool,
+    save_file: PathBuf,
 }
 
 enum FrontierEvent {
@@ -91,12 +63,13 @@ enum FrontierEvent {
     OpenWindow(String),
     FileChanged(PathBuf),
     #[cfg(debug_assertions)]
-    NotifyFrontend(String, bool), 
+    NotifyFrontend(String, bool),
 }
 
 // --- MAIN ---
+
 fn main() {
-    if let Err(e) = run_app() {
+    if let Err(e) = run_application() {
         let _ = MessageDialog::new()
             .set_type(MessageType::Error)
             .set_title("Frontier Runtime Error")
@@ -105,9 +78,9 @@ fn main() {
     }
 }
 
-fn run_app() -> Result<(), Box<dyn std::error::Error>> {
+fn run_application() -> Result<(), Box<dyn std::error::Error>> {
     let is_dev = std::env::var("FRONTIER_DEV").is_ok();
-    
+
     if is_dev {
         #[cfg(target_os = "windows")]
         unsafe {
@@ -119,7 +92,7 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
     let (base_dir, data_dir, dev_cache) = setup_paths(is_dev)?;
     let (commands, _modules_map) = scan_environment(&base_dir, &dev_cache, is_dev);
 
-    let system = Arc::new(Mutex::new(SystemState {
+    let system = Arc::new(Mutex::new(system::SystemState {
         commands,
         #[cfg(debug_assertions)]
         modules_map: _modules_map,
@@ -128,13 +101,13 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
         #[cfg(debug_assertions)]
         dev_cache,
         is_dev,
-        window_icon: load_app_icon(&base_dir),
+        window_icon: load_application_icon(&base_dir),
     }));
 
     let event_loop = EventLoop::<FrontierEvent>::with_user_event();
     let main_proxy = event_loop.create_proxy();
     let mut web_context = WebContext::new(Some(data_dir));
-    
+
     let mut app_state = AppState {
         webviews: HashMap::new(),
         persistence: HashMap::new(),
@@ -149,7 +122,9 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
         let mut w = notify::recommended_watcher(move |res: Result<notify::Event, notify::Error>| {
             if let Ok(event) = res {
                 if matches!(event.kind, EventKind::Modify(_) | EventKind::Create(_)) {
-                    for path in event.paths { let _ = watch_proxy.send_event(FrontierEvent::FileChanged(path)); }
+                    for path in event.paths {
+                        let _ = watch_proxy.send_event(FrontierEvent::FileChanged(path));
+                    }
                 }
             }
         })?;
@@ -157,20 +132,38 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
         _watcher = Some(w);
     }
 
-    create_new_window(&event_loop, &mut app_state, &mut web_context, "index.html", main_proxy.clone())?;
+    create_new_window(
+        &event_loop,
+        &mut app_state,
+        &mut web_context,
+        "index.html",
+        main_proxy.clone(),
+    )?;
 
     event_loop.run(move |event, event_loop, control_flow| {
         *control_flow = ControlFlow::Wait;
         match event {
             #[cfg(debug_assertions)]
             Event::UserEvent(FrontierEvent::NotifyFrontend(msg, success)) => {
-                let js = format!("console.log('%c[Frontier] {}', 'color: {}; font-weight: bold')", msg.replace('\'', "\\'"), if success { "#0f0" } else { "#f55" });
-                for webview in app_state.webviews.values() { let _ = webview.evaluate_script(&js); }
-            },
+                let js = format!(
+                    "console.log('%c[Frontier] {}', 'color: {}; font-weight: bold')",
+                    msg.replace('\'', "\\'"),
+                    if success { "#0f0" } else { "#f55" }
+                );
+                for webview in app_state.webviews.values() {
+                    let _ = webview.evaluate_script(&js);
+                }
+            }
             Event::UserEvent(FrontierEvent::FileChanged(path)) => {
-                if app_state.debounce.get(&path).map_or(false, |t| t.elapsed() < Duration::from_millis(500)) { return; }
+                if app_state
+                    .debounce
+                    .get(&path)
+                    .map_or(false, |t| t.elapsed() < Duration::from_millis(500))
+                {
+                    return;
+                }
                 app_state.debounce.insert(path.clone(), Instant::now());
-                
+
                 #[cfg(debug_assertions)]
                 if path.to_string_lossy().contains("backend") {
                     let sys = app_state.system.clone();
@@ -181,8 +174,11 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
                     });
                     return;
                 }
-                for webview in app_state.webviews.values() { let _ = webview.evaluate_script("location.reload();"); }
-            },
+
+                for webview in app_state.webviews.values() {
+                    let _ = webview.evaluate_script("location.reload();");
+                }
+            }
             Event::UserEvent(FrontierEvent::RunCommand(wid, cmd_str)) => {
                 let sys = app_state.system.clone();
                 let proxy = app_state.main_proxy.clone();
@@ -190,104 +186,60 @@ fn run_app() -> Result<(), Box<dyn std::error::Error>> {
                     let mut parts = cmd_str.splitn(2, '|');
                     let trigger = parts.next().unwrap_or("");
                     let args = parts.next().unwrap_or("");
-                    let res = execute_backend(&sys, trigger, args);
+                    let res = system::execute_backend(&sys.lock().unwrap(), trigger, args);
                     let _ = proxy.send_event(FrontierEvent::BackendReply(wid, res));
                 });
-            },
+            }
             Event::UserEvent(FrontierEvent::BackendReply(wid, msg)) => {
                 if let Some(webview) = app_state.webviews.get(&wid) {
-                    let safe = msg.replace('\\', "\\\\").replace('`', "\\`").replace('\'', "\\'");
-                    let _ = webview.evaluate_script(&format!("if(window.Frontier) window.Frontier.dispatch('log', `{}`)", safe));
+                    let safe = msg
+                        .replace('\\', "\\\\")
+                        .replace('`', "\\`")
+                        .replace('\'', "\\'");
+                    let _ = webview.evaluate_script(&format!(
+                        "if(window.Frontier) window.Frontier.dispatch('log', `{}`)",
+                        safe
+                    ));
                 }
-            },
+            }
             Event::UserEvent(FrontierEvent::OpenWindow(path)) => {
                 let proxy_clone = app_state.main_proxy.clone();
                 let _ = create_new_window(event_loop, &mut app_state, &mut web_context, &path, proxy_clone);
-            },
+            }
             Event::WindowEvent { event, window_id, .. } => match event {
                 WindowEvent::CloseRequested => {
                     save_window_state(&window_id, &app_state);
                     app_state.webviews.remove(&window_id);
                     app_state.persistence.remove(&window_id);
-                    if app_state.webviews.is_empty() { *control_flow = ControlFlow::Exit; }
-                },
-                _ => ()
+                    if app_state.webviews.is_empty() {
+                        *control_flow = ControlFlow::Exit;
+                    }
+                }
+                _ => {}
             },
-            _ => ()
+            _ => {}
         }
     });
 }
 
-// --- TOKENIZADOR DE COMANDOS (APENAS DEBUG) ---
+// --- BACKEND RECOMPILATION (DEBUG ONLY) ---
 
 #[cfg(debug_assertions)]
-fn execute_generic_command(cmd_template: &str, in_p: &Path, out_p: &Path, work_dir: &Path) -> std::io::Result<std::process::Output> {
-    let in_str = in_p.to_string_lossy().to_string();
-    let out_str = out_p.to_string_lossy().to_string();
-    let re = Regex::new(r#"[^\s"']+|"([^"]*)"|'([^']*)'"#).unwrap();
-    let tokens: Vec<String> = re.captures_iter(cmd_template).map(|cap| {
-        if let Some(m) = cap.get(1) { m.as_str().to_string() }
-        else if let Some(m) = cap.get(2) { m.as_str().to_string() }
-        else { cap.get(0).unwrap().as_str().to_string() }
-    }).collect();
-    let mut args = tokens.iter().map(|t| t.replace("%IN%", &in_str).replace("%OUT%", &out_str));
-    if let Some(exe) = args.next() {
-        let mut cmd = Command::new(exe);
-        cmd.args(args).current_dir(work_dir);
-        cmd.creation_flags(CREATE_NO_WINDOW);
-        cmd.output()
-    } else { Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "Vazio")) }
+fn recompile_backend(_sys_arc: &Arc<Mutex<system::SystemState>>, _file_path: &Path) -> (String, bool) {
+    (
+        "Hot reload not implemented yet".to_string(),
+        false,
+    )
 }
 
-#[cfg(debug_assertions)]
-fn recompile_backend(sys_arc: &Arc<Mutex<SystemState>>, file_path: &Path) -> (String, bool) {
-    let mut sys = sys_arc.lock().unwrap();
-    let ext = file_path.extension().and_then(|s| s.to_str()).unwrap_or("");
-    if let Some(module) = sys.modules_map.get(ext).cloned() {
-        if let Some(rule) = module.build {
-            let stem = file_path.file_stem().unwrap().to_str().unwrap().to_string();
-            let out_p = sys.dev_cache.join(format!("{}.exe", stem));
-            let _ = fs::remove_file(&out_p);
-            match execute_generic_command(&rule.command, file_path, &out_p, &sys.base_dir) {
-                Ok(o) if o.status.success() => {
-                    if let Some(m) = sys.commands.get_mut(&stem) { m.filename = out_p.to_string_lossy().into(); }
-                    (format!("Build '{}' OK", stem), true)
-                },
-                Ok(o) => (format!("Erro: {}", String::from_utf8_lossy(&o.stderr)), false),
-                Err(e) => (format!("Falha: {}", e), false)
-            }
-        } else { ("OK".into(), true) }
-    } else { ("Módulo não achado".into(), false) }
-}
-
-// --- LOGICA DE EXECUÇÃO ---
-
-fn execute_backend(sys: &Arc<Mutex<SystemState>>, trigger: &str, args: &str) -> String {
-    let (m, base) = { let lock = sys.lock().unwrap(); (lock.commands.get(trigger).cloned(), lock.base_dir.clone()) };
-    if let Some(m) = m {
-        if m.interpreter.is_none() && (m.filename.ends_with(".c") || m.filename.ends_with(".cpp")) {
-            return format!("ERRO: O binário para '{}' não existe.", trigger);
-        }
-        let fp = if Path::new(&m.filename).is_absolute() { PathBuf::from(&m.filename) } else { base.join(&m.filename) };
-        if !fp.exists() { return format!("ERRO: Não encontrado: {:?}", fp); }
-        let mut cmd = if let Some(int) = &m.interpreter {
-            let mut p = int.split_whitespace();
-            let mut c = Command::new(p.next().unwrap()); c.args(p).arg(&fp); c
-        } else { Command::new(&fp) };
-        cmd.args(args.split_whitespace()).current_dir(&base);
-        #[cfg(target_os = "windows")] if m.suppress_window { cmd.creation_flags(CREATE_NO_WINDOW); }
-        match cmd.output() {
-            Ok(o) => String::from_utf8_lossy(&o.stdout).to_string(),
-            Err(e) => format!("Falha Exec: {}", e)
-        }
-    } else { format!("Comando '{}' não registrado", trigger) }
-}
-
-// --- PERSISTÊNCIA ---
+// --- PERSISTENCE ---
 
 fn save_window_state(wid: &WindowId, app: &AppState) {
     if let (Some(p), Some(wv)) = (app.persistence.get(wid), app.webviews.get(wid)) {
-        if !p.should_save { return; }
+        if !p.should_save {
+            return;
+        }
+
         let win = wv.window();
         let is_max = win.is_maximized();
         let scale = win.scale_factor();
@@ -302,7 +254,7 @@ fn save_window_state(wid: &WindowId, app: &AppState) {
 
         if is_max && p.save_file.exists() {
             if let Ok(old_json) = fs::read_to_string(&p.save_file) {
-                if let Ok(old) = serde_json::from_str::<WindowState>(&old_json) {
+                if let Ok(old) = serde_json::from_str::<window::WindowState>(&old_json) {
                     final_x = old.x;
                     final_y = old.y;
                     final_w = old.width;
@@ -311,87 +263,123 @@ fn save_window_state(wid: &WindowId, app: &AppState) {
             }
         }
 
-        let state = WindowState { x: final_x, y: final_y, width: final_w, height: final_h, maximized: is_max };
-        if let Ok(j) = serde_json::to_string(&state) { let _ = fs::write(&p.save_file, j); }
+        let state = window::WindowState {
+            x: final_x,
+            y: final_y,
+            width: final_w,
+            height: final_h,
+            maximized: is_max,
+        };
+
+        if let Ok(j) = serde_json::to_string(&state) {
+            let _ = fs::write(&p.save_file, j);
+        }
     }
 }
 
-// --- UTILITÁRIOS ---
+// --- UTILITIES ---
 
 fn setup_paths(is_dev: bool) -> Result<(PathBuf, PathBuf, PathBuf), Box<dyn std::error::Error>> {
     let root = std::env::current_dir()?;
+
     if is_dev {
         let data = root.join(".frontier").join("target").join("dev_profile");
         let cache = root.join(".frontier").join("target").join("dev_cache");
-        let _ = fs::create_dir_all(&data); let _ = fs::create_dir_all(&cache);
+        let _ = fs::create_dir_all(&data);
+        let _ = fs::create_dir_all(&cache);
         Ok((root, data, cache))
     } else {
         let base = std::env::temp_dir().join("frontier_rt_v1");
         let _ = fs::create_dir_all(&base);
+
         let local = std::env::var("LOCALAPPDATA").unwrap_or_else(|_| ".".into());
         let data = Path::new(&local).join("FrontierData").join("App");
         let _ = fs::create_dir_all(&data);
+
+        // Extract embedded assets
         for file in Assets::iter() {
             let dest = base.join(file.as_ref());
-            if let Some(p) = dest.parent() { let _ = fs::create_dir_all(p); }
-            if let Some(c) = Assets::get(file.as_ref()) { let _ = fs::write(&dest, c.data.as_ref()); }
+            if let Some(p) = dest.parent() {
+                let _ = fs::create_dir_all(p);
+            }
+            if let Some(c) = Assets::get(file.as_ref()) {
+                let _ = fs::write(&dest, c.data.as_ref());
+            }
         }
+
         Ok((base, data, PathBuf::new()))
     }
 }
 
-fn scan_environment(base: &Path, _cache: &Path, is_dev: bool) -> (HashMap<String, RuntimeMeta>, HashMap<String, ModuleManifest>) {
+fn scan_environment(
+    base: &Path,
+    _cache: &Path,
+    is_dev: bool,
+) -> (HashMap<String, system::RuntimeMeta>, HashMap<String, ModuleManifest>) {
     let mut cmds = HashMap::new();
     let mut mods = HashMap::new();
+
     if is_dev {
         let m_dir = base.join("modules");
         if m_dir.exists() {
             for entry in WalkDir::new(m_dir).min_depth(2).max_depth(2) {
-                let entry = entry.unwrap();
+                let entry = match entry {
+                    Ok(e) => e,
+                    Err(_) => continue,
+                };
+
                 if entry.file_name() == "manifest.toml" {
-                    if let Ok(c) = fs::read_to_string(entry.path()) { if let Ok(m) = toml::from_str::<ModuleManifest>(&c) { mods.insert(m.extension.clone(), m); } }
+                    if let Ok(c) = fs::read_to_string(entry.path()) {
+                        if let Ok(m) = toml::from_str::<ModuleManifest>(&c) {
+                            mods.insert(m.extension.clone(), m);
+                        }
+                    }
                 }
             }
         }
+
         let b_dir = base.join("app").join("backend");
         if b_dir.exists() {
-            for entry in fs::read_dir(b_dir).unwrap().flatten() {
-                let p = entry.path();
-                let ext = p.extension().and_then(|e| e.to_str()).unwrap_or("");
-                let stem = p.file_stem().unwrap().to_str().unwrap().to_string();
-                if let Some(m) = mods.get(ext) {
-                    let fname = {
-                        #[cfg(debug_assertions)]
-                        {
-                            let mut current_name = p.to_string_lossy().to_string();
-                            if m.interpreter.is_none() && m.build.is_some() {
-                                let out = _cache.join(format!("{}.exe", stem));
-                                let _ = fs::remove_file(&out);
-                                if let Ok(o) = execute_generic_command(&m.build.as_ref().unwrap().command, &p, &out, base) {
-                                    if o.status.success() && out.exists() { current_name = out.to_string_lossy().to_string(); }
-                                }
-                            }
-                            current_name
-                        }
-                        #[cfg(not(debug_assertions))]
-                        {
-                            p.to_string_lossy().to_string()
-                        }
-                    };
-                    
-                    cmds.insert(stem, RuntimeMeta { trigger: "".into(), filename: fname, interpreter: m.interpreter.clone(), suppress_window: m.suppress_window });
+            if let Ok(entries) = fs::read_dir(b_dir) {
+                for entry in entries.flatten() {
+                    let p = entry.path();
+                    let ext = p.extension().and_then(|e| e.to_str()).unwrap_or("");
+                    let stem = p.file_stem().unwrap().to_str().unwrap().to_string();
+
+                    if let Some(m) = mods.get(ext) {
+                        let fname = p.to_string_lossy().to_string();
+                        cmds.insert(
+                            stem,
+                            system::RuntimeMeta {
+                                trigger: "".into(),
+                                filename: fname,
+                                interpreter: m.interpreter.clone(),
+                                suppress_window: m.suppress_window,
+                            },
+                        );
+                    }
                 }
             }
         }
     } else {
+        // Production mode - load from embedded metadata files
         if let Ok(entries) = fs::read_dir(base) {
             for entry in entries.flatten() {
-                if entry.path().to_string_lossy().ends_with(".meta.json") {
-                    if let Ok(c) = fs::read_to_string(entry.path()) { if let Ok(m) = serde_json::from_str::<RuntimeMeta>(&c) { cmds.insert(m.trigger.clone(), m); } }
+                if entry
+                    .path()
+                    .to_string_lossy()
+                    .ends_with(".meta.json")
+                {
+                    if let Ok(c) = fs::read_to_string(entry.path()) {
+                        if let Ok(m) = serde_json::from_str::<system::RuntimeMeta>(&c) {
+                            cmds.insert(m.trigger.clone(), m);
+                        }
+                    }
                 }
             }
         }
     }
+
     (cmds, mods)
 }
 
@@ -403,19 +391,34 @@ fn create_new_window(
     proxy: EventLoopProxy<FrontierEvent>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let sys = app_state.system.lock().unwrap();
-    let html = if sys.is_dev { fs::read_to_string(sys.base_dir.join("app/frontend").join(file_name))? } else { Assets::get(&format!("frontend/{}", file_name)).map(|f| String::from_utf8_lossy(f.data.as_ref()).to_string()).ok_or("404")? };
-    let mut config = parse_html_config(&html, file_name);
+
+    // Load HTML content
+    let html = if sys.is_dev {
+        fs::read_to_string(sys.base_dir.join("app/frontend").join(file_name))?
+    } else {
+        Assets::get(&format!("frontend/{}", file_name))
+            .map(|f| String::from_utf8_lossy(f.data.as_ref()).to_string())
+            .ok_or("404")?
+    };
+
+    let mut config = window::parse_html_config(&html, file_name);
     let save_file = sys.data_dir.join(format!("state_{}.json", config.id));
     let mut is_max = config.maximized;
+
+    // Load saved window state if persistence is enabled
     if config.persistent {
         if let Ok(json) = fs::read_to_string(&save_file) {
-            if let Ok(saved) = serde_json::from_str::<WindowState>(&json) {
-                config.width = saved.width; config.height = saved.height;
-                config.x = Some(saved.x.to_string()); config.y = Some(saved.y.to_string());
+            if let Ok(saved) = serde_json::from_str::<window::WindowState>(&json) {
+                config.width = saved.width;
+                config.height = saved.height;
+                config.x = Some(saved.x.to_string());
+                config.y = Some(saved.y.to_string());
                 is_max = saved.maximized;
             }
         }
     }
+
+    // Build window with configuration
     let mut builder = WindowBuilder::new()
         .with_title(&config.title)
         .with_inner_size(LogicalSize::new(config.width, config.height))
@@ -424,41 +427,77 @@ fn create_new_window(
         .with_maximizable(config.maximizable)
         .with_maximized(is_max);
 
-    if let (Some(w), Some(h)) = (config.min_width, config.min_height) { builder = builder.with_min_inner_size(LogicalSize::new(w, h)); }
-    
+    if let (Some(w), Some(h)) = (config.min_width, config.min_height) {
+        builder = builder.with_min_inner_size(LogicalSize::new(w, h));
+    }
+
+    // Set window icon
     let mut win_icon = None;
     if let Some(ipath) = &config.icon_path {
-        let full_ipath = if sys.is_dev { sys.base_dir.join("app/frontend").join(ipath) } else { sys.base_dir.join("frontend").join(ipath) };
+        let full_ipath = if sys.is_dev {
+            sys.base_dir.join("app/frontend").join(ipath)
+        } else {
+            sys.base_dir.join("frontend").join(ipath)
+        };
         win_icon = load_icon_from_disk(&full_ipath);
     }
     builder = builder.with_window_icon(win_icon.or_else(|| sys.window_icon.clone()));
 
+    // Set window position
     if !is_max {
         if let (Some(fx), Some(fy)) = (config.x, config.y) {
             if let Some(mon) = event_loop.primary_monitor() {
                 let s = mon.size().to_logical::<f64>(mon.scale_factor());
-                let x = eval_math(&fx, s.width, s.height, config.width, config.height);
-                let y = eval_math(&fy, s.width, s.height, config.width, config.height);
+                let x = window::evaluate_math_expression(&fx, s.width, s.height, config.width, config.height);
+                let y = window::evaluate_math_expression(&fy, s.width, s.height, config.width, config.height);
                 builder = builder.with_position(LogicalPosition::new(x, y));
             }
         }
     }
+
     let window = builder.build(event_loop)?;
     let wid = window.id();
     let sys_base = sys.base_dir.clone();
     let sys_is_dev = sys.is_dev;
     let ipc_proxy = proxy.clone();
+
+    // Create webview
     let webview = WebViewBuilder::new(window)?
         .with_web_context(context)
         .with_custom_protocol("frontier".into(), move |req| {
             let uri = req.uri().to_string();
-            let mut clean = uri.strip_prefix("frontier://").unwrap_or(&uri).split('?').next().unwrap_or("").trim_matches('/').to_string();
-            if clean.is_empty() { clean = "index.html".to_string(); }
-            let fp = if sys_is_dev { sys_base.join("app/frontend").join(&clean) } else { sys_base.join("frontend").join(&clean) };
-            let mime = mime_guess::from_path(&fp).first_or_octet_stream().to_string();
+            let mut clean = uri
+                .strip_prefix("frontier://")
+                .unwrap_or(&uri)
+                .split('?')
+                .next()
+                .unwrap_or("")
+                .trim_matches('/')
+                .to_string();
+
+            if clean.is_empty() {
+                clean = "index.html".to_string();
+            }
+
+            let fp = if sys_is_dev {
+                sys_base.join("app/frontend").join(&clean)
+            } else {
+                sys_base.join("frontend").join(&clean)
+            };
+
+            let mime = mime_guess::from_path(&fp)
+                .first_or_octet_stream()
+                .to_string();
+
             match fs::read(&fp) {
-                Ok(b) => Response::builder().header(header::CONTENT_TYPE, mime).body(Cow::Owned(b)).map_err(|_| wry::Error::InitScriptError),
-                Err(_) => Response::builder().header(header::CONTENT_TYPE, "text/html").body(Cow::Owned(b"404".to_vec())).map_err(|_| wry::Error::InitScriptError)
+                Ok(b) => Response::builder()
+                    .header(header::CONTENT_TYPE, mime)
+                    .body(Cow::Owned(b))
+                    .map_err(|_| wry::Error::InitScriptError),
+                Err(_) => Response::builder()
+                    .header(header::CONTENT_TYPE, "text/html")
+                    .body(Cow::Owned(b"404".to_vec()))
+                    .map_err(|_| wry::Error::InitScriptError),
             }
         })
         .with_url(&format!("frontier://{}", file_name))?
@@ -466,58 +505,44 @@ fn create_new_window(
             let mut parts = req.splitn(2, '|');
             let cmd = parts.next().unwrap_or("");
             let arg = parts.next().unwrap_or("").to_string();
-            if cmd == "open" { let _ = ipc_proxy.send_event(FrontierEvent::OpenWindow(arg)); }
-            else { let _ = ipc_proxy.send_event(FrontierEvent::RunCommand(wid, format!("{}|{}", cmd, arg))); }
+
+            if cmd == "open" {
+                let _ = ipc_proxy.send_event(FrontierEvent::OpenWindow(arg));
+            } else {
+                let _ = ipc_proxy.send_event(FrontierEvent::RunCommand(wid, format!("{}|{}", cmd, arg)));
+            }
         })
         .build()?;
+
     app_state.webviews.insert(wid, webview);
-    app_state.persistence.insert(wid, PersistenceConfig { should_save: config.persistent, save_file });
+    app_state.persistence.insert(
+        wid,
+        PersistenceConfig {
+            should_save: config.persistent,
+            save_file,
+        },
+    );
+
     Ok(())
 }
 
-fn load_app_icon(base: &Path) -> Option<Icon> {
+fn load_application_icon(base: &Path) -> Option<Icon> {
     let p = base.join("assets").join("app_icon.png");
-    if p.exists() { load_icon_from_disk(&p) } else { None }
+    if p.exists() {
+        load_icon_from_disk(&p)
+    } else {
+        None
+    }
 }
 
 fn load_icon_from_disk(path: &Path) -> Option<Icon> {
-    image::open(path).ok().and_then(|img| {
-        let rgba = img.resize(32, 32, FilterType::Lanczos3).into_rgba8().into_raw();
-        Icon::from_rgba(rgba, 32, 32).ok()
-    })
-}
-
-fn parse_html_config(html: &str, filename: &str) -> PageConfig {
-    let re_title = Regex::new(r"<title>(.*?)</title>").unwrap();
-    let re_meta = Regex::new(r#"<meta\s+name=["']frontier-(.*?)["']\s+content=["'](.*?)["']\s*/?>"#).unwrap();
-    let mut config = PageConfig { title: re_title.captures(html).map(|c| c[1].to_string()).unwrap_or("App".into()), width: 800.0, height: 600.0, x: None, y: None, resizable: true, maximized: false, persistent: false, id: filename.replace('.', "_"), icon_path: None, min_width: None, min_height: None, minimizable: true, maximizable: true };
-    for caps in re_meta.captures_iter(html) {
-        let key = &caps[1];
-        let val = &caps[2];
-        match key {
-            "width" => config.width = val.parse().unwrap_or(800.0),
-            "height" => config.height = val.parse().unwrap_or(600.0),
-            "min-width" => config.min_width = val.parse().ok(),
-            "min-height" => config.min_height = val.parse().ok(),
-            "persistent" => config.persistent = val == "true",
-            "maximized" => config.maximized = val == "true",
-            "minimizable" => config.minimizable = val != "false",
-            "maximizable" => config.maximizable = val != "false",
-            "icon" => config.icon_path = Some(val.into()),
-            "id" => config.id = val.into(),
-            "x" => config.x = Some(val.into()),
-            "y" => config.y = Some(val.into()),
-            _ => {}
-        }
-    }
-    config
-}
-
-fn eval_math(formula: &str, sw: f64, sh: f64, ww: f64, wh: f64) -> f64 {
-    let mut ctx = HashMapContext::new();
-    let _ = ctx.set_value("screen_w".into(), Value::Float(sw));
-    let _ = ctx.set_value("screen_h".into(), Value::Float(sh));
-    let _ = ctx.set_value("win_w".into(), Value::Float(ww));
-    let _ = ctx.set_value("win_h".into(), Value::Float(wh));
-    eval_number_with_context(formula, &ctx).unwrap_or(0.0)
+    image::open(path)
+        .ok()
+        .and_then(|img| {
+            let rgba = img
+                .resize(32, 32, FilterType::Lanczos3)
+                .into_rgba8()
+                .into_raw();
+            Icon::from_rgba(rgba, 32, 32).ok()
+        })
 }

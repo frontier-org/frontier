@@ -3,17 +3,13 @@ name = "frontier"
 version = "0.1.0"
 edition = "2021"
 
-# --- CAMINHOS ATUALIZADOS ---
-
 [[bin]]
 name = "manager"
-path = "src/manager.rs"  # Agora na raiz do src
+path = "src/manager.rs"
 
 [[bin]]
 name = "core"
-path = "src/core.rs"     # Agora na raiz do src
-
-# --- DEPENDÊNCIAS ---
+path = "src/core.rs"
 
 [dependencies]
 wry = "0.24"
