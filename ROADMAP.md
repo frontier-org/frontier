@@ -27,9 +27,11 @@ A strategic overview of the development phases for **Frontier**, from initial se
     * **Unified Manifests:** Update `manifest.toml` to support multiple extensions (e.g., `extension = ["c", "cpp"]`) within a single file.
     * **Directory Scoping:** Implement `dir_extension` for folder-based modules, allowing for specialized lifecycle hooks like `[dir_dev]` and `[dir_build]` for complex compilation or asset processing.
 * **Standalone Engine Distribution:** Transition Frontier into a single pre-compiled binary. This removes the need for the `.frontier/` source folder and Rust/C compilers, allowing users to build apps by simply providing the `frontier.toml`, `app/` and `modules/` folder.
+* **Universal Cross-Platform Module Logic:** Enable unified `.fs` scripts to execute seamlessly across Windows and Linux by providing native OS-detection triggers, allowing a single module to handle platform-specific toolchains and commands while maintaining a consistent codebase for environment orchestration.
+* **Self-Contained Mobile Packaging:** Expand the engine to generate native mobile containers (APK/IPA) where the module system acts as a cross-compilation layer, embedding the language runtimes and pre-compiled backend binaries directly into the application's internal assets for standalone execution.
 
 ---
 
 ## ⚠️ Maintenance & Stability
 
-* **System Integrity:** No critical bugs or regressions identified. Continuous monitoring of IPC bridge stability and metadata parsing is ongoing.
+* **System is Operational:** No critical bugs or regressions identified.

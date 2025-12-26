@@ -9,9 +9,11 @@
 A healthy Frontier project follows this structure:
 
 ```text
-/MyProject
+MyProject/
 │
-├── frontier.cmd           # CLI (Command Line Interface)
+├── back.bat               # Direct Backend CLI (Sends commands to app/backend)
+├── front.cmd              # Direct Frontend CLI (Sends commands to app/frontend)
+├── frontier.bat           # CLI (Command Line Interface)
 ├── frontier.toml          # Executable Metadata (Version, EXE Icon)
 │
 ├── app/
@@ -26,7 +28,7 @@ A healthy Frontier project follows this structure:
 │   ├── mod_gcc/
 │   └── mod_python/
 │
-└── .frontier/             # Engine (Rust, Cache, Build System) - Don't touch
+└── .frontier/             # Engine (Rust, Cache, Build System)
 ```
 
 ---
@@ -181,9 +183,10 @@ command = "gcc %IN% -o %OUT%"
 
 **Python (Script):**
 ```toml
+name = "Mod Python"
+version = "1.0.0"
 extension = "py"
 interpreter = "python"
-suppress_window = true
 
 [dev]
 strategy = "interpreter"
@@ -191,6 +194,8 @@ strategy = "interpreter"
 
 **C (Native):**
 ```toml
+name = "Mod GCC"
+version = "1.0.0"
 extension = "c"
 suppress_window = true
 
@@ -199,6 +204,17 @@ strategy = "build"
 
 [build]
 command = "gcc %IN% -o %OUT%"
+```
+
+**Batch (Script):**
+```toml
+name = "Mod Batch"
+version = "1.0.0"
+extension = "bat"
+interpreter = "cmd /c"
+
+[dev]
+strategy = "interpreter"
 ```
 
 ---

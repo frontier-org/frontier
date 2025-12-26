@@ -4,6 +4,13 @@
 
 ---
 
+## 📖 Documentation & Planning
+
+* **[MANUAL.md](./MANUAL.md)**: Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
+* **[ROADMAP.md](./ROADMAP.md)**: Strategic overview of development phases, completed features, and the transition to a standalone engine.
+
+---
+
 ## System Architecture
 
 The architecture is based on two distinct Rust binaries that operate in different lifecycles:
