@@ -1,14 +1,14 @@
-# 🔭 Frontier: Technical Project Summary
+# 🌐 Frontier
 
 **Frontier** is a Polyglot and Native Graphical User Interface (GUI) Engine. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
 
 ---
 
-## 1. System Architecture
+## System Architecture
 
 The architecture is based on two distinct Rust binaries that operate in different lifecycles:
 
-### 🛠️ A. The Manager (`manager.rs`) - "The Builder"
+### 🛠️ The Manager (`manager.rs`) - "The Builder"
 Acts as CLI, build system and package orchestrator.
 
 * **Configuration:** Reads the `frontier.toml` file to define metadata (version, copyright) and visual resources (icons).
@@ -16,7 +16,7 @@ Acts as CLI, build system and package orchestrator.
 * **Packaging:** Groups assets (HTML, CSS, JS) and compiled binaries.
 * **Build Pipeline:** Invokes the Rust compiler (`Cargo`) to generate the Core and organizes delivery to the `dist/` folder.
 
-### 🧠 B. The Core (`core.rs`) - "The Runtime"
+### 🧠 The Core (`core.rs`) - "The Runtime"
 Is the engine of the final executable (e.g. `MyApp.exe`).
 
 * **Native WebView:** Renders the interface through the operating system's engine (Edge WebView2 on Windows), statically linked to eliminate external DLL dependencies.
@@ -25,11 +25,9 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 * **Window Orchestration:** Defines window properties (dimensions, icon, resizing) dynamically via `<meta>` tags in HTML.
 * **State Persistence:** Automatically stores window coordinates and state in `%LOCALAPPDATA%`, restoring user experience on restart.
 
-
-
 ---
 
-## 2. Lifecycle and Data Flow
+## Lifecycle and Data Flow
 
 ### Development Mode (`.\frontier dev`)
 1.  Sets the `FRONTIER_DEV` environment flag.
@@ -46,7 +44,7 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 
 ---
 
-## 3. Features Matrix
+## Features Matrix
 
 | Feature | Status | Technical Description |
 | :--- | :---: | :--- |

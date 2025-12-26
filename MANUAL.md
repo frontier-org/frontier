@@ -1,4 +1,4 @@
-# ⚡ Frontier Documentation
+# 🔭 Frontier Documentation
 
 **Frontier** is a language-agnostic Graphical User Interface (GUI) Engine. It allows you to create native and portable Desktop applications for Windows, where the Backend can be written in any language (C, Python, Java, Go, Batch, Node) and the Frontend is built with modern Web technologies.
 
@@ -216,12 +216,24 @@ Use the `.\frontier` script at the root.
     *   Starts production mode.
     *   Compiles all scripts and projects.
     *   Generates a single executable in `dist/`.
-    *   This executable is **static** (doesn't need DLLs alongside).
-*   **`.\frontier clean`**
-    *   Cleans temporary folders (`target`, `assets`, `dist`). Use if something goes wrong.
+*   **`.\back [command]`**
+    *   Executes the specified command within the app/backend directory.
+    *   Used for managing server-side logic, database migrations, or API configurations.
+    *   Examples: .\back install, .\back migrate, or .\back test.
+    *   Streamlines workflow by eliminating the need to manually cd into the backend folder.
+*   **`.\front [command]`**
+    *   Executes the specified command within the app/frontend directory.
+    *   Used for managing the UI, installing frontend dependencies, or running linters.
+    *   Examples: .\front add [package], .\front lint, or .\front tailwind.
+    *   Ensures isolation between the client-side environment and the rest of the stack.
 
 ---
 
 ## 🛡️ Technical Notes
 
 1.  **Persistence:** Window data (and cookies/localstorage) are saved in `%LOCALAPPDATA%\AppName`.
+
+## 🚧 Known Boundaries
+
+* Static builds currently only support Windows.
+* Hot reload latency for heavy backend modules.

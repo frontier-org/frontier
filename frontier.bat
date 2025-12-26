@@ -26,7 +26,9 @@ exit /b %errorlevel%
 :HELP
 echo.
 echo Commands:
-echo   .\frontier dev      - Test app with Hot Reload
-echo   .\frontier build    - Make a final binary
+echo    .\frontier dev      - Test app with Hot Reload
+echo    .\frontier build    - Make a final binary
+echo    .\back [command]    - Run command in "app\backend"
+echo    .\front [command]   - Run command in "app\frontend"
 echo.
 exit /b 0
