@@ -26,7 +26,7 @@ A strategic overview of the development phases for **Frontier**, from initial se
 * **Multi-Extension & Directory-Based Modules:** 
     * **Unified Manifests:** Update `manifest.toml` to support multiple extensions (e.g., `extension = ["c", "cpp"]`) within a single file.
     * **Directory Scoping:** Implement `dir_extension` for folder-based modules, allowing for specialized lifecycle hooks like `[dir_dev]` and `[dir_build]` for complex compilation or asset processing.
-* **Single Static Binary Distribution:** Develop a simplified build process to bundle all assets, backend logic, and the engine into a single, standalone executable for easy portability and deployment.
+* **Standalone Engine Distribution:** Transition Frontier into a single pre-compiled binary. This removes the need for the `.frontier/` source folder and Rust/C compilers, allowing users to build apps by simply providing the `frontier.toml`, `app/` and `modules/` folder.
 
 ---
 
