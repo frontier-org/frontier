@@ -9,7 +9,7 @@ A strategic overview of the development phases for **Frontier**, from initial se
 * **CLI Route Mapping:** Finalize logic for `.\frontier`, `.\back`, and `.\front` to ensure correct directory scoping.
 * **Project Scaffolding:** Standardize the `app/frontend/` and `app/backend/` hierarchy to ensure the Engine finds `index.html` and source files.
 * **Metadata Implementation:** Configure `frontier.toml` to handle `[app]` metadata (Name, Version, Copyright) for Windows file properties.
-* **Window Meta-Tag Parser:** Implement the engine's ability to read `frontier-width`, `frontier-height`, and `frontier-title` from the HTML <head>.
+* **Window Meta-Tag Parser:** Implement the engine's ability to read `frontier-width`, `frontier-height`, and `frontier-title` from the HTML `<head>`.
 * **Math Formula Resolver:** Build the logic to calculate `screen_w`, `win_w`, and center the window via `frontier-x/y` formulas.
 * **Module Manifest System:** Create the initial `manifest.toml` structure for `modules/` to define how `.c`, `.py`, and other extensions are handled.
 * **Persistence Layer (ID/Save):** Setup the `%LOCALAPPDATA%` storage logic based on the `frontier-id` meta tag.
