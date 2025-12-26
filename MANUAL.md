@@ -11,40 +11,42 @@ A healthy Frontier project follows this structure:
 ```text
 MyProject/
 │
-├── back.bat               # Direct Backend CLI (Sends commands to app/backend)
-├── front.cmd              # Direct Frontend CLI (Sends commands to app/frontend)
-├── frontier.bat           # CLI (Command Line Interface)
-├── frontier.toml          # Executable Metadata (Version, EXE Icon)
+├── .frontier/             # Engine (Rust, Cache, Build System)
 │
 ├── app/
-│   ├── frontend/          # HTML, CSS, JS and Window Icons
-│   │   ├── index.html
-│   │   └── style.css
-│   └── backend/           # Your Scripts and Source Code
-│       ├── calculate.c
-│       └── script.py
+│   ├── backend/           # Your Scripts and Source Code
+│   │   ├── code.c
+│   │   └── script.py
+│   │
+│   └── frontend/          # HTML, CSS, JS and Images
+│       ├── icon.ico
+│       ├── index.html
+│       └── style.css
 │
 ├── modules/               # Language Definitions (Compilers/Interpreters)
 │   ├── mod_gcc/
 │   └── mod_python/
 │
-└── .frontier/             # Engine (Rust, Cache, Build System)
+├── back.bat               # Direct Backend CLI
+├── front.bat              # Direct Frontend CLI
+├── frontier.bat           # CLI principal
+└── frontier.toml          # Executable Metadata
 ```
 
 ---
 
 ## ⚙️ 2. Executable Configuration (`frontier.toml`)
 
-This file controls **only** the metadata of the final `.exe` file generated on Windows. Window configurations (size, position) are now controlled by HTML.
+This file controls only the metadata of the final `.exe` file generated on Windows.
 
 **File:** `frontier.toml`
 ```toml
 [app]
-name = "MySuperApp"        # Final file name (e.g. MySuperApp.exe)
-version = "1.0.0"          # Version (appears in File Properties)
-description = "Description"  # File description
-copyright = "© 2025 Corp"  # Copyright
-author = "Dev Name"        # Author
+name = "MySuperApp"         # Final file name (e.g. MySuperApp.exe)
+version = "1.0.0"           # Version (appears in File Properties)
+description = "Description" # File description
+copyright = "© 2025 Corp"   # Copyright
+author = "Dev Name"         # Author
 
 [window]
 # Icon that appears in Windows Explorer and Taskbar.
@@ -154,8 +156,8 @@ Create a folder in `modules/module_name/` and add a `manifest.toml`.
 ### `manifest.toml` Reference
 
 ```toml
-name = "Readable Name"
-version = "1.0.0"       # For update system
+name = "Readable Name"  # Module name
+version = "1.0.0"       # Version
 extension = "py"        # Extension this module controls
 
 # (Optional) Interpreter to run the final file
@@ -173,9 +175,9 @@ strategy = "interpreter"
 
 # BUILD CONFIGURATION (Production and Dev "Build Strategy")
 [build]
-# Magic Variables:
-# %IN%  -> Absolute path of source file (or project folder)
-# %OUT% -> Absolute path where Frontier expects the final file
+# Variables:
+# %IN%  -> Path of source file (or project folder)
+# %OUT% -> Path where Frontier expects the final file
 command = "gcc %IN% -o %OUT%"
 ```
 
