@@ -23,7 +23,8 @@ A strategic overview of the development phases for **Frontier**, from initial se
 
 * **Cross-Platform Linux Support:** Implement a Linux-compatible build pipeline, ensuring core engine functionality and Webview bindings across distributions using a unified source code.
 * **Module Distribution System:** Develop a system for remote module acquisition via Git or Zip, enabling distribution of assets beyond `manifest.toml` with integrated versioning and update checks.
-* **Multi-Extension & Directory-Based Modules:** * **Unified Manifests:** Update `manifest.toml` to support multiple extensions (e.g., `extension = ["c", "cpp"]`) within a single file.
+* **Multi-Extension & Directory-Based Modules:** 
+    * **Unified Manifests:** Update `manifest.toml` to support multiple extensions (e.g., `extension = ["c", "cpp"]`) within a single file.
     * **Directory Scoping:** Implement `dir_extension` for folder-based modules, allowing for specialized lifecycle hooks like `[dir_dev]` and `[dir_build]` for complex compilation or asset processing.
 * **Single Static Binary Distribution:** Develop a simplified build process to bundle all assets, backend logic, and the engine into a single, standalone executable for easy portability and deployment.
 
