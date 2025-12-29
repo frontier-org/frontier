@@ -62,3 +62,5 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 | **Polyglot Support** | ✅ | Modular architecture that accepts any binary via `manifest.toml`. |
 | **URL Routing & Security** | ✅ | Multi-category URL handling with whitelist support and atomic deduplication. |
 | **Window Size Constraints** | ✅ | Configurable min/max width and height to control resizing behavior. |
+| **Multiple Windows** | ✅ | Open independent windows with separate DOM, styles, and security policies. |
+| **Development Logs** | ✅ | Detailed logging in dev mode without polluting production builds. |

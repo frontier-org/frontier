@@ -2,6 +2,8 @@
 
 **Frontier** is a language-agnostic Graphical User Interface (GUI) Engine. It allows you to create native and portable Desktop applications for Windows, where the Backend can be written in any language (C, Python, Java, Go, Batch, Node) and the Frontend is built with modern Web technologies.
 
+> **📊 Development Logging:** See [LOGS.md](LOGS.md) for detailed information about development-mode logging, debugging output, and monitoring your application during development.
+
 ---
 
 ## 📂 1. Project Structure
@@ -127,10 +129,77 @@ In `x` and `y` tags, you can use variables:
 ```
 
 ### Opening New Windows
-You can open secondary windows (popups) via JS:
+
+Frontier supports opening multiple windows. You can open secondary windows (popups) and configure them independently.
+
+#### Method 1: Simple Window Open
 ```javascript
-// Opens popup.html in a new native window
+// Opens popup.html in a new native window with default configuration
 window.ipc.postMessage('open|popup.html');
+```
+
+#### Method 2: Full Control with Frontier.spawn()
+```javascript
+Frontier.spawn('popup.html', {
+    title: 'Settings Window',
+    id: 'settings_window',
+    width: 500,
+    height: 400,
+    min_width: 300,
+    min_height: 300,
+    max_width: 800,
+    max_height: 600,
+    
+    // Security: Each window can have its own whitelist
+    ignore_global_security: false,
+    allowed_internal: ['https://api.example.com/*'],
+    
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    maximized: false,
+    persistent: false,
+    
+    x: '(screen_w - win_w) / 2',
+    y: '(screen_h - win_h) / 2'
+});
+```
+
+#### Method 3: HTML Link with target="_blank"
+```html
+<!-- Opens new window with default config -->
+<a href="frontier://app/popup.html" target="_blank">Open Settings</a>
+```
+
+#### Rules for Multiple Windows
+- Each window has its own **DOM**, **CSS**, and **JavaScript context**
+- Each window can have **independent security whitelists** via `allowed_internal` and `allowed_browser`
+- CSS from parent window does **NOT** cascade to child windows
+- Each window needs its own `<style>` or `<link rel="stylesheet">` if styling is required
+- Window state is persisted independently based on `frontier-id` meta tag
+
+#### Creating a Separate Window File
+Create `app/frontend/popup.html`:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+    <meta name="frontier-width" content="500">
+    <meta name="frontier-height" content="400">
+    <meta name="frontier-id" content="settings_window">
+    <style>
+        * { margin: 0; padding: 0; }
+        body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Settings</h1>
+    <p>Independent window content</p>
+    <script src="frontier-api.js"></script>
+</body>
+</html>
 ```
 
 ---

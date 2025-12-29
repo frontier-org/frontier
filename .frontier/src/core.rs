@@ -197,8 +197,10 @@ fn create_new_window(
         let url = parts.next().unwrap_or("").to_string();
         let config_raw = parts.next().unwrap_or("");
         let manual_cfg = window::create_manual_config(&url, config_raw);
+        if sys_is_dev { eprintln!("📦 [SPAWN] {}", url); }
         (url, manual_cfg)
     } else {
+        if sys_is_dev { eprintln!("📄 [WINDOW] {}", request); }
         let html = if sys_is_dev {
             fs::read_to_string(sys_base.join("app/frontend").join(request))?
         } else {
@@ -206,7 +208,9 @@ fn create_new_window(
                 .map(|f| String::from_utf8_lossy(f.data.as_ref()).to_string())
                 .ok_or("404")?
         };
-        (format!("frontier://{}", request), window::parse_html_config(&html, request))
+        // Use frontier://app/filename.html format (app is a fake host)
+        let url = format!("frontier://app/{}", request);
+        (url, window::parse_html_config(&html, request))
     };
 
     let (mut combined_internal, combined_browser) = if config.ignore_global_security {
@@ -297,12 +301,12 @@ fn create_new_window(
                 UrlCategory::Frontier | UrlCategory::Internal => true,
                 // External browser URLs are routed to the system browser with deduplication
                 UrlCategory::Browser => {
-                    route_to_browser(&url);
+                    route_to_browser(&url, sys_is_dev);
                     false // Block window load to prevent internal opening
                 },
                 // Security-blocked URLs are rejected
                 UrlCategory::Blocked => {
-                    eprintln!("[Frontier Security] Blocked: {}", url);
+                    if sys_is_dev { eprintln!("🚫 [SECURITY] Blocked access to: {}", url); }
                     false
                 }
             }
@@ -328,15 +332,28 @@ fn create_new_window(
             }
         })
         .with_custom_protocol("frontier".into(), move |req| {
+            // frontier://app/filename.html -> extract /filename.html
             let path = req.uri().path();
             let clean_path = percent_encoding::percent_decode_str(path).decode_utf8_lossy().to_string();
             let mut resource = clean_path.trim_start_matches('/').to_string();
             if resource.is_empty() { resource = "index.html".to_string(); }
+            
+            // Ignore favicon requests (browsers automatically request this)
+            if resource == "favicon.ico" {
+                return Response::builder().status(404).body(Cow::Owned(b"404".to_vec())).map_err(|_| wry::Error::InitScriptError);
+            }
+            
             let fp = if sys_is_dev { sys_base.join("app/frontend").join(&resource) } else { sys_base.join("frontend").join(&resource) };
             let mime = mime_guess::from_path(&fp).first_or_octet_stream().to_string();
             match fs::read(&fp) {
-                Ok(b) => Response::builder().header(header::CONTENT_TYPE, mime).header("Access-Control-Allow-Origin", "*").body(Cow::Owned(b)).map_err(|_| wry::Error::InitScriptError),
-                Err(_) => Response::builder().status(404).body(Cow::Owned(b"404".to_vec())).map_err(|_| wry::Error::InitScriptError)
+                Ok(b) => {
+                    if sys_is_dev { eprintln!("📦 [ASSET] {} ({})", resource, mime); }
+                    Response::builder().header(header::CONTENT_TYPE, mime).header("Access-Control-Allow-Origin", "*").body(Cow::Owned(b)).map_err(|_| wry::Error::InitScriptError)
+                },
+                Err(_) => {
+                    if sys_is_dev { eprintln!("❌ [ASSET] Not found: {}", resource); }
+                    Response::builder().status(404).body(Cow::Owned(b"404".to_vec())).map_err(|_| wry::Error::InitScriptError)
+                }
             }
         })
         .with_url(&target_url)?
@@ -344,14 +361,20 @@ fn create_new_window(
             let mut parts = req.splitn(3, '|');
             let cmd = parts.next().unwrap_or("");
             match cmd {
-                "open" => { let _ = ipc_proxy.send_event(FrontierEvent::OpenWindow(parts.next().unwrap_or("").to_string())); },
+                "open" => { 
+                    let file = parts.next().unwrap_or("").to_string();
+                    if sys_is_dev { eprintln!("💬 [IPC] open: {}", file); }
+                    let _ = ipc_proxy.send_event(FrontierEvent::OpenWindow(file)); 
+                },
                 "spawn" => {
                     let u = parts.next().unwrap_or("").to_string();
                     let c = parts.next().unwrap_or("").to_string();
+                    if sys_is_dev { eprintln!("💬 [IPC] spawn: {}", u); }
                     let _ = ipc_proxy.send_event(FrontierEvent::OpenWindow(format!("spawn://{}?{}", u, c)));
                 },
                 _ => {
                     let arg = parts.next().unwrap_or("").to_string();
+                    if sys_is_dev { eprintln!("💬 [IPC] exec: {} {}", cmd, if arg.is_empty() { "(no args)" } else { &arg }); }
                     let _ = ipc_proxy.send_event(FrontierEvent::RunCommand(wid, format!("{}|{}", cmd, arg)));
                 }
             }
@@ -379,7 +402,7 @@ fn create_new_window(
 /// 
 /// # Arguments
 /// * `url` - The full URL to open in the system browser
-fn route_to_browser(url: &str) {
+fn route_to_browser(url: &str, is_dev: bool) {
     let mut lock = BROWSER_LOCK.lock().unwrap();
     let now = Instant::now();
     
@@ -396,6 +419,7 @@ fn route_to_browser(url: &str) {
     // If the same base URL was opened within the last 2 seconds, ignore this request
     // This prevents duplicate tabs when redirect chains or multiple handlers fire for the same URL
     if lock.0 == base_url && now.duration_since(lock.1) < Duration::from_millis(2000) {
+        if is_dev { eprintln!("⏱️ [BROWSER] Deduped (within 2s): {}", base_url); }
         return;
     }
     
@@ -403,15 +427,24 @@ fn route_to_browser(url: &str) {
     lock.0 = base_url.to_string();
     lock.1 = now;
     
+    if is_dev { eprintln!("🌐 [BROWSER] Opening: {}", url); }
     let _ = webbrowser::open(url);
 }
 
 fn get_url_category(url: &str, internal: &[String], browser: &[String]) -> UrlCategory {
     if url.starts_with("frontier://") || url.starts_with("https://frontier.") || url == "about:blank" {
+        eprintln!("📍 [ROUTING] Frontier: {}", url);
         return UrlCategory::Frontier;
     }
-    if is_url_allowed(url, internal) { return UrlCategory::Internal; }
-    if is_url_allowed(url, browser) { return UrlCategory::Browser; }
+    if is_url_allowed(url, internal) { 
+        eprintln!("📍 [ROUTING] Internal (whitelisted): {}", url);
+        return UrlCategory::Internal; 
+    }
+    if is_url_allowed(url, browser) { 
+        eprintln!("📍 [ROUTING] Browser (whitelisted): {}", url);
+        return UrlCategory::Browser; 
+    }
+    eprintln!("📍 [ROUTING] Blocked: {}", url);
     UrlCategory::Blocked
 }
 

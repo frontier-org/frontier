@@ -142,8 +142,20 @@ fn process_single_file(
             let _ = fs::write(assets_path.join(format!("{}.meta.json", stem)), json);
         }
     } else {
-        // Just copy the file
+        // No build rule: just copy the file and generate metadata
         let out_filename = file_path.file_name().unwrap().to_str().unwrap();
         let _ = fs::copy(file_path, assets_path.join(out_filename));
+        
+        // Generate metadata for interpreted files
+        let meta = RuntimeMeta {
+            trigger: stem.to_string(),
+            filename: out_filename.to_string(),
+            interpreter: module.interpreter.clone(),
+            suppress_window: module.suppress_window,
+        };
+
+        if let Ok(json) = serde_json::to_string(&meta) {
+            let _ = fs::write(assets_path.join(format!("{}.meta.json", stem)), json);
+        }
     }
 }

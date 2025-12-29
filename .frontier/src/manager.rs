@@ -28,7 +28,7 @@ fn main() {
         return;
     }
 
-    println!("🚀 FRONTIER BUILDER (Cleanest)");
+    
 
     // 1. Cleanup
     if Path::new(DIST_DIR).exists() {
@@ -41,14 +41,14 @@ fn main() {
     fs::create_dir_all(format!("{}/frontend", ASSETS_DIR)).expect("Failed to create frontend directory");
     fs::create_dir_all(DIST_DIR).expect("Failed to create dist directory");
 
-    println!("⚙️  Loading configuration...");
+    println!("⚙️  [LOADING] Configuration...");
     let app_config = config::load_config(Path::new("frontier.toml"));
 
-    println!("📦 Processing backend files...");
+    println!("📦 [PROCESSING] Backend files:");
     process_backend();
     copy_frontend_assets();
 
-    println!("⚙️  Compiling Core...");
+    println!("⚙️  [COMPILING] Core...");
     compile_core(&app_config);
 
     let final_name = app_config.name.clone().unwrap_or_else(|| "MyApp".into());

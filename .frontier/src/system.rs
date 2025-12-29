@@ -50,6 +50,7 @@ pub struct SystemState {
 }
 
 pub fn execute_backend(system: &SystemState, trigger: &str, args: &str) -> String {
+    #[allow(unused_mut)]
     if let Some(mut meta) = system.commands.get(trigger).cloned() {
         #[cfg(debug_assertions)]
         if system.is_dev && meta.interpreter.is_none() {

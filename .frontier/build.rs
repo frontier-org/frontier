@@ -30,6 +30,8 @@ fn main() {
         } else if Path::new("icon.ico").exists() {
             // Fallback: Try in the root of .frontier if it exists
             res.set_icon("icon.ico");
+        } else {
+            println!("cargo:warning=⚠️  Icon not found at: {:?}", icon_original);
         }
 
         // Inject metadata via Environment Variables (from Manager)
@@ -39,7 +41,7 @@ fn main() {
         if let Ok(v) = env::var("FRONTIER_APP_COPYRIGHT") { res.set("LegalCopyright", &v); }
 
         if let Err(e) = res.compile() {
-            println!("cargo:warning=WinRes Error: {}", e);
+            println!("cargo:warning=WinRes compilation error: {}", e);
         }
     }
     
