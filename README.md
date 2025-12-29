@@ -29,7 +29,8 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 * **Native WebView:** Renders the interface through the operating system's engine (Edge WebView2 on Windows), statically linked to eliminate external DLL dependencies.
 * **`frontier://` Protocol:** Virtual filesystem that serves content directly from memory (Production) or disk (Dev), mitigating CORS errors.
 * **IPC (Inter-Process Communication):** Communication bridge that receives commands from JavaScript (`window.ipc.postMessage`) and dispatches execution to the backend binary or script in the background.
-* **Window Orchestration:** Defines window properties (dimensions, icon, resizing) dynamically via `<meta>` tags in HTML.
+* **Window Orchestration:** Defines window properties (dimensions, icon, resizing, min/max constraints) dynamically via `<meta>` tags in HTML.
+* **URL Routing & Security:** Implements multi-category URL handling (Frontier/Internal/Browser/Blocked) with atomic deduplication to prevent duplicate opens.
 * **State Persistence:** Automatically stores window coordinates and state in `%LOCALAPPDATA%`, restoring user experience on restart.
 
 ---
@@ -56,6 +57,8 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 | Feature | Status | Technical Description |
 | :--- | :---: | :--- |
 | **Single Executable** | ✅ | A simple, small binary encompasses your entire application. |
-| **HTML Configuration** | ✅ | Layout and behavior defined by `<meta>` tags. |
+| **HTML Configuration** | ✅ | Layout and behavior defined by `<meta>` tags (width, height, min/max constraints). |
 | **Hot Reload** | ✅ | Real-time update for Front and Backend. |
 | **Polyglot Support** | ✅ | Modular architecture that accepts any binary via `manifest.toml`. |
+| **URL Routing & Security** | ✅ | Multi-category URL handling with whitelist support and atomic deduplication. |
+| **Window Size Constraints** | ✅ | Configurable min/max width and height to control resizing behavior. |

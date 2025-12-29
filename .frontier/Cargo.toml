@@ -26,6 +26,9 @@ notify = "6.1"
 winapi = { version = "0.3", features = ["wincon"] }
 mime_guess = "2.0"
 native-dialog = "0.7"
+percent-encoding = "2.3"
+webbrowser = "1.0"
+lazy_static = "1.4"
 
 [build-dependencies]
 winres = "0.1"

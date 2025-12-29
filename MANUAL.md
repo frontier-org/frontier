@@ -69,6 +69,8 @@ Frontier treats HTML as the "window configuration". You control native window be
 | `frontier-height` | `600` | Initial height. |
 | `frontier-min-width`| `400` | Minimum allowed width. |
 | `frontier-min-height`| `300` | Minimum allowed height. |
+| `frontier-max-width`| `1920` | Maximum allowed width. |
+| `frontier-max-height`| `1080` | Maximum allowed height. |
 | `frontier-x` | `(screen_w - win_w) / 2` | Horizontal Position. Accepts Math Formulas. |
 | `frontier-y` | `0` | Vertical Position (0 = Top). Accepts Formulas. |
 | `frontier-resizable`| `true` / `false` | Allows border resizing. |
@@ -221,7 +223,114 @@ strategy = "interpreter"
 
 ---
 
-## 💻 6. CLI (Command Line)
+## 🌐 6. URL Routing & Security
+
+Frontier provides multiple mechanisms to control how URLs are handled, preventing unwanted opens and ensuring security.
+
+### URL Categories
+
+Frontier automatically categorizes all URLs into four types:
+
+| Category | Behavior | Examples |
+| :--- | :--- | :--- |
+| **Frontier** | Opens new Frontier windows | `frontier://popup.html`, `https://frontier.*` |
+| **Internal** | Loads inside current window | URLs in `allowed_internal` whitelist |
+| **Browser** | Opens in system browser | URLs in `allowed_browser` whitelist |
+| **Blocked** | Rejected | All other URLs (security default) |
+
+### Security Configuration (HTML Meta Tags)
+
+Whitelist patterns work with two modes:
+
+**Exact URL Match** (no wildcard - restricts to exact path):
+```html
+<!-- Allows ONLY https://mysite.com and https://mysite.com/ -->
+<meta name="frontier-allowed-internal" content="https://mysite.com">
+```
+
+**Wildcard Match** (with `/*` - allows subpaths):
+```html
+<!-- Allows https://api.example.com/users, /posts, /auth/login, etc. -->
+<meta name="frontier-allowed-internal" content="https://api.example.com/*">
+```
+
+Complete example with multiple patterns:
+```html
+<!-- Multiple patterns separated by commas -->
+<meta name="frontier-allowed-internal" content="https://mysite.com,https://api.example.com/*,https://docs.example.com">
+
+<!-- Global whitelist for browser opens (applies to all windows) -->
+<meta name="frontier-allowed-browser" content="https://github.com,https://docs.example.com/*">
+
+<!-- Per-window override (ignores global security if true) -->
+<meta name="frontier-ignore-global-security" content="false">
+```
+
+**Pattern Matching Rules:**
+| Pattern | Matches | Blocks |
+| :--- | :--- | :--- |
+| `https://mysite.com` | `https://mysite.com`, `https://mysite.com/` | `https://mysite.com/page`, `https://mysite.com/api` |
+| `https://mysite.com/*` | `https://mysite.com/page`, `https://mysite.com/api/users` | `https://othersite.com/`, `https://mysite.co` |
+| `https://api.*/users` | `https://api.example.com/users`, `https://api.test.com/users` | `https://api.example.com/users/123` |
+
+### URL Deduplication
+
+When users click links that open external URLs (via `target="_blank"` or JavaScript), Frontier prevents duplicate tabs by:
+
+1. **Normalizing URLs**: Removes query parameters (`?locale=pt-BR`) and fragments (`#section`)
+2. **Atomic Locks**: Ensures only one thread can open a URL at a time
+3. **Temporal Caching**: Ignores repeated opens of the same base URL within 2 seconds
+
+This prevents issues like:
+- Redirect chains opening multiple tabs (e.g., GitHub's automatic locale redirect)
+- Concurrent handlers firing simultaneously
+- Accidental double-clicks creating duplicate windows
+
+**Example Scenario:**
+```
+User clicks: https://github.com/
+GitHub redirects to: https://github.com/?locale=pt-BR
+Result: One tab opens (not two) because both URLs normalize to the same base
+```
+
+### Programmatic Window Opening (JavaScript)
+
+Use `Frontier.spawn()` to open new Frontier windows with full control:
+
+```javascript
+Frontier.spawn('https://github.com/frontier-org', {
+    title: 'Frontier Org',
+    id: 'github_window',
+    icon: 'favicon.ico',
+    
+    // Security
+    ignore_global_security: false, 
+    allowed_internal: ['https://github.com/frontier-org/*'], 
+    
+    // Size constraints
+    width: 1200,
+    height: 600,
+    min_width: 800,
+    min_height: 600,
+    max_width: 1400,
+    max_height: 800,
+    
+    // Behavior
+    resizable: true,
+    maximizable: false,
+    minimizable: false,
+    maximized: false,
+    persistent: false,
+    
+    // Position
+    x: '(screen_w - win_w) / 2',
+    y: '(screen_h - win_h) / 2'
+});
+```
+
+---
+
+## 💻 7. CLI (Command Line)
 
 Use the `.\frontier` script at the root.
 
@@ -247,7 +356,7 @@ Use the `.\frontier` script at the root.
 
 ---
 
-## 🛡️ Technical Notes
+## 🛡️ 8. Technical Notes
 
 1.  **Persistence:** Window data (and cookies/localstorage) are saved in `%LOCALAPPDATA%\AppName`.
 
