@@ -3,6 +3,7 @@ use std::fs;
 use std::path::Path;
 
 #[derive(Deserialize, Clone)]
+#[allow(dead_code)]
 pub struct AppConfig {
     pub name: Option<String>,
     pub version: Option<String>,
@@ -11,11 +12,13 @@ pub struct AppConfig {
 }
 
 #[derive(Deserialize, Clone)]
+#[allow(dead_code)]
 pub struct WindowConfig {
     pub icon: Option<String>,
 }
 
 #[derive(Deserialize, Clone)]
+#[allow(dead_code)]
 pub struct SecurityConfig {
     #[serde(default)]
     pub allowed_internal: Vec<String>, // Open inside the App
@@ -24,12 +27,14 @@ pub struct SecurityConfig {
 }
 
 #[derive(Deserialize)]
+#[allow(dead_code)]
 pub struct FrontierToml {
     pub app: Option<AppConfig>,
     pub window: Option<WindowConfig>,
     pub security: Option<SecurityConfig>,
 }
 
+#[allow(dead_code)]
 pub fn load_config(config_path: &Path) -> AppConfig {
     let mut config = AppConfig { name: Some("App".into()), version: None, description: None, copyright: None };
     if let Ok(content) = fs::read_to_string(config_path) {
@@ -40,6 +45,7 @@ pub fn load_config(config_path: &Path) -> AppConfig {
     config
 }
 
+#[allow(dead_code)]
 pub fn load_security_config(config_path: &Path) -> SecurityConfig {
     if let Ok(content) = fs::read_to_string(config_path) {
         if let Ok(parsed) = toml::from_str::<FrontierToml>(&content) {
@@ -49,6 +55,7 @@ pub fn load_security_config(config_path: &Path) -> SecurityConfig {
     SecurityConfig { allowed_internal: vec![], allowed_browser: vec![] }
 }
 
+#[allow(dead_code)]
 pub fn load_window_config(config_path: &Path) -> Option<WindowConfig> {
     if let Ok(content) = fs::read_to_string(config_path) {
         if let Ok(parsed) = toml::from_str::<FrontierToml>(&content) { return parsed.window; }
