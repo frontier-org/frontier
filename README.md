@@ -6,8 +6,9 @@
 
 ## 📖 Documentation & Planning
 
-* **[MANUAL.md](./MANUAL.md)**: Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
-* **[ROADMAP.md](./ROADMAP.md)**: Strategic overview of development phases, completed features, and the transition to a standalone engine.
+* **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
+* **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
+* **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
 
 ---
 
