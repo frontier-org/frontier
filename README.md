@@ -6,9 +6,9 @@
 
 ## 📖 Documentation & Planning
 
-* **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
-* **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
-* **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
+* 🔭 **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
+* 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
+* 📊 **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
 
 ---
 
@@ -64,4 +64,5 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 | **URL Routing & Security** | ✅ | Multi-category URL handling with whitelist support and atomic deduplication. |
 | **Window Size Constraints** | ✅ | Configurable min/max width and height to control resizing behavior. |
 | **Multiple Windows** | ✅ | Open independent windows with separate DOM, styles, and security policies. |
+
 | **Development Logs** | ✅ | Detailed logging in dev mode without polluting production builds. |
