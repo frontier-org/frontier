@@ -4,6 +4,8 @@
 
 > **📊 Development Logging:** See [LOGS.md](LOGS.md) for detailed information about development-mode logging, debugging output, and monitoring your application during development.
 
+> **💡 Exemple** Check out this [exemple](https://github.com/frontier-org/exemple) repository to see how to use Frontier across several languages and all HTML functions.
+
 ---
 
 ## 📂 1. Project Structure
@@ -16,6 +18,7 @@ MyProject/
 ├── .frontier/             # Engine (Rust, Cache, Build System)
 │
 ├── app/
+|   |
 │   ├── backend/           # Your Scripts and Source Code
 │   │   ├── code.c
 │   │   └── script.py
@@ -32,14 +35,14 @@ MyProject/
 ├── back.bat               # Direct Backend CLI
 ├── front.bat              # Direct Frontend CLI
 ├── frontier.bat           # CLI principal
-└── frontier.toml          # Executable Metadata
+└── frontier.toml          # Project Metadata
 ```
 
 ---
 
 ## ⚙️ 2. Executable Configuration (`frontier.toml`)
 
-This file controls only the metadata of the final `.exe` file generated on Windows.
+This file controls frontier settings, and the metadata of the final `.exe` file generated on Windows.
 
 **File:** `frontier.toml`
 ```toml
@@ -54,6 +57,16 @@ author = "Dev Name"         # Author
 # Icon that appears in Windows Explorer and Taskbar.
 # MUST BE A VALID .ICO (don't rename png).
 icon = "app/frontend/icon.ico" 
+
+[security]
+# Enable opening in a Frontier app window for all pages.
+allowed_internal = [
+    "https://github.com/frontier-org/frontier/*"
+]
+# Enable opening in a Frontier app window for all pages.
+allowed_browser = [
+    "https://github.com/*"
+]
 ```
 
 ---
@@ -328,7 +341,7 @@ Complete example with multiple patterns:
 <!-- Multiple patterns separated by commas -->
 <meta name="frontier-allowed-internal" content="https://mysite.com,https://api.example.com/*,https://docs.example.com">
 
-<!-- Global whitelist for browser opens (applies to all windows) -->
+<!-- Whitelist for browser opens -->
 <meta name="frontier-allowed-browser" content="https://github.com,https://docs.example.com/*">
 
 <!-- Per-window override (ignores global security if true) -->
@@ -346,7 +359,7 @@ Complete example with multiple patterns:
 
 When users click links that open external URLs (via `target="_blank"` or JavaScript), Frontier prevents duplicate tabs by:
 
-1. **Normalizing URLs**: Removes query parameters (`?locale=pt-BR`) and fragments (`#section`)
+1. **Normalizing URLs**: Removes query parameters (`?locale=en-US`) and fragments (`#section`)
 2. **Atomic Locks**: Ensures only one thread can open a URL at a time
 3. **Temporal Caching**: Ignores repeated opens of the same base URL within 2 seconds
 
@@ -358,7 +371,7 @@ This prevents issues like:
 **Example Scenario:**
 ```
 User clicks: https://github.com/
-GitHub redirects to: https://github.com/?locale=pt-BR
+GitHub redirects to: https://github.com/?locale=en-US
 Result: One tab opens (not two) because both URLs normalize to the same base
 ```
 
@@ -375,6 +388,7 @@ Frontier.spawn('https://github.com/frontier-org', {
     // Security
     ignore_global_security: false, 
     allowed_internal: ['https://github.com/frontier-org/*'], 
+    allowed_browser: ['https://github.com'], 
     
     // Size constraints
     width: 1200,
