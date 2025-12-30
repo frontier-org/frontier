@@ -213,12 +213,13 @@ fn create_new_window(
         (url, window::parse_html_config(&html, request))
     };
 
-    let (mut combined_internal, combined_browser) = if config.ignore_global_security {
+    let (mut combined_internal, mut combined_browser) = if config.ignore_global_security {
         (Vec::new(), Vec::new())
     } else {
         (wl_internal_global, wl_browser_global)
     };
     combined_internal.extend(config.allowed_internal.clone());
+    combined_browser.extend(config.allowed_browser.clone());
 
     let save_file = sys.data_dir.join(format!("state_{}.json", config.id));
     let mut win_w = config.width;

@@ -35,6 +35,7 @@ pub struct PageConfig {
     pub minimizable: bool,
     pub maximizable: bool,
     pub allowed_internal: Vec<String>,
+    pub allowed_browser: Vec<String>,
     pub ignore_global_security: bool,
 }
 
@@ -60,6 +61,7 @@ pub fn parse_html_config(html: &str, filename: &str) -> PageConfig {
         minimizable: true,
         maximizable: true,
         allowed_internal: Vec::new(),
+        allowed_browser: Vec::new(),
         ignore_global_security: false,
     };
 
@@ -86,6 +88,9 @@ pub fn parse_html_config(html: &str, filename: &str) -> PageConfig {
             "allowed-internal" => {
                 config.allowed_internal = val.split(',').map(|s| s.trim().to_string()).collect();
             }
+            "allowed-browser" => {
+                config.allowed_browser = val.split(',').map(|s| s.trim().to_string()).collect();
+            }
             "ignore-global-security" => config.ignore_global_security = val == "true",
             _ => {}
         }
@@ -103,6 +108,7 @@ pub fn create_manual_config(url: &str, config_str: &str) -> PageConfig {
         icon_path: None, min_width: None, min_height: None, max_width: None, max_height: None,
         minimizable: true, maximizable: true,
         allowed_internal: Vec::new(),
+        allowed_browser: Vec::new(),
         ignore_global_security: false, // Default
     };
 
@@ -132,8 +138,10 @@ pub fn create_manual_config(url: &str, config_str: &str) -> PageConfig {
                 "icon" => config.icon_path = Some(val.into()),
                 "id" => config.id = val.into(),
                 "allowed_internal" => {
-                    // Importante: no JS, use | para separar URLs na lista
                     config.allowed_internal = val.split('|').map(|s| s.trim().to_string()).collect();
+                },
+                "allowed_browser" => {
+                    config.allowed_browser = val.split('|').map(|s| s.trim().to_string()).collect();
                 },
                 _ => {}
             }
