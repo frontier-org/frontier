@@ -4,7 +4,7 @@
 
 > **📊 Development Logging:** See [LOGS.md](LOGS.md) for detailed information about development-mode logging, debugging output, and monitoring your application during development.
 
-> **💡 Exemple** Check out this [exemple](https://github.com/frontier-org/exemple) repository to see how to use Frontier across several languages and all HTML functions.
+> **💡 Exemple:** Check out this [exemple](https://github.com/frontier-org/exemple) repository to see how to use Frontier across several languages and all HTML functions.
 
 ---
 
@@ -26,6 +26,7 @@ MyProject/
 │   └── frontend/          # HTML, CSS, JS and Images
 │       ├── icon.ico
 │       ├── index.html
+│       ├── script.js
 │       └── style.css
 │
 ├── modules/               # Language Definitions (Compilers/Interpreters)
@@ -34,8 +35,8 @@ MyProject/
 │
 ├── back.bat               # Direct Backend CLI
 ├── front.bat              # Direct Frontend CLI
-├── frontier.bat           # CLI principal
-└── frontier.toml          # Project Metadata
+├── frontier.bat           # Main CLI
+└── frontier.toml          # Project Settings
 ```
 
 ---
@@ -52,11 +53,7 @@ version = "1.0.0"           # Version (appears in File Properties)
 description = "Description" # File description
 copyright = "© 2025 Corp"   # Copyright
 author = "Dev Name"         # Author
-
-[window]
-# Icon that appears in Windows Explorer and Taskbar.
-# MUST BE A VALID .ICO (don't rename png).
-icon = "app/frontend/icon.ico" 
+icon = "app/frontend/icon.ico" # EXE icon. MUST BE A VALID .ICO (don't rename png).
 
 [security]
 # Enable opening in a Frontier app window for all pages.
@@ -386,7 +383,7 @@ Frontier.spawn('https://github.com/frontier-org', {
     icon: 'favicon.ico',
     
     // Security
-    ignore_global_security: false, 
+    ignore_global_security: true, 
     allowed_internal: ['https://github.com/frontier-org/*'], 
     allowed_browser: ['https://github.com'], 
     
