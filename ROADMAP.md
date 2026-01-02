@@ -37,4 +37,4 @@ A strategic overview of the development phases for **Frontier**, from initial se
 
 ## ⚠️ Maintenance & Stability
 
-* **System is Operational:** No critical bugs or regressions identified.
+* **Path to .ico:** I forgot to add the function to the actual path of the `.ico` file.
