@@ -49,9 +49,8 @@ pub struct SystemState {
     pub window_icon: Option<wry::application::window::Icon>,
 }
 
-/// Safely splits the command defined in manifest.toml into parts
-/// Only compiled in debug mode to avoid 'dead_code' warnings in release
-#[cfg(debug_assertions)]
+/// Safely splits the command into parts, respecting quotes.
+/// Shared between Build and Interpreter logic.
 fn split_shell_args(cmd: &str) -> Vec<String> {
     let mut args = Vec::new();
     let mut current = String::new();
@@ -87,14 +86,10 @@ pub fn execute_backend(system: &SystemState, trigger: &str, args: &str) -> Strin
             if let Some(ext) = file_path.extension().and_then(|e| e.to_str()) {
                 if let Some(module) = system.modules_map.get(ext) {
                     if let Some(build_rule) = &module.build {
-                        let output_path = system.dev_cache.join(format!("{}.exe", trigger));
-                        let _ = std::fs::remove_file(&output_path);
-
+                        let output_path = system.dev_cache.join(trigger);
                         let in_str = file_path.to_str().unwrap_or("");
                         let out_str = output_path.to_str().unwrap_or("");
 
-                        // Split the command template FIRST, then replace variables.
-                        // This ensures that paths with spaces are kept as a single argument.
                         let cmd_parts: Vec<String> = split_shell_args(&build_rule.command)
                             .into_iter()
                             .map(|part| part.replace("%IN%", in_str).replace("%OUT%", out_str))
@@ -107,10 +102,10 @@ pub fn execute_backend(system: &SystemState, trigger: &str, args: &str) -> Strin
                                 .status();
 
                             if let Ok(s) = status {
-                                if s.success() && output_path.exists() {
+                                if s.success() {
                                     meta.filename = output_path.to_string_lossy().to_string();
                                 } else {
-                                    return format!("Build step failed for trigger '{}'. Please verify your module manifest and compiler installation.", trigger);
+                                    return format!("Build failed for '{}'.", trigger);
                                 }
                             }
                         }
@@ -125,16 +120,21 @@ pub fn execute_backend(system: &SystemState, trigger: &str, args: &str) -> Strin
             system.base_dir.join(&meta.filename)
         };
 
-        if !run_path.exists() { return format!("ERROR: Not found: {:?}", run_path); }
-
+        // Execution Logic
         let mut cmd = if let Some(interpreter) = &meta.interpreter {
-            let mut parts = interpreter.split_whitespace();
-            let mut c = Command::new(parts.next().unwrap());
-            c.args(parts);
-            c.arg(&run_path);
+            // FIX: Use split_shell_args to support complex one-liners like PowerShell
+            let parts = split_shell_args(interpreter);
+            let mut c = Command::new(&parts[0]);
+            c.args(&parts[1..]);
+            c.arg(&run_path); // Pass the path as the first argument to the one-liner
             c
         } else {
-            Command::new(&run_path)
+            let final_path = if cfg!(windows) && !run_path.to_string_lossy().ends_with(".exe") && run_path.with_extension("exe").exists() {
+                run_path.with_extension("exe")
+            } else {
+                run_path
+            };
+            Command::new(&final_path)
         };
 
         cmd.args(args.split_whitespace());
