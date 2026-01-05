@@ -2,15 +2,11 @@
 
 **Frontier** is a Polyglot and Native Graphical User Interface (GUI) Engine. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
 
----
-
 ## 📖 Documentation & Planning
 
 * 🔭 **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
 * 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
 * 📊 **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
-
----
 
 ## System Architecture
 
@@ -34,8 +30,6 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 * **URL Routing & Security:** Implements multi-category URL handling (Frontier/Internal/Browser/Blocked) with atomic deduplication to prevent duplicate opens.
 * **State Persistence:** Automatically stores window coordinates and state in `%LOCALAPPDATA%`, restoring user experience on restart.
 
----
-
 ## Lifecycle and Data Flow
 
 ### Development Mode (`.\frontier dev`)
@@ -50,8 +44,6 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 3.  **Resource Injection:** Generates a dynamic `build.rs` to embed the `.ico` icon and metadata directly into the Windows executable manifest.
 4.  **Static Compilation:** Core is compiled in `Release` mode (Static MSVC).
 5.  **Bundling:** Uses the `rust-embed` macro to "consume" all assets, resulting in a single independent binary.
-
----
 
 ## Features Matrix
 

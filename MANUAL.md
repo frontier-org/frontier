@@ -6,8 +6,6 @@
 
 > **💡 Exemple:** Check out this [exemple](https://github.com/frontier-org/exemple) repository to see how to use Frontier across several languages and all HTML functions.
 
----
-
 ## 📂 1. Project Structure
 
 A healthy Frontier project follows this structure:
@@ -39,8 +37,6 @@ MyProject/
 └── frontier.toml          # Project Settings
 ```
 
----
-
 ## ⚙️ 2. Executable Configuration (`frontier.toml`)
 
 This file controls frontier settings, and the metadata of the final `.exe` file generated on Windows.
@@ -65,8 +61,6 @@ allowed_browser = [
     "https://github.com/*"
 ]
 ```
-
----
 
 ## 🖥️ 3. Frontend & Window Management
 
@@ -212,8 +206,6 @@ Create `app/frontend/popup.html`:
 </html>
 ```
 
----
-
 ## 🧱 4. Backend Implementation
 
 Place your files in `app/backend/`. Frontier detects the extension and looks up the corresponding module.
@@ -226,8 +218,6 @@ Place your files in `app/backend/`. Frontier detects the extension and looks up 
 
 ### Arguments
 Everything you pass in JS (`window.ipc.postMessage('trigger|arg1 arg2')`) is forwarded to the binary/script as command-line arguments (`argv`).
-
----
 
 ## 📦 5. Module Creation (`modules/`)
 
@@ -299,8 +289,6 @@ interpreter = "cmd /c"
 [dev]
 strategy = "interpreter"
 ```
-
----
 
 ## 🌐 6. URL Routing & Security
 
@@ -408,8 +396,6 @@ Frontier.spawn('https://github.com/frontier-org', {
 });
 ```
 
----
-
 ## 💻 7. CLI (Command Line)
 
 Use the `.\frontier` script at the root.
@@ -433,8 +419,6 @@ Use the `.\frontier` script at the root.
     *   Used for managing the UI, installing frontend dependencies, or running linters.
     *   Examples: .\front add [package], .\front lint, or .\front tailwind.
     *   Ensures isolation between the client-side environment and the rest of the stack.
-
----
 
 ## 🛡️ 8. Technical Notes
 

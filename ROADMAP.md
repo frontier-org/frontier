@@ -2,8 +2,6 @@
 
 A strategic overview of the development phases for **Frontier**, from initial setup to final static binary distribution.
 
----
-
 ## 🏆 Completed
 
 * **CLI Route Mapping:** Finalize logic for `.\frontier`, `.\back`, and `.\front` to ensure correct directory scoping.
@@ -20,8 +18,6 @@ A strategic overview of the development phases for **Frontier**, from initial se
 * **URL Deduplication System:** Develop atomic locks and query-parameter normalization to prevent duplicate browser opens when redirect chains occur.
 * **Dependency Audit:** Verify that the `.frontier/` folder (Rust/Build System) is correctly isolated from the user source code.
 
----
-
 ## 🏗️ Upcoming Development
 
 * **Cross-Platform Linux Support:** Implement a Linux-compatible build pipeline, ensuring core engine functionality and Webview bindings across distributions using a unified source code.
@@ -32,8 +28,6 @@ A strategic overview of the development phases for **Frontier**, from initial se
 * **Standalone Engine Distribution:** Transition Frontier into a single pre-compiled binary. This removes the need for the `.frontier/` source folder and Rust/C compilers, allowing users to build apps by simply providing the `frontier.toml`, `app/` and `modules/` folder.
 * **Universal Cross-Platform Module Logic:** Enable unified `.fs` scripts to execute seamlessly across Windows and Linux by providing native OS-detection triggers, allowing a single module to handle platform-specific toolchains and commands while maintaining a consistent codebase for environment orchestration. 
 * **Self-Contained Mobile Packaging:** Expand the engine to generate native mobile containers (APK/IPA) where the module system acts as a cross-compilation layer, embedding the language runtimes and pre-compiled backend binaries directly into the application's internal assets for standalone execution.
-
----
 
 ## ⚠️ Maintenance & Stability
 
