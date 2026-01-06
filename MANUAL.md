@@ -4,7 +4,7 @@
 
 > **📊 Development Logging:** See [LOGS.md](LOGS.md) for detailed information about development-mode logging, debugging output, and monitoring your application during development.
 
-> **💡 Exemple:** Check out this [exemple](https://github.com/frontier-org/exemple) repository to see how to use Frontier across several languages and all HTML functions.
+> **💡 Example:** Check out this [example](https://github.com/frontier-org/features-example) repository to see how to use Frontier across several languages and all HTML functions.
 
 ## 📂 1. Project Structure
 

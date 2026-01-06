@@ -32,3 +32,4 @@ A strategic overview of the development phases for **Frontier**, from initial se
 ## ⚠️ Maintenance & Stability
 
 * **Path to .ico:** I forgot to add the function to the actual path of the `.ico` file.
+* **The allowed_browser table is not working:** In a project, the `allowed_browser` table within `frontier.toml` was not working.
