@@ -5,25 +5,25 @@
 ## Log Categories & Icons
 
 ### 📄 Window Management
-```
+```text
 📄 [WINDOW] teste.html         → Local file window opened
 📦 [SPAWN] https://example.com → New spawned window with config
 ```
 
 ### 📦 Asset Loading
-```
+```text
 📦 [ASSET] index.html (text/html)      → File successfully loaded (with MIME type)
 ❌ [ASSET] Not found: missing.js        → File not found error
 ```
 
 ### 🌐 Browser Routing
-```
+```text
 🌐 [BROWSER] Opening: https://github.com              → Opening in system browser
 ⏱️ [BROWSER] Deduped (within 2s): https://github.com → Deduplication prevented duplicate tab
 ```
 
 ### 📍 URL Routing & Security
-```
+```text
 📍 [ROUTING] Frontier: frontier://app/teste.html            → Internal Frontier protocol
 📍 [ROUTING] Internal (whitelisted): https://kaiohsg.dev   → Allowed internal navigation
 📍 [ROUTING] Browser (whitelisted): https://github.com     → External browser URL
@@ -31,12 +31,12 @@
 ```
 
 ### 🚫 Security
-```
+```text
 🚫 [SECURITY] Blocked access to: https://malicious.com → Access denied by whitelist
 ```
 
 ### 💬 IPC Communication
-```
+```text
 💬 [IPC] open: teste.html           → Window.ipc.postMessage('open|teste.html')
 💬 [IPC] spawn: popup.html          → Window.ipc.postMessage('spawn|popup.html')
 💬 [IPC] exec: math 10 50           → Window.ipc.postMessage('math|10 50')
@@ -45,7 +45,7 @@
 
 ## Example Development Session
 
-```
+```text
 📄 [WINDOW] index.html
 📦 [ASSET] index.html (text/html)
 📦 [ASSET] style.css (text/css)
