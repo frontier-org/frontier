@@ -1,7 +1,6 @@
 # 📊 Development Logging System
 
-## Overview
-Frontier has a comprehensive logging system that provides detailed visibility during development mode. All logs are **dead code** in production builds and will not appear in the final executable.
+**Frontier** has a comprehensive logging system that provides detailed visibility during development mode. All logs are **dead code** in production builds and will not appear in the final executable.
 
 ## Log Categories & Icons
 

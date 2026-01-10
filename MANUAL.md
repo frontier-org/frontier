@@ -1,6 +1,6 @@
-# 🔭 Frontier Documentation
+# 🔭 Frontier Manual
 
-**Frontier** is a language-agnostic Graphical User Interface (GUI) Engine. It allows you to create native and portable Desktop applications for Windows, where the Backend can be written in any language (C, Python, Java, Go, Batch, Node) and the Frontend is built with modern Web technologies.
+**Frontier** is a language-agnostic Graphical User Interface (GUI) Engine. It allows you to create native and portable Desktop applications for Windows, where the Backend can be written in any language (**C, Python, Java, Go, Batch, Node**) and the **Frontend** is built with modern Web technologies.
 
 > **📊 Development Logging:** See [LOGS.md](LOGS.md) for detailed information about development-mode logging, debugging output, and monitoring your application during development.
 
