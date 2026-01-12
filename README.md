@@ -60,4 +60,4 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 
 ## License
 
-*Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See [LICENSE](./LICENSE) and [NOTICE](./NOTICE) for details.*
+*Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See [LICENSE](https://github.com/frontier-org/frontier?tab=Apache-2.0-1-ov-file#readme) and [NOTICE](https://github.com/frontier-org/frontier/blob/main/NOTICE) for details.*
