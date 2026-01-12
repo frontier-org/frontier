@@ -1,12 +1,16 @@
-/// Build Management Module
-/// 
-/// This module handles the compilation process using Cargo.
-/// It coordinates the building of the core binary.
+// Copyright 2026 The Frontier Framework Authors. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license 
+// that can be found in the LICENSE file.
+
+// Build Management Module
+// 
+// This module handles the compilation process using Cargo.
+// It coordinates the building of the core binary.
 
 use std::process::Command;
 use std::path::Path;
 
-/// Cargo build configuration
+// Cargo build configuration
 pub struct BuildConfig {
     pub app_name: Option<String>,
     pub version: Option<String>,
@@ -14,7 +18,7 @@ pub struct BuildConfig {
     pub copyright: Option<String>,
 }
 
-/// Run cargo build with the specified configuration
+// Run cargo build with the specified configuration
 pub fn run_cargo_build(manifest_path: &Path, bin_name: &str, config: &BuildConfig) -> Result<(), String> {
     let mut cmd = Command::new("cargo");
     cmd.args(["build", "--manifest-path", 
@@ -47,7 +51,7 @@ pub fn run_cargo_build(manifest_path: &Path, bin_name: &str, config: &BuildConfi
     Ok(())
 }
 
-/// Copy the final executable to the distribution directory
+// Copy the final executable to the distribution directory
 pub fn finalize_executable(
     source_exe: &Path,
     dest_exe: &Path,

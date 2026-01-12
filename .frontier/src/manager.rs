@@ -1,11 +1,25 @@
-/// Frontier Manager - Build System and Package Orchestrator
-/// 
-/// The Manager is responsible for:
-/// - Reading and validating project configuration
-/// - Processing backend source files
-/// - Managing module dependencies
-/// - Coordinating the build process
-/// - Packaging the final executable
+// Copyright 2026 The Frontier Framework Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Frontier Manager - Build System and Package Orchestrator
+// 
+// The Manager is responsible for:
+// - Reading and validating project configuration
+// - Processing backend source files
+// - Managing module dependencies
+// - Coordinating the build process
+// - Packaging the final executable
 
 mod config;
 mod backend;
@@ -55,7 +69,7 @@ fn main() {
     finalize_distribution(&final_name);
 }
 
-/// Load backend modules and process files
+// Load backend modules and process files
 fn process_backend() {
     let modules_path = Path::new(MODULES_DIR);
     let backend_path = Path::new(APP_DIR).join("backend");
@@ -65,7 +79,7 @@ fn process_backend() {
     backend::process_backend_files(&backend_path, assets_path, &modules);
 }
 
-/// Copy frontend assets to build directory
+// Copy frontend assets to build directory
 fn copy_frontend_assets() {
     let src = Path::new(APP_DIR).join("frontend");
     let dst = Path::new(ASSETS_DIR).join("frontend");
@@ -82,7 +96,7 @@ fn copy_frontend_assets() {
     }
 }
 
-/// Compile the core binary using cargo
+// Compile the core binary using cargo
 fn compile_core(app_config: &config::AppConfig) {
     let build_config = build::BuildConfig {
         app_name: app_config.name.clone(),
@@ -101,7 +115,7 @@ fn compile_core(app_config: &config::AppConfig) {
     }
 }
 
-/// Move the compiled executable to dist/ and rename it
+// Move the compiled executable to dist/ and rename it
 fn finalize_distribution(app_name: &str) {
     let target_dir = Path::new(BASE_DIR).join("target/release");
     let dist_dir = Path::new(DIST_DIR);

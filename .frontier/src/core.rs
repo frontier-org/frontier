@@ -1,3 +1,17 @@
+// Copyright 2026 The Frontier Framework Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 #![windows_subsystem = "windows"]
 
 mod window;
@@ -389,20 +403,20 @@ fn create_new_window(
 
 // --- HELPERS ---
 
-/// Routes URLs to the system browser with atomic deduplication to prevent duplicate opens
-/// 
-/// This function prevents the same URL from being opened multiple times within a short timeframe,
-/// which can occur when redirect chains happen (e.g., GitHub's automatic locale redirect from
-/// https://github.com/ to https://github.com/?locale=pt-BR). 
-/// 
-/// The deduplication works by:
-/// 1. Normalizing URLs (removing query params and fragments)
-/// 2. Comparing base URLs only (ignoring locale, tracking, and other query parameters)
-/// 3. Using an atomic lock to ensure only one thread can open a URL at a time
-/// 4. Ignoring rapid subsequent opens of the same base URL (2-second window)
-/// 
-/// # Arguments
-/// * `url` - The full URL to open in the system browser
+// Routes URLs to the system browser with atomic deduplication to prevent duplicate opens
+// 
+// This function prevents the same URL from being opened multiple times within a short timeframe,
+// which can occur when redirect chains happen (e.g., GitHub's automatic locale redirect from
+// https://github.com/ to https://github.com/?locale=pt-BR). 
+// 
+// The deduplication works by:
+// 1. Normalizing URLs (removing query params and fragments)
+// 2. Comparing base URLs only (ignoring locale, tracking, and other query parameters)
+// 3. Using an atomic lock to ensure only one thread can open a URL at a time
+// 4. Ignoring rapid subsequent opens of the same base URL (2-second window)
+// 
+// # Arguments
+// * `url` - The full URL to open in the system browser
 fn route_to_browser(url: &str, is_dev: bool) {
     let mut lock = BROWSER_LOCK.lock().unwrap();
     let now = Instant::now();

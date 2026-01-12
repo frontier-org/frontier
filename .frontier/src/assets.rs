@@ -1,13 +1,17 @@
-/// Assets Management Module
-/// 
-/// This module handles copying and organizing frontend assets (HTML, CSS, JS, images)
-/// from the app/frontend directory to the build assets directory.
+// Copyright 2026 The Frontier Framework Authors. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license 
+// that can be found in the LICENSE file.
+
+// Assets Management Module
+// 
+// This module handles copying and organizing frontend assets (HTML, CSS, JS, images)
+// from the app/frontend directory to the build assets directory.
 
 use std::fs;
 use std::path::Path;
 use walkdir::WalkDir;
 
-/// Copy frontend files to the assets directory
+// Copy frontend files to the assets directory
 pub fn copy_frontend_files(src: &Path, dst: &Path) {
     if !src.exists() {
         return;
@@ -33,7 +37,7 @@ pub fn copy_frontend_files(src: &Path, dst: &Path) {
     }
 }
 
-/// Copy and organize icon file
+// Copy and organize icon file
 pub fn copy_icon(icon_path: &Path, assets_path: &Path) -> Option<()> {
     if !icon_path.exists() {
         return None;

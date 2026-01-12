@@ -57,3 +57,7 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 | **Window Size Constraints** | ✅ | Configurable min/max width and height to control resizing behavior. |
 | **Multiple Windows** | ✅ | Open independent windows with separate DOM, styles, and security policies. |
 | **Development Logs** | ✅ | Detailed logging in dev mode without polluting production builds. |
+
+## License
+
+*Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE for details.*

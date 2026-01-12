@@ -1,6 +1,10 @@
-/// Window Configuration and Management Module
-/// 
-/// Handles parsing HTML meta tags and managing window state.
+// Copyright 2026 The Frontier Framework Authors. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license 
+// that can be found in the LICENSE file.
+
+// Window Configuration and Management Module
+// 
+// Handles parsing HTML meta tags and managing window state.
 
 use regex::Regex;
 use evalexpr::*;
@@ -28,9 +32,9 @@ pub struct PageConfig {
     pub icon_path: Option<String>,
     pub min_width: Option<f64>,
     pub min_height: Option<f64>,
-    /// Maximum window width in pixels (prevents resizing beyond this size)
+    // Maximum window width in pixels (prevents resizing beyond this size)
     pub max_width: Option<f64>,
-    /// Maximum window height in pixels (prevents resizing beyond this size)
+    // Maximum window height in pixels (prevents resizing beyond this size)
     pub max_height: Option<f64>,
     pub minimizable: bool,
     pub maximizable: bool,

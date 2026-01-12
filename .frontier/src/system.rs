@@ -1,3 +1,7 @@
+// Copyright 2026 The Frontier Framework Authors. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license 
+// that can be found in the LICENSE file.
+
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -49,8 +53,8 @@ pub struct SystemState {
     pub window_icon: Option<wry::application::window::Icon>,
 }
 
-/// Safely splits the command into parts, respecting quotes.
-/// Shared between Build and Interpreter logic.
+// Safely splits the command into parts, respecting quotes.
+// Shared between Build and Interpreter logic.
 fn split_shell_args(cmd: &str) -> Vec<String> {
     let mut args = Vec::new();
     let mut current = String::new();

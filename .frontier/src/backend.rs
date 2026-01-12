@@ -1,7 +1,11 @@
-/// Backend Processing Module
-/// 
-/// This module handles the detection and compilation of backend files.
-/// It reads module manifests and coordinates the build process.
+// Copyright 2026 The Frontier Framework Authors. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license 
+// that can be found in the LICENSE file.
+
+// Backend Processing Module
+// 
+// This module handles the detection and compilation of backend files.
+// It reads module manifests and coordinates the build process.
 
 use serde::Deserialize;
 use std::fs;
@@ -36,7 +40,7 @@ pub struct RuntimeMeta {
     pub suppress_window: bool,
 }
 
-/// Load all module manifests from the modules directory
+// Load all module manifests from the modules directory
 pub fn load_modules(modules_path: &Path) -> HashMap<String, ModuleManifest> {
     let mut builders = HashMap::new();
 
@@ -63,7 +67,7 @@ pub fn load_modules(modules_path: &Path) -> HashMap<String, ModuleManifest> {
     builders
 }
 
-/// Process backend files and generate metadata
+// Process backend files and generate metadata
 pub fn process_backend_files(
     backend_path: &Path,
     assets_path: &Path,
@@ -85,7 +89,7 @@ pub fn process_backend_files(
     }
 }
 
-/// Process a single backend file with its module
+// Process a single backend file with its module
 fn process_single_file(
     file_path: &Path,
     assets_path: &Path,
