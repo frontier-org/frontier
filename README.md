@@ -60,4 +60,4 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 
 ## License
 
-*Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE for details.*
+*Licensed under the Apache License, Version 2.0. See [LICENSE](./LICENSE) and [NOTICE](./NOTICE) for details.*
