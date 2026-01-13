@@ -26,12 +26,15 @@ jobs:
       - name: Scan with VirusTotal
         id: vt_scan
         run: |
-          ANALYSIS_ID=$(curl --request POST \
+          FILE_HASH=$(sha256sum Frontier.zip | cut -d ' ' -f 1)
+          
+          curl --request POST \
             --url https://www.virustotal.com/api/v3/files \
             --header "x-apikey: ${{ secrets.VIRUSTOTAL_API_KEY }}" \
-            --form "file=@Frontier.zip" | jq -r '.data.id')
-          FILE_ID=$(echo $ANALYSIS_ID | cut -d'-' -f2)
-          echo "REPORT_URL=https://www.virustotal.com/gui/file/$FILE_ID" >> $GITHUB_ENV
+            --form "file=@Frontier.zip"
+          
+          echo "REPORT_URL=https://www.virustotal.com/gui/file/$FILE_HASH" >> $GITHUB_ENV
+          echo "FILE_HASH=$FILE_HASH" >> $GITHUB_ENV
 
       - name: Create Release and Upload File
         uses: softprops/action-gh-release@v2
