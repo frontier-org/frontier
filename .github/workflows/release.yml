@@ -29,6 +29,6 @@ jobs:
           name: "Frontier - ${{ github.ref_name }}"
           generate_release_notes: true
           files: Frontier.zip
-          prerelease: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
