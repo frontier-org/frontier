@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   package:
     runs-on: ubuntu-latest
@@ -31,4 +34,4 @@ jobs:
           generate_release_notes: true
           files: Frontier.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_WORKFLOW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
