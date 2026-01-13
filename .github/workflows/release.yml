@@ -41,6 +41,7 @@ jobs:
         with:
           name: "Frontier - ${{ github.ref_name }}"
           body: |
+            [![Downloads](https://img.shields.io/github/downloads/${{ github.repository }}/${{ github.ref_name }}/total)](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }})
             [![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](${{ env.REPORT_URL }})
             
           generate_release_notes: true
@@ -48,4 +49,3 @@ jobs:
           prerelease: ${{ contains(github.ref_name, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
