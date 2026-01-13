@@ -23,12 +23,26 @@ jobs:
       - name: Create ZIP
         run: zip -r Frontier.zip .
 
+      - name: Scan with VirusTotal
+        id: vt_scan
+        run: |
+          ANALYSIS_ID=$(curl --request POST \
+            --url https://www.virustotal.com/api/v3/files \
+            --header "x-apikey: ${{ secrets.VIRUSTOTAL_API_KEY }}" \
+            --form "file=@Frontier.zip" | jq -r '.data.id')
+          FILE_ID=$(echo $ANALYSIS_ID | cut -d'-' -f2)
+          echo "REPORT_URL=https://www.virustotal.com/gui/file/$FILE_ID" >> $GITHUB_ENV
+
       - name: Create Release and Upload File
         uses: softprops/action-gh-release@v2
         with:
           name: "Frontier - ${{ github.ref_name }}"
+          body: |
+            [![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](${{ env.REPORT_URL }})
+            
           generate_release_notes: true
           files: Frontier.zip
           prerelease: ${{ contains(github.ref_name, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
