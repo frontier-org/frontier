@@ -26,7 +26,7 @@ powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 
 ### Using Frontier.zip
 
-1. Download [**`Frontier.zip`**](https://github.com/frontier-org/frontier/releases).
+1. Download [**Frontier.zip**](https://github.com/frontier-org/frontier/releases).
 2. Extract the files to the project folder.
 
 ### Requirements
