@@ -6,6 +6,12 @@
 
 **Frontier** is a Agnostic and Native Graphical User Interface (GUI) Engine. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
 
+## 📖 Documentation
+
+* 🔭 **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
+* 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
+* 📊 **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
+
 ## How to Get Frontier?
 
 ### Using Command
@@ -28,12 +34,6 @@ powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC from [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) installed (note that rustup can install MSVC for you).
 
 The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
-
-## 📖 Documentation & Planning
-
-* 🔭 **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
-* 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
-* 📊 **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
 
 ## System Architecture
 
