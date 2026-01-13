@@ -18,12 +18,14 @@ powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 
 2. Give the project folder a name, or leave it blank for the current folder.
 
-The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
-
 ### Using Frontier.zip
 
 1. Download [**`Frontier.zip`**](https://github.com/frontier-org/frontier/releases).
 2. Extract the files to the project folder.
+
+### Requirements
+
+You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC from [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) installed (note that rustup can install MSVC for you).
 
 The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
 
