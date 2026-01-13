@@ -88,3 +88,6 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 ## License
 
 *Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See [LICENSE](https://github.com/frontier-org/frontier?tab=Apache-2.0-1-ov-file#readme) and [NOTICE](https://github.com/frontier-org/frontier/blob/main/NOTICE) for details.*
+
+SPDX-License-Identifier: Apache-2.0  
+Copyright (c) 2026 The Frontier Framework Authors

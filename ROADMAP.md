@@ -33,3 +33,6 @@ A strategic overview of the development phases for **Frontier**, from initial se
 
 * **Path to .ico:** I forgot to add the function to the actual path of the `.ico` file.
 * **Folders are not embedded:** Folders within `app/frontend/` are not being embedded.
+
+SPDX-License-Identifier: Apache-2.0  
+Copyright (c) 2026 The Frontier Framework Authors

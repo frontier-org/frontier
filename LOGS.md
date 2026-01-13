@@ -108,3 +108,6 @@ This pattern ensures:
 - Filter by category: `frontier dev 2>&1 | grep "\[IPC\]"`
 - Monitor in real-time: Keep the terminal visible while testing
 - Check security issues: Search for `[ROUTING] Blocked` to find rejected URLs
+
+SPDX-License-Identifier: Apache-2.0  
+Copyright (c) 2026 The Frontier Framework Authors
