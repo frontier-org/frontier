@@ -17,7 +17,7 @@ jobs:
 
       - name: Organize and Clean
         run: |
-          rm -rf .gitignore .github README.md MANUAL.md ROADMAP.md LOGS.md
+          rm -rf .github .git .gitignore README.md MANUAL.md ROADMAP.md LOGS.md
           mv LICENSE NOTICE .frontier/
 
       - name: Create ZIP
@@ -27,11 +27,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: "Frontier - ${{ github.ref_name }}"
-          body: |
-            ## Changed in this version:
-            *(Generated automatically by GitHub Actions)*
-
           generate_release_notes: true
           files: Frontier.zip
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
