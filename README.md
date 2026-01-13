@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/frontier-org/frontier?include_prereleases)](https://github.com/frontier-org/frontier/releases)
 [![Downloads](https://img.shields.io/github/downloads/frontier-org/frontier/total?include_prereleases)](https://github.com/frontier-org/frontier/releases)
-[![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](virustotal.com/gui/search/https%253A%252F%252Fgithub%252Ecom%252Ffrontier-org%252Ffrontier%252Farchive%252Frefs%252Fheads%252Fmain%252Ezip)
+[![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](https://https://www.virustotal.com/gui/url/bc09f2c5bb5cd6bbf9d0ec513ead7f05667268e64aa943a1e014ee13eecc029d)
 
 **Frontier** is a Agnostic and Native Graphical User Interface (GUI) Engine. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
 
@@ -22,7 +22,7 @@ The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more informati
 
 ### Using Frontier.zip
 
-1. Download [**Frontier.zip**](https://github.comfrontier-org/frontier/releases).
+1. Download **[Frontier.zip](https://github.comfrontier-org/frontier/releases)**.
 2. Extract the files to the project folder.
 
 The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
