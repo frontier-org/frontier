@@ -18,7 +18,7 @@
 
 1. Use the **command below** in the working directory.
 
-```ps
+```powershell
 powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 ```
 
