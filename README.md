@@ -22,7 +22,7 @@ The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more informati
 
 ### Using Frontier.zip
 
-1. Download [**`Frontier.zip`**](https://github.comfrontier-org/frontier/releases).
+1. Download [**`Frontier.zip`**](https://github.com/frontier-org/frontier/releases).
 2. Extract the files to the project folder.
 
 The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
