@@ -1,6 +1,6 @@
 # 🌐 Frontier
 
-[![Release](https://img.shields.io/github/v/release/frontier-org/frontier?include_prereleases)](https://github.com/frontier-org/frontier/releases)
+[![Release](https://img.shields.io/github/v/release/frontier-org/frontier?include_prereleases)](https://github.com/frontier-org/frontier/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/frontier-org/frontier/total?include_prereleases)](https://github.com/frontier-org/frontier/releases)
 [![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](https://www.virustotal.com/gui/search/https%253A%252F%252Fgithub%252Ecom%252Ffrontier-org%252Ffrontier%252Farchive%252Frefs%252Fheads%252Fmain%252Ezip)
 
