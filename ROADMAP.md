@@ -5,7 +5,7 @@ A strategic overview of the development phases for **Frontier**, from initial se
 ## 🏆 Completed
 
 * **CLI Route Mapping:** Finalize logic for `.\frontier`, `.\back`, and `.\front` to ensure correct directory scoping.
-* **Project Scaffolding:** Standardize the `app/frontend/` and `app/backend/` hierarchy to ensure the Engine finds `index.html` and source files.
+* **Project Scaffolding:** Standardize the `app/frontend/` and `app/backend/` hierarchy to ensure the Framework finds `index.html` and source files.
 * **Metadata Implementation:** Configure `frontier.toml` to handle `[app]` metadata (Name, Version, Copyright) for Windows file properties.
 * **Window Meta-Tag Parser:** Implement the engine's ability to read `frontier-width`, `frontier-height`, and `frontier-title` from the HTML `<head>`.
 * **Window Size Constraints:** Add support for `frontier-min-width/height` and `frontier-max-width/height` meta tags to control resizing limits.
@@ -20,14 +20,14 @@ A strategic overview of the development phases for **Frontier**, from initial se
 
 ## 🏗️ Upcoming Development
 
-* **Cross-Platform Linux Support:** Implement a Linux-compatible build pipeline, ensuring core engine functionality and Webview bindings across distributions using a unified source code.
+* **Cross-Platform Linux Support:** Implement a Linux-compatible build pipeline, ensuring core framework functionality and Webview bindings across distributions using a unified source code.
 * **Module Distribution System:** Develop a system for remote module acquisition via Git or Zip, enabling distribution of assets beyond `manifest.toml` with integrated versioning and update checks. All module specifications, including versions and origin links, will be recorded and managed directly within the `frontier.toml` file.
 * **Multi-Extension & Directory-Based Modules:** 
     * **Unified Manifests:** Update `manifest.toml` to support multiple extensions (e.g., `extension = ["c", "cpp"]`) within a single file.
     * **Directory Scoping:** Implement `dir_extension` for folder-based modules, allowing for specialized lifecycle hooks like `[dir_dev]` and `[dir_build]` for complex compilation or asset processing.
-* **Standalone Engine Distribution:** Transition Frontier into a single pre-compiled binary. This removes the need for the `.frontier/` source folder and Rust/C compilers, allowing users to build apps by simply providing the `frontier.toml`, `app/` and `modules/` folder.
+* **Standalone Framework Distribution:** Transition Frontier into a single pre-compiled binary. This removes the need for the `.frontier/` source folder and Rust/C compilers, allowing users to build apps by simply providing the `frontier.toml`, `app/` and `modules/` folder.
 * **Universal Cross-Platform Module Logic:** Enable unified `.fs` scripts to execute seamlessly across Windows and Linux by providing native OS-detection triggers, allowing a single module to handle platform-specific toolchains and commands while maintaining a consistent codebase for environment orchestration. 
-* **Self-Contained Mobile Packaging:** Expand the engine to generate native mobile containers (APK/IPA) where the module system acts as a cross-compilation layer, embedding the language runtimes and pre-compiled backend binaries directly into the application's internal assets for standalone execution.
+* **Self-Contained Mobile Packaging:** Expand the framework to generate native mobile containers (APK/IPA) where the module system acts as a cross-compilation layer, embedding the language runtimes and pre-compiled backend binaries directly into the application's internal assets for standalone execution.
 
 ## ⚠️ Maintenance & Stability
 

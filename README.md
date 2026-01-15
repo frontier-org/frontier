@@ -6,12 +6,12 @@
 [![Downloads](https://img.shields.io/github/downloads/frontier-org/frontier/total?include_prereleases)](https://github.com/frontier-org/frontier/releases)
 [![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](https://www.virustotal.com/gui/search/https%253A%252F%252Fgithub%252Ecom%252Ffrontier-org%252Ffrontier%252Farchive%252Frefs%252Fheads%252Fmain%252Ezip)
 
-**Frontier** is a Agnostic and Native Graphical User Interface (GUI) Engine. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
+**Frontier** is a Agnostic and Native Graphical User Interface (GUI) Framework. It allows developers to create interfaces using Web technologies (**HTML5, CSS3, JavaScript**) to control backends written in any language (**C, Python, Rust, Go, Node.js**), consolidating the result into a **Single Static Executable** for Windows.
 
 ## 📖 Documentation
 
 * 🔭 **[MANUAL.md](./MANUAL.md):** Detailed technical documentation on how to build apps, configure modules, and use the IPC bridge.
-* 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone engine.
+* 🗺️ **[ROADMAP.md](./ROADMAP.md):** Strategic overview of development phases, completed features, and the transition to a standalone framework.
 * 📊 **[LOGS.md](./LOGS.md):** Overview of the development logging system, event categorization (IPC, Routing, Assets), and zero-overhead production behavior.
 
 ## How to Get Frontier?
