@@ -429,5 +429,5 @@ Use the `.\frontier` script at the root.
 * Static builds currently only support Windows.
 * Hot reload latency for heavy backend modules.
 
-SPDX-License-Identifier: Apache-2.0  
-Copyright (c) 2026 The Frontier Framework Authors
+Copyright (c) 2026 The Frontier Framework Authors  
+SPDX-License-Identifier: Apache-2.0 OR MIT

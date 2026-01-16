@@ -1,11 +1,11 @@
-# SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
 
 [package]
 name = "frontier"
-version = "0.1.0"
 edition = "2021"
-license = "Apache-2.0"
+license = "Apache-2.0 OR MIT"
+build = "build.rs"
 
 [[bin]]
 name = "manager"

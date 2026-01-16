@@ -1,18 +1,40 @@
 Frontier Framework
 Copyright 2026 The Frontier Framework Authors
 
-This product includes software developed by The Frontier Framework Authors
-(https://frontier-fw.dev).
+This product includes software developed by The Frontier Framework Authors 
+(https://github.com/seu-repositorio/frontier-framework).
 
-This product includes software developed at
-Frontier Org (https://github.com/frontier-org).
+This software is dual-licensed under the Apache License, Version 2.0 and 
+the MIT License. 
 
-This software is built using the Rust programming language and several 
-open-source libraries, including but not limited to:
-- Wry (Apache 2.0 / MIT)
-- Serde (Apache 2.0 / MIT)
-- Tokio/Notify (MIT)
-- Winapi (Apache 2.0 / MIT)
+---
 
-For more information about the licenses of these dependencies, 
-please refer to the project's documentation or compiled metadata.
+THIRD-PARTY SOFTWARE NOTICES
+
+This project incorporates portions of the following third-party software:
+
+1. Wry (https://github.com/tauri-apps/wry)
+   Copyright (c) 2019-2023 Tauri Programme within The Commons Conservancy
+   License: Apache-2.0 OR MIT
+
+2. Serde / Serde JSON (https://serde.rs/)
+   Copyright (c) 2014-2024 Erick Tryzelaar and David Tolnay
+   License: Apache-2.0 OR MIT
+
+3. Winapi-rs (https://github.com/retep998/winapi-rs)
+   Copyright (c) 2015-2018 The winapi-rs Developers
+   License: MIT OR Apache-2.0
+
+4. Lazy Static (https://github.com/rust-lang-nursery/lazy-static.rs)
+   Copyright (c) 2010-2020 The Rust Project Developers
+   License: MIT OR Apache-2.0
+
+5. Other dependencies included via Cargo (as listed in Cargo.toml):
+   The dependencies uuid, walkdir, image, regex, evalexpr, notify, 
+   mime_guess, native-dialog, percent-encoding, and webbrowser are, 
+   for the most part, licensed under the terms of both MIT and Apache-2.0.
+
+---
+
+This file is maintained in accordance with Section 4(d) of the 
+Apache License, Version 2.0.

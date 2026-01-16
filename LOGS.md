@@ -109,5 +109,5 @@ This pattern ensures:
 - Monitor in real-time: Keep the terminal visible while testing
 - Check security issues: Search for `[ROUTING] Blocked` to find rejected URLs
 
-SPDX-License-Identifier: Apache-2.0  
-Copyright (c) 2026 The Frontier Framework Authors
+Copyright (c) 2026 The Frontier Framework Authors  
+SPDX-License-Identifier: Apache-2.0 OR MIT
