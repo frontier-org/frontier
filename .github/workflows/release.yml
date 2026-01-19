@@ -21,7 +21,7 @@ jobs:
       - name: Organize and Clean
         run: |
           rm -rf .github .git .gitignore README.md MANUAL.md ROADMAP.md LOGS.md
-          mv LICENSE NOTICE .frontier/
+          mv LICENSE-APACHE LICENSE-MIT NOTICE .frontier/
 
       - name: Create ZIP
         run: zip -r Frontier.zip .
