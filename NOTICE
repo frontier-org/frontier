@@ -1,40 +1,35 @@
 Frontier Framework
 Copyright 2026 The Frontier Framework Authors
 
-This product includes software developed by The Frontier Framework Authors 
-(https://github.com/frontier-org/frontier).
+This product includes software developed by
+The Frontier Framework Authors (https://github.com/frontier-org/frontier).
 
-This software is dual-licensed under the Apache License, Version 2.0 and 
-the MIT License. 
+This software is dual-licensed under the Apache License, Version 2.0 and
+the MIT License
 
----
+This product includes the following third-party software:
 
-THIRD-PARTY SOFTWARE NOTICES
+Wry
+Copyright (c) 2019-2023 Tauri Programme within The Commons Conservancy
+https://github.com/tauri-apps/wry
+Apache-2.0 OR MIT
 
-This project incorporates portions of the following third-party software:
+Serde / Serde JSON
+Copyright (c) 2014-2024 Erick Tryzelaar and David Tolnay
+https://serde.rs/
+Apache-2.0 OR MIT
 
-1. Wry (https://github.com/tauri-apps/wry)
-   Copyright (c) 2019-2023 Tauri Programme within The Commons Conservancy
-   License: Apache-2.0 OR MIT
+Winapi-rs
+Copyright (c) 2015-2018 The winapi-rs Developers
+https://github.com/retep998/winapi-rs
+MIT OR Apache-2.0
 
-2. Serde / Serde JSON (https://serde.rs/)
-   Copyright (c) 2014-2024 Erick Tryzelaar and David Tolnay
-   License: Apache-2.0 OR MIT
+Lazy Static
+Copyright (c) 2010-2020 The Rust Project Developers
+https://github.com/rust-lang-nursery/lazy-static.rs
+MIT OR Apache-2.0
 
-3. Winapi-rs (https://github.com/retep998/winapi-rs)
-   Copyright (c) 2015-2018 The winapi-rs Developers
-   License: MIT OR Apache-2.0
-
-4. Lazy Static (https://github.com/rust-lang-nursery/lazy-static.rs)
-   Copyright (c) 2010-2020 The Rust Project Developers
-   License: MIT OR Apache-2.0
-
-5. Other dependencies included via Cargo (as listed in Cargo.toml):
-   The dependencies uuid, walkdir, image, regex, evalexpr, notify, 
-   mime_guess, native-dialog, percent-encoding, and webbrowser are, 
-   for the most part, licensed under the terms of both MIT and Apache-2.0.
-
----
-
-This file is maintained in accordance with Section 4(d) of the 
-Apache License, Version 2.0.
+Other dependencies included via Cargo (as listed in Cargo.toml):
+The dependencies uuid, walkdir, image, regex, evalexpr, notify,
+mime_guess, native-dialog, percent-encoding, and webbrowser are,
+for the most part, licensed under MIT OR Apache-2.0
