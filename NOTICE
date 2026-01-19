@@ -31,5 +31,5 @@ Apache-2.0 OR MIT
 
 Other dependencies included via Cargo (as listed in Cargo.toml):
 The dependencies uuid, walkdir, image, regex, evalexpr, notify,
-mime_guess, native-dialog, percent-encoding, and webbrowser are,
-for the most part, licensed under Apache-2.0 OR MIT.
+mime_guess, native-dialog, percent-encoding, and webbrowser are, for the
+most part, licensed under Apache-2.0 OR MIT.
