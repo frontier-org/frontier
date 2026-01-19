@@ -22,14 +22,14 @@ Apache-2.0 OR MIT
 Winapi-rs
 Copyright (c) 2015-2018 The winapi-rs Developers
 https://github.com/retep998/winapi-rs
-MIT OR Apache-2.0
+Apache-2.0 OR MIT
 
 Lazy Static
 Copyright (c) 2010-2020 The Rust Project Developers
 https://github.com/rust-lang-nursery/lazy-static.rs
-MIT OR Apache-2.0
+Apache-2.0 OR MIT
 
 Other dependencies included via Cargo (as listed in Cargo.toml):
 The dependencies uuid, walkdir, image, regex, evalexpr, notify,
 mime_guess, native-dialog, percent-encoding, and webbrowser are,
-for the most part, licensed under MIT OR Apache-2.0
+for the most part, licensed under Apache-2.0 OR MIT.
