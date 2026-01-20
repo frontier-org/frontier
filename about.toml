@@ -1,3 +1,6 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
 accepted = [
     "MIT",
     "Apache-2.0",
@@ -12,8 +15,8 @@ accepted = [
     "CC0-1.0",
 ]
 
-[clarification.dual-licensed]
+[[clarify]]
 expression = "Apache-2.0 OR MIT"
-license = "Apache-2.0"
-
-[labels]
+license-files = [
+    { path = "LICENSE", license = "Apache-2.0" }
+]
