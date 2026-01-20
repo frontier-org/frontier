@@ -35,5 +35,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
   cargo-about:
-    needs: [ cargo-about ]
+    needs: [ cargo-update ]
     uses: ./.github/workflows/cargo-about.yml
