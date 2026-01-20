@@ -30,12 +30,6 @@ jobs:
           path: ~/.cargo/bin/cargo-about
           key: ${{ runner.os }}-cargo-about
 
-      - name: Cache Cargo Binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo/bin/cargo-about
-          key: ${{ runner.os }}-cargo-about
-
       - name: Install cargo-about
         run: |
           if ! command -v cargo-about &> /dev/null; then
@@ -45,19 +39,10 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
-      - name: Install cargo-deny
-        run: |
-          if ! command -v cargo-deny &> /dev/null; then
-            cargo install cargo-deny
-          fi
-
-      - name: Generate SPDX JSON
-        run: cargo deny list --manifest-path .frontier/Cargo.toml -f json > LICENSE-CARGO.spdx.json
-
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update LICENSE-CARGO.spdx.json and NOTICE-CARGO"
+          commit_message: "Update and NOTICE-CARGO"
           file_pattern: 'LICENSE-CARGO.spdx.json NOTICE-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
