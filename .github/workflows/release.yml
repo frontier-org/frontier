@@ -31,7 +31,7 @@ jobs:
 
       - name: Windows Package Setup
         run: |
-          mkdir windows-package/.frontier/
+          mkdir -p windows-package/.frontier/
           cp -r frontier/* windows-package/.frontier/
           mv cli/windows/* windows-package/
 
