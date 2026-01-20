@@ -39,7 +39,7 @@ jobs:
         run: |
           shopt -s dotglob
           cd windows-package/
-          zip -r Frontier-Windows.zip *
+          zip -r ../Frontier-Windows.zip *
 
       - name: Scan with VirusTotal
         id: vt_scan
