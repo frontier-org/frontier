@@ -39,8 +39,8 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
-      - name: Generate LICENSE-CARGO.spdx.json
-        run: cargo about generate spdx-json.hbs --manifest-path .frontier/Cargo.toml > LICENSE-CARGO.spdx.json
+      - name: Generate SPDX JSON
+        run: cargo deny list --manifest-path .frontier/Cargo.toml -f json > LICENSE-CARGO.spdx.json
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
