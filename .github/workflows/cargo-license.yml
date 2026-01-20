@@ -44,6 +44,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update and LICENSE-CARGO.spdx.json NOTICE-CARGO"
-          file_pattern: 'LICENSE-CARGO.spdx.json NOTICE-CARGO'
+          file_pattern: 'LICENSE/LICENSE-CARGO.spdx.json LICENSE/NOTICE-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
