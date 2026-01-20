@@ -18,17 +18,19 @@
 
 ### Using Command
 
-1. Use the **command below** in the working directory.
+1. Run the **command for your operating system**, in the working directory.
+
+**Windows:**
 
 ```powershell
 powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 ```
 
-2. Give the project folder a name, or leave it blank for the current folder.
+2. Enter a name for the project folder, or leave it blank to use the current directory.
 
 ### Using Frontier.zip
 
-1. Download [**Frontier.zip**](https://github.com/frontier-org/frontier/releases).
+1. Download [**Frontier-[Operating System].zip**](https://github.com/frontier-org/frontier/releases).
 2. Extract the files to the project folder.
 
 ### Requirements
