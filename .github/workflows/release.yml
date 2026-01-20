@@ -35,8 +35,10 @@ jobs:
           cp -r frontier/* windows-package/.frontier/
           mv cli/windows/* windows-package/
 
-      - name: Create ZIP
-        run: zip -r Frontier-Windows.zip windows-package/
+      - name: Create ZIP files
+        run: |
+          cd windows-package/
+          zip -r ../Frontier-Windows.zip .
 
       - name: Scan with VirusTotal
         id: vt_scan
