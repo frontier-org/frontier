@@ -27,16 +27,13 @@ jobs:
       - name: Install cargo-binstall
         uses: taiki-e/install-action@cargo-binstall
 
-      - name: Install tools (Pre-compiled)
-        run: |
-          cargo binstall --no-confirm cargo-about cargo-sbom
+      - name: Install tools
+        run:  cargo binstall --no-confirm cargo-about cargo-sbom
 
-      - name: Generate NOTICE-CARGO
-        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
-
-      - name: Generate SPDX JSON
+      - name: Generate NOTICE-CARGO and LICENSE-CARGO.spdx.json
         run: |
           cd .frontier
+          cargo about generate ../about-cargo.hbs > ../NOTICE-CARGO
           cargo sbom > ../LICENSE-CARGO.spdx.json
           cd ..
 
