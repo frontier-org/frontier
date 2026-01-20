@@ -110,4 +110,4 @@ This pattern ensures:
 - Check security issues: Search for `[ROUTING] Blocked` to find rejected URLs
 
 Copyright (c) 2026 The Frontier Framework Authors  
-SPDX-License-Identifier: Apache-2.0 OR MIT
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT

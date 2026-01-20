@@ -430,4 +430,4 @@ Use the `.\frontier` script at the root.
 * Hot reload latency for heavy backend modules.
 
 Copyright (c) 2026 The Frontier Framework Authors  
-SPDX-License-Identifier: Apache-2.0 OR MIT
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT

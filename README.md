@@ -89,7 +89,7 @@ Is the engine of the final executable (e.g. `MyApp.exe`).
 
 ## License
 
-*Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) or [The MIT License](https://opensource.org/license/mit). See [LICENSE-APACHE](https://github.com/frontier-org/frontier?tab=Apache-2.0-1-ov-file#readme), [LICENSE-MIT](https://github.com/frontier-org/frontier?tab=MIT-2-ov-file#readme) and [NOTICE](https://github.com/frontier-org/frontier/blob/main/NOTICE) for details.*
+*Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) or [The MIT License](https://opensource.org/license/mit). See [LICENSE-APACHE](https://github.com/frontier-org/frontier?tab=Apache-2.0 WITH LLVM-exception-1-ov-file#readme), [LICENSE-MIT](https://github.com/frontier-org/frontier?tab=MIT-2-ov-file#readme) and [NOTICE](https://github.com/frontier-org/frontier/blob/main/NOTICE) for details.*
 
 Copyright (c) 2026 The Frontier Framework Authors  
-SPDX-License-Identifier: Apache-2.0 OR MIT
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT

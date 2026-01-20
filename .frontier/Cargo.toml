@@ -1,10 +1,10 @@
 # Copyright (c) 2026 The Frontier Framework Authors
-# SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT
 
 [package]
 name = "frontier"
 authors = ["The Frontier Framework Authors <https://github.com/frontier-org>"]
-license = "Apache-2.0 OR MIT"
+license = "Apache-2.0 WITH LLVM-exception OR MIT"
 repository = "https://github.com/frontier-org/frontier"
 edition = "2021"
 build = "build.rs"

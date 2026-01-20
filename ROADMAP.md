@@ -35,4 +35,4 @@ A strategic overview of the development phases for **Frontier**, from initial se
 * **Folders are not embedded:** Folders within `app/frontend/` are not being embedded.
 
 Copyright (c) 2026 The Frontier Framework Authors  
-SPDX-License-Identifier: Apache-2.0 OR MIT
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT
