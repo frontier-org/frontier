@@ -36,6 +36,9 @@ jobs:
             cargo install cargo-about
           fi
 
+      - name: Generate NOTICE-CARGO
+        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
+
       - name: Install cargo-sbom
         run: |
           if ! command -v cargo-sbom &> /dev/null; then
@@ -44,10 +47,8 @@ jobs:
 
       - name: Generate SPDX JSON
         run: |
-          cargo sbom --manifest-path .frontier/Cargo.toml --output-format spdx-json > LICENSE-CARGO.spdx.json
-
-      - name: Generate NOTICE-CARGO
-        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
+          cd .frontier
+          cargo sbom > ../LICENSE-CARGO.spdx.json
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
