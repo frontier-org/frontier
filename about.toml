@@ -8,8 +8,8 @@ accepted = [
     "0BSD",
     "Zlib",
     "Unicode-DFS-2016",
-    "Unlicense",
     "CC0-1.0",
+    "Unlicense"
 ]
 
 [[clarify]]
