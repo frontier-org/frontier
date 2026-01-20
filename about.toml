@@ -1,3 +1,6 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
 accepted = [
     "MIT",
     "Apache-2.0",
@@ -12,8 +15,5 @@ accepted = [
     "Unlicense"
 ]
 
-[[clarify]]
-expression = "Apache-2.0 OR MIT"
-license-files = [
-    { path = "LICENSE", license = "Apache-2.0" }
-]
+[ring.clarify]
+license = "Apache-2.0 OR MIT"
