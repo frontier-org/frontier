@@ -24,26 +24,15 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Cache Cargo Binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo/bin/cargo-about
-          key: ${{ runner.os }}-cargo-about
+      - name: Install cargo-binstall
+        uses: taiki-e/install-action@cargo-binstall
 
-      - name: Install cargo-about
+      - name: Install tools (Pre-compiled)
         run: |
-          if ! command -v cargo-about &> /dev/null; then
-            cargo install cargo-about
-          fi
+          cargo binstall --no-confirm cargo-about cargo-sbom
 
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
-
-      - name: Install cargo-sbom
-        run: |
-          if ! command -v cargo-sbom &> /dev/null; then
-            cargo install cargo-sbom
-          fi
 
       - name: Generate SPDX JSON
         run: |
