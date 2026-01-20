@@ -39,10 +39,13 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
+      - name: Generate LICENSE-CARGO.spdx.json
+        run: cargo about generate spdx-json.hbs --manifest-path .frontier/Cargo.toml > LICENSE-CARGO.spdx.json
+
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update LICENSE-CARGO.spdx.json and NOTICE-CARGO"
-          file_pattern: 'NOTICE-CARGO'
+          file_pattern: 'LICENSE-CARGO.spdx.json NOTICE-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
