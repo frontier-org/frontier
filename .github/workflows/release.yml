@@ -26,11 +26,13 @@ jobs:
 
       - name: Organize and Clean
         run: |
-          mv LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json LICENSE-CARGO.spdx.json NOTICE NOTICE-CARGO .frontier/
-          mkdir ../temp
-          mv .frontier/ back.bat front.bat frontier.bat ../temp/
-          rm -rf ..?* .[!.]* *
-          mv ../temp/* .
+          shopt -s dotglob
+          mv LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json LICENSE-CARGO.spdx.json NOTICE NOTICE-CARGO .frontier/ 2>/dev/null || true
+          mkdir ../temp_release
+          mv .frontier back.bat front.bat frontier.bat ../temp_release/
+          rm -r *
+          mv ../temp_release/* .
+          shopt -u dotglob
 
       - name: Create ZIP
         run: zip -r Frontier.zip .
