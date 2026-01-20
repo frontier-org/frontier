@@ -33,6 +33,7 @@ jobs:
           format: spdx-json
           output-file: LICENSE/LICENSE.spdx.json
           artifact-name: "Frontier Framework"
+          upload-artifact: false
           upload-release-assets: false
 
       - name: Link and Format SPDX
