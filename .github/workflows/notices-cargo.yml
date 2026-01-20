@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Generate NOTICES-CARGO
-        run: cargo about generate .frontier/about.hbs --manifest-path .frontier/Cargo.toml > NOTICES-CARGO
+        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICES-CARGO
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
