@@ -33,7 +33,7 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: |
           cd .github/workflows/cargo-license/
-          cargo about generate ../../../about-cargo.hbs --manifest-path ../../../.frontier/Cargo.toml > LICENSE/NOTICE-CARGO
+          cargo about generate ../../../about-cargo.hbs --manifest-path ../../../.frontier/Cargo.toml > ../../../LICENSE/NOTICE-CARGO
 
       - name: Generate SPDX JSON
         run: |
