@@ -31,20 +31,20 @@ jobs:
         with:
           path: .
           format: spdx-json
-          output-file: LICENSE.spdx.json
+          output-file: LICENSE/LICENSE.spdx.json
           artifact-name: "Frontier Framework"
           artifact-version: ${{ github.ref_name }}
 
       - name: Link and Format SPDX
         run: |
-          CARGO_MD5=$(md5sum LICENSE-CARGO.spdx.json | cut -d' ' -f1)
+          CARGO_MD5=$(md5sum LICENSE/LICENSE-CARGO.spdx.json | cut -d' ' -f1)
           jq --arg md5 "$CARGO_MD5" \
             '.externalDocumentRefs += [{
               "externalDocumentId": "DocumentRef-Cargo-Deps",
-              "spdxDocument": "LICENSE-CARGO.spdx.json",
+              "spdxDocument": "LICENSE/LICENSE-CARGO.spdx.json",
               "checksum": { "algorithm": "MD5", "checksumValue": $md5 }
-            }]' LICENSE.spdx.json > formatted.json
-          mv formatted.json LICENSE.spdx.json
+            }]' LICENSE/LICENSE.spdx.json > formatted.json
+          mv formatted.json LICENSE/LICENSE.spdx.json
 
       - name: Commit SPDX Document
         uses: stefanzweifel/git-auto-commit-action@v5
