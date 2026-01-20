@@ -25,15 +25,18 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Cargo Binary
-      uses: actions/cache@v4
-      with:
-        path: ~/.cargo/bin/cargo-about
-        key: ${{ runner.os }}-cargo-about
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/cargo-about
+          key: ${{ runner.os }}-cargo-about
 
       - name: Install cargo-about
         run: |
           if ! command -v cargo-about &> /dev/null; then
+            echo "cargo-about não encontrado no cache. Instalando..."
             cargo install cargo-about
+          else
+            echo "cargo-about restaurado do cache com sucesso!"
           fi
 
       - name: Generate NOTICES-CARGO
@@ -42,7 +45,7 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update third-party Cargo notices"
+          commit_message: "docs: update third-party cargo notices [skip ci]"
           file_pattern: 'NOTICES-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
