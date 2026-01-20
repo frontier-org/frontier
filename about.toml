@@ -14,6 +14,3 @@ accepted = [
     "CC0-1.0",
     "Unlicense"
 ]
-
-[ring.clarify]
-license = "Apache-2.0 OR MIT"
