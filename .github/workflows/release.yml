@@ -27,7 +27,7 @@ jobs:
       - name: Organize and Clean
         run: |
           shopt -s dotglob
-          mv LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json NOTICE LICENSE/
+          mv LICENSE-APACHE LICENSE-MIT NOTICE LICENSE/
           mv docs LICENSE .frontier/
           mkdir ../temp
           mv .frontier back.bat front.bat frontier.bat ../temp/
