@@ -14,11 +14,11 @@ permissions:
   contents: write
 
 jobs:
-  update-cargo:
-    uses: ./.github/workflows/update-cargo.yml
+  cargo-update:
+    uses: ./.github/workflows/cargo-update.yml
 
   generate:
-    needs: [ update-cargo ]
+    needs: [ cargo-update ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -38,7 +38,7 @@ jobs:
       - name: Commit SPDX Document
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: update LICENSE.spdx.json for version ${{ github.ref_name }} [skip ci]"
+          commit_message: "Update LICENSE.spdx.json"
           file_pattern: 'LICENSE.spdx.json'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

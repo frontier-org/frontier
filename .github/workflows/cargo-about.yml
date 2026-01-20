@@ -1,7 +1,7 @@
 # Copyright (c) 2026 The Frontier Framework Authors
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-name: Generate Cargo Notices
+name: Generate about-cargo Files
 
 on:
   workflow_call:
@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  generate:
+  cargo-about:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -36,13 +36,13 @@ jobs:
             cargo install cargo-about
           fi
 
-      - name: Generate NOTICES-CARGO
-        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICES-CARGO
+      - name: Generate NOTICE-CARGO
+        run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: update third-party cargo notices [skip ci]"
-          file_pattern: 'NOTICES-CARGO'
+          commit_message: "Update LICENSE-CARGO.spdx.json and NOTICE-CARGO"
+          file_pattern: 'NOTICE-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
