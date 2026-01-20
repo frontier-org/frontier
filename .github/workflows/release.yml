@@ -23,29 +23,29 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
-
-      - name: Organize and Clean
+      
+      - name: Work Directory Setup
         run: |
-          shopt -s dotglob
           mv LICENSE-APACHE LICENSE-MIT NOTICE LICENSE/
-          mv docs LICENSE .frontier/
-          mkdir ../temp
-          mv .frontier back.bat front.bat frontier.bat ../temp/
-          rm -r *
-          mv ../temp/* .
-          shopt -u dotglob
+          mv docs LICENSE frontier/
+
+      - name: Windows Package Setup
+        run: |
+          mkdir windows-package/.frontier/
+          cp -r frontier/* windows-package/.frontier/
+          mv cli/windows/* windows-package/
 
       - name: Create ZIP
-        run: zip -r Frontier.zip .
+        run: zip -r Frontier-Windows.zip windows-package/
 
       - name: Scan with VirusTotal
         id: vt_scan
         run: |
-          FILE_HASH=$(sha256sum Frontier.zip | cut -d ' ' -f 1)
+          FILE_HASH=$(sha256sum Frontier-Windows.zip | cut -d ' ' -f 1)
           curl --request POST \
             --url https://www.virustotal.com/api/v3/files \
             --header "x-apikey: ${{ secrets.VIRUSTOTAL_API_KEY }}" \
-            --form "file=@Frontier.zip"
+            --form "file=@Frontier-Windows.zip"
           
           echo "REPORT_URL=https://www.virustotal.com/gui/file/$FILE_HASH" >> $GITHUB_ENV
 
@@ -57,7 +57,7 @@ jobs:
             [![Downloads](https://img.shields.io/github/downloads/${{ github.repository }}/${{ github.ref_name }}/total)](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}) [![VirusTotal](https://img.shields.io/badge/virustotal-status-navy)](${{ env.REPORT_URL }})
             
           generate_release_notes: true
-          files: Frontier.zip
+          files: Frontier-Windows.zip
           prerelease: ${{ contains(github.ref_name, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

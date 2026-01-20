@@ -1,0 +1,47 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT
+
+[package]
+name = "frontier"
+authors = ["The Frontier Framework Authors <https://github.com/frontier-org>"]
+license = "Apache-2.0 WITH LLVM-exception OR MIT"
+repository = "https://github.com/frontier-org/frontier"
+edition = "2021"
+build = "build.rs"
+
+[[bin]]
+name = "manager"
+path = "src/manager.rs"
+
+[[bin]]
+name = "core"
+path = "src/core.rs"
+
+[dependencies]
+wry = "0.24"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.7"
+rust-embed = "6.8"
+uuid = { version = "1.0", features = ["v4"] }
+walkdir = "2"
+image = "0.24"
+regex = "1.10"
+evalexpr = "11.3"
+notify = "6.1"
+winapi = { version = "0.3", features = ["wincon"] }
+mime_guess = "2.0"
+native-dialog = "0.7"
+percent-encoding = "2.3"
+webbrowser = "1.0"
+lazy_static = "1.4"
+
+[build-dependencies]
+winres = "0.1"
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+panic = "abort"
+codegen-units = 1
