@@ -1,7 +1,7 @@
 # Copyright (c) 2026 The Frontier Framework Authors
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT
 
-name: Generate about-cargo Files
+name: Generate Cargo License Files
 
 on:
   workflow_call:
@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  generate-cargo-about:
+  generate-cargo-license:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -30,23 +30,17 @@ jobs:
           path: ~/.cargo/bin/cargo-about
           key: ${{ runner.os }}-cargo-about
 
-      - name: Install cargo-about
+      - name: Install Tools
+        if: steps.cache-bin.outputs.cache-hit != 'true'
         run: |
-          if ! command -v cargo-about &> /dev/null; then
-            cargo install cargo-about
-          fi
+          cargo install cargo-about
+          cargo install cargo-deny
 
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
-      - name: Install cargo-deny
-        run: |
-          if ! command -v cargo-deny &> /dev/null; then
-            cargo install cargo-deny
-          fi
-
       - name: Generate SPDX JSON
-        run: cargo deny list --manifest-path .frontier/Cargo.toml -f json > LICENSE-CARGO.spdx.json
+        run: cargo deny --root .frontier list -f json > LICENSE-CARGO.spdx.json
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
