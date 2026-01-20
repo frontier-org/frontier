@@ -27,7 +27,10 @@ jobs:
       - name: Organize and Clean
         run: |
           mv -f LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json NOTICE NOTICES-CARGO .frontier/
-          rm -rf .github .git .gitignore README.md MANUAL.md ROADMAP.md LOGS.md
+          mkdir ../temp
+          mv .frontier/ back.bat build.bat front.bat ../temp/
+          rm -rf ..?* .[!.]* *
+          mv ../temp/* .
 
       - name: Create ZIP
         run: zip -r Frontier.zip .
