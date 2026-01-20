@@ -49,6 +49,7 @@ jobs:
         run: |
           cd .frontier
           cargo sbom > ../LICENSE-CARGO.spdx.json
+          cd ..
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5

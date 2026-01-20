@@ -29,7 +29,7 @@ jobs:
           mv LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json LICENSE-CARGO.spdx.json NOTICE NOTICE-CARGO .frontier/
           mkdir ../temp
           mv .frontier/ back.bat front.bat frontier.bat ../temp/
-          rm -r ..?* .[!.]* *
+          rm -rf ..?* .[!.]* *
           mv ../temp/* .
 
       - name: Create ZIP
