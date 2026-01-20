@@ -44,13 +44,7 @@ jobs:
 
       - name: Generate SPDX JSON
         run: |
-          cargo sbom --manifest-path .frontier/Cargo.toml --output-format spdx-json > LICENSE.spdx.json
-
-      - name: Commit SPDX Document
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update LICENSE.spdx.json"
-          file_pattern: 'LICENSE.spdx.json'
+          cargo sbom --manifest-path .frontier/Cargo.toml --output-format spdx-json > LICENSE-CARGO.spdx.json
 
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
@@ -58,7 +52,7 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update and NOTICE-CARGO"
+          commit_message: "Update and LICENSE-CARGO.spdx.json NOTICE-CARGO"
           file_pattern: 'LICENSE-CARGO.spdx.json NOTICE-CARGO'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
