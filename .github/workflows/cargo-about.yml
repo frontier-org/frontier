@@ -39,6 +39,12 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 
+      - name: Install cargo-deny
+        run: |
+          if ! command -v cargo-deny &> /dev/null; then
+            cargo install cargo-deny
+          fi
+
       - name: Generate SPDX JSON
         run: cargo deny list --manifest-path .frontier/Cargo.toml -f json > LICENSE-CARGO.spdx.json
 
