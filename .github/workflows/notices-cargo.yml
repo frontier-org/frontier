@@ -1,0 +1,41 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+name: Generate Cargo Notices
+
+on:
+  workflow_call:
+  push:
+    branches: [ main ]
+    paths: [ 'Cargo.lock' ]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-about
+        run: |
+          cd .frontier/
+          cargo install cargo-about
+
+      - name: Generate NOTICES-CARGO
+        run: cargo about generate about.hbs > ../NOTICES-CARGO
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update third-party Cargo notices"
+          file_pattern: 'NOTICES-CARGO'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

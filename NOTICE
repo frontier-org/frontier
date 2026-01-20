@@ -6,30 +6,3 @@ This product includes software developed by The Frontier Framework Authors
 
 This software is dual-licensed under the Apache License, Version 2.0 and
 the MIT License.
-
-This product includes the following third-party software:
-
-Wry
-Copyright (c) 2019-2023 Tauri Programme within The Commons Conservancy
-https://github.com/tauri-apps/wry
-Apache-2.0 OR MIT
-
-Serde / Serde JSON
-Copyright (c) 2014-2024 Erick Tryzelaar and David Tolnay
-https://serde.rs/
-Apache-2.0 OR MIT
-
-Winapi-rs
-Copyright (c) 2015-2018 The winapi-rs Developers
-https://github.com/retep998/winapi-rs
-Apache-2.0 OR MIT
-
-Lazy Static
-Copyright (c) 2010-2020 The Rust Project Developers
-https://github.com/rust-lang-nursery/lazy-static.rs
-Apache-2.0 OR MIT
-
-Other dependencies included via Cargo (as listed in Cargo.toml):
-The dependencies uuid, walkdir, image, regex, evalexpr, notify,
-mime_guess, native-dialog, percent-encoding, and webbrowser are, for the
-most part, licensed under Apache-2.0 OR MIT.

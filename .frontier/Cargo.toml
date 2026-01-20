@@ -3,8 +3,10 @@
 
 [package]
 name = "frontier"
-edition = "2021"
+authors = ["The Frontier Framework Authors <https://github.com/frontier-org>"]
 license = "Apache-2.0 OR MIT"
+repository = "https://github.com/frontier-org/frontier"
+edition = "2021"
 build = "build.rs"
 
 [[bin]]

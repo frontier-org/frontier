@@ -1,0 +1,39 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+name: Update Frontier Cargo Dependencies
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Update Cargo Dependencies
+        run: |
+          cd .frontier/
+          cargo update
+      
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update Frontier Cargo dependencies"
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  notices:
+    needs: [ update ]
+    uses: ./.github/workflows/notices-cargo.yml

@@ -1,0 +1,23 @@
+# Copyright (c) 2026 The Frontier Framework Authors  
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+accepted = [
+    "MIT",
+    "Apache-2.0",
+    "MIT OR Apache-2.0",
+    "BSL-1.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "0BSD",
+    "Zlib",
+    "Unicode-DFS-2016",
+    "Unlicense",
+    "CC0-1.0",
+]
+
+[clarification.dual-licensed]
+expression = "Apache-2.0 OR MIT"
+license = "Apache-2.0"
+
+[labels]
