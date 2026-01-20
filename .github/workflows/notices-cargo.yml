@@ -7,7 +7,7 @@ on:
   workflow_call:
   push:
     branches: [ main ]
-    paths: [ 'Cargo.lock' ]
+    paths: [ '.frontier/Cargo.lock' ]
 
 permissions:
   contents: write
