@@ -6,7 +6,7 @@ frontier/target/
 app/
 dist/
 modules/
-back.bat
-front.bat
-frontier.bat
-frontier.toml
+/back.bat
+/front.bat
+/frontier.bat
+/frontier.toml
