@@ -36,4 +36,4 @@ jobs:
           
   generate-cargo-license:
     needs: [ update-cargo-dependencies ]
-    uses: ./.github/workflows/cargo-license.yml
+    uses: ./.github/workflows/cargo-license/cargo-license.yml

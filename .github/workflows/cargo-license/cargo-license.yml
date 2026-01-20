@@ -30,12 +30,15 @@ jobs:
       - name: Install tools
         run:  cargo binstall --no-confirm cargo-about cargo-sbom
 
-      - name: Generate NOTICE-CARGO and LICENSE-CARGO.spdx.json
+      - name: Generate NOTICE-CARGO
         run: |
-          cd .frontier
-          cargo about generate ../about-cargo.hbs > ../NOTICE-CARGO
-          cargo sbom > ../LICENSE-CARGO.spdx.json
-          cd ..
+          cd .github/workflows/cargo-license/
+          cargo about generate ../../../about-cargo.hbs --manifest-path ../../../.frontier/Cargo.toml > LICENSE/NOTICE-CARGO
+
+      - name: Generate SPDX JSON
+        run: |
+          cd .frontier/
+          cargo sbom > ../LICENSE/LICENSE-CARGO.spdx.json
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5

@@ -27,11 +27,11 @@ jobs:
       - name: Organize and Clean
         run: |
           shopt -s dotglob
-          mv LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json LICENSE-CARGO.spdx.json NOTICE NOTICE-CARGO .frontier/ 2>/dev/null || true
-          mkdir ../temp_release
-          mv .frontier back.bat front.bat frontier.bat ../temp_release/
+          mv LICENSE .frontier/
+          mkdir ../temp
+          mv .frontier back.bat front.bat frontier.bat ../temp/
           rm -r *
-          mv ../temp_release/* .
+          mv ../temp/* .
           shopt -u dotglob
 
       - name: Create ZIP
