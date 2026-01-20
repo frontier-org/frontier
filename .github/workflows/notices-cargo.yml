@@ -33,10 +33,7 @@ jobs:
       - name: Install cargo-about
         run: |
           if ! command -v cargo-about &> /dev/null; then
-            echo "cargo-about não encontrado no cache. Instalando..."
             cargo install cargo-about
-          else
-            echo "cargo-about restaurado do cache com sucesso!"
           fi
 
       - name: Generate NOTICES-CARGO
