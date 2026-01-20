@@ -36,6 +36,22 @@ jobs:
             cargo install cargo-about
           fi
 
+      - name: Install cargo-sbom
+        run: |
+          if ! command -v cargo-sbom &> /dev/null; then
+            cargo install cargo-sbom
+          fi
+
+      - name: Generate SPDX JSON
+        run: |
+          cargo sbom --manifest-path .frontier/Cargo.toml --output-format spdx-json > LICENSE.spdx.json
+
+      - name: Commit SPDX Document
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update LICENSE.spdx.json"
+          file_pattern: 'LICENSE.spdx.json'
+
       - name: Generate NOTICE-CARGO
         run: cargo about generate about-cargo.hbs --manifest-path .frontier/Cargo.toml > NOTICE-CARGO
 

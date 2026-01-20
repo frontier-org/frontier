@@ -26,24 +26,14 @@ jobs:
         with:
           ref: main
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Rust Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: ".frontier -> target"
-
-      - name: Fetch Dependencies
-        run: cargo fetch --manifest-path .frontier/Cargo.toml
-
       - name: Generate SBOM (SPDX)
         uses: anchore/sbom-action@v0
         with:
-          manifest-path: .frontier/Cargo.toml
+          path: .
           format: spdx-json
           output-file: LICENSE.spdx.json
-          args: --catalogers cargo-cataloger
+          artifact-name: "Frontier Framework"
+          artifact-version: ${{ github.ref_name }}
 
       - name: Commit SPDX Document
         uses: stefanzweifel/git-auto-commit-action@v5
