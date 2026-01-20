@@ -26,11 +26,16 @@ jobs:
         with:
           ref: main
 
+- name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Fetch Dependencies
+        run: cargo fetch --manifest-path .frontier/Cargo.toml
+
       - name: Generate SBOM (SPDX)
         uses: anchore/sbom-action@v0
         with:
-          path: .frontier/
-          manifest-path: .frontier/Cargo.toml
+          path: .
           format: spdx-json
           output-file: LICENSE.spdx.json
           artifact-name: "Frontier Framework"
