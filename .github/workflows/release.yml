@@ -37,8 +37,8 @@ jobs:
 
       - name: Create ZIP files
         run: |
-          cd windows-package/
-          zip -r ../Frontier-Windows.zip .
+          shopt -s dotglob
+          zip -r Frontier-Windows.zip windows-package/*
 
       - name: Scan with VirusTotal
         id: vt_scan
