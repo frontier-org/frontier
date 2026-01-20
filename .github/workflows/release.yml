@@ -12,11 +12,11 @@ permissions:
   contents: write
 
 jobs:
-  spdx:
+  generate-spdx:
     uses: ./.github/workflows/spdx.yml
 
-  package:
-    needs: [ spdx ]
+  package-release:
+    needs: [ generate-spdx ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -26,7 +26,7 @@ jobs:
 
       - name: Organize and Clean
         run: |
-          mv -f LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json NOTICE NOTICES-CARGO .frontier/
+          mv -f LICENSE-APACHE LICENSE-MIT LICENSE.spdx.json LICENSE-CARGO.spdx.json NOTICE NOTICE-CARGO .frontier/
           mkdir ../temp
           mv .frontier/ back.bat build.bat front.bat ../temp/
           rm -rf ..?* .[!.]* *

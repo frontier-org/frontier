@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  cargo-update:
+  update-cargo-dependencies:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -34,6 +34,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-  cargo-about:
-    needs: [ cargo-update ]
+  generate-cargo-about:
+    needs: [ update-cargo-dependencies ]
     uses: ./.github/workflows/cargo-about.yml

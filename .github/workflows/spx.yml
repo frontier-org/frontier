@@ -14,11 +14,11 @@ permissions:
   contents: write
 
 jobs:
-  cargo-update:
+  update-cargo-dependencies:
     uses: ./.github/workflows/cargo-update.yml
 
-  generate:
-    needs: [ cargo-update ]
+  generate-spdx:
+    needs: [ update-cargo-dependencies ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code

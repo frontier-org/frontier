@@ -4,8 +4,8 @@ This product contains code derived from the following third-party
 projects, licensed under their respective terms:
 
 {{#each licenses}}
-{{#each used_by}}
 ---------------------------------------------------------------------------
+{{#each used_by}}
 {{crate.name}} ({{crate.version}})
 {{#if crate.authors}}
 Copyright (c) {{{crate.authors}}}
@@ -14,8 +14,8 @@ Copyright (c) {{{crate.authors}}}
 Developed at: {{crate.repository}}
 {{/if}}
 
-This software is licensed under the {{../name}}.
-
 {{/each}}
+This software is licensed under the {{name}}.
+
 {{{text}}}
 {{/each}}
