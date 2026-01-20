@@ -24,13 +24,20 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Cache Cargo Binary
+      uses: actions/cache@v4
+      with:
+        path: ~/.cargo/bin/cargo-about
+        key: ${{ runner.os }}-cargo-about
+
       - name: Install cargo-about
         run: |
-          cd .frontier/
-          cargo install cargo-about
+          if ! command -v cargo-about &> /dev/null; then
+            cargo install cargo-about
+          fi
 
       - name: Generate NOTICES-CARGO
-        run: cargo about generate about.hbs > ../NOTICES-CARGO
+        run: cargo about generate .frontier/about.hbs --manifest-path .frontier/Cargo.toml > NOTICES-CARGO
 
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
