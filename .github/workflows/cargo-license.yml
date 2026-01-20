@@ -7,7 +7,7 @@ on:
   workflow_call:
   push:
     branches: [ main ]
-    paths: [ '.frontier/Cargo.lock' ]
+    paths: [ 'frontier/Cargo.lock' ]
 
 permissions:
   contents: write
@@ -33,11 +33,11 @@ jobs:
       - name: Generate NOTICE-CARGO
         run: |
           cd .github/workflows/cargo-license/
-          cargo about generate about-cargo.hbs --manifest-path ../../../.frontier/Cargo.toml > ../../../LICENSE/NOTICE-CARGO
+          cargo about generate about-cargo.hbs --manifest-path ../../../frontier/Cargo.toml > ../../../LICENSE/NOTICE-CARGO
 
       - name: Generate SPDX JSON
         run: |
-          cd .frontier/
+          cd frontier/
           cargo sbom > ../LICENSE/LICENSE-CARGO.spdx.json
 
       - name: Commit Changes

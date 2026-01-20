@@ -23,7 +23,7 @@ jobs:
 
       - name: Update Cargo Dependencies
         run: |
-          cd .frontier/
+          cd frontier/
           cargo update
       
       - name: Commit Changes
