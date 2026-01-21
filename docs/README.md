@@ -16,19 +16,13 @@
 
 ## How to Get Frontier?
 
-**Windows**
+### Windows
 
 ```powershell
 powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 ```
 
-*For more information, refer to the [MANUAL.md installation section](./MANUAL.md/#-1-installation).*
-
-### Requirements
-
-You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC from [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) installed (note that rustup can install MSVC for you).
-
-The project is now ready to use. See [MANUAL.md](./MANUAL.md) for more information.
+*For more information about install or uses, refer to the [MANUAL.md](./MANUAL.md).*
 
 ## System Architecture
 

@@ -10,11 +10,22 @@
 
 ### Windows
 
+**Requirements:**
+
+You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC from [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) installed (note that rustup can install MSVC for you).
+
 **Syntax:**
 
 ```powershell
 iex(irm https://frontier-fw.dev/get.ps1)
 ```
+
+**Step-by-Step:**
+
+1. Open **PowerShell**.
+2. Set the variables before running the install command (e.g., `$v='0.1.0';`).
+3. Run the install command (e.g., `iex(irm https://frontier-fw.dev/get.ps1)`).
+4. Follow the installation instructions.
 
 **Available Variables:**
 
@@ -30,13 +41,6 @@ iex(irm https://frontier-fw.dev/get.ps1)
 ```powershell
 $v='0.1.0'; $p='.'; $pr=$true; $ni=$true; $nu=$true; $h=$true; iex(irm https://frontier-fw.dev/get.ps1)
 ```
-
-**Step-by-Step:**
-
-1. Open **PowerShell**.
-2. Set the variables before running the install command (e.g., `$v='0.1.0';`).
-3. Run the install command (e.g., `iex(irm https://frontier-fw.dev/get.ps1)`).
-4. Follow the installation instructions.
 
 ## 📂 2. Project Structure
 
