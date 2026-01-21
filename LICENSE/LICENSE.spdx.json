@@ -3,14 +3,14 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": ".",
-  "documentNamespace": "https://anchore.com/syft/dir/642c056a-e762-48c1-ad34-ab4d13c53478",
+  "documentNamespace": "https://anchore.com/syft/dir/2eb9a2b9-fa59-4533-99d7-bb94de40e3b4",
   "creationInfo": {
     "licenseListVersion": "3.27",
     "creators": [
       "Organization: Anchore, Inc",
       "Tool: syft-1.40.0"
     ],
-    "created": "2026-01-21T00:35:38Z"
+    "created": "2026-01-21T01:30:07Z"
   },
   "packages": [
     {
@@ -3138,8 +3138,8 @@
     },
     {
       "name": "frontier",
-      "SPDXID": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
-      "versionInfo": "0.0.0",
+      "SPDXID": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
+      "versionInfo": "0.1.0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
@@ -3151,12 +3151,12 @@
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:frontier:frontier:0.0.0:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:frontier:frontier:0.1.0:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:cargo/frontier@0.0.0"
+          "referenceLocator": "pkg:cargo/frontier@0.1.0"
         }
       ]
     },
@@ -16612,11 +16612,11 @@
       "checksums": [
         {
           "algorithm": "SHA1",
-          "checksumValue": "57b61eae2874aed7d4f6549a6e2ee323feab8070"
+          "checksumValue": "de50bf8e2a8cd7d098cf28ec15a6e2a4b005b2eb"
         },
         {
           "algorithm": "SHA256",
-          "checksumValue": "015cde29b3e278d023cbc0dbff0ab3df4714426468f666c78fafe862f4d290a3"
+          "checksumValue": "006d95e07a6b200da7d17df1d4cd25c9de2d3aa6a5339a42e338c3630844ef31"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -16669,7 +16669,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-winapi-02baa39b8815ce1a",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -17294,11 +17294,6 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-serde-1a213f2cf3605870",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-serde-1a213f2cf3605870",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-toml-614218e213ebc673",
       "relationshipType": "DEPENDENCY_OF"
     },
@@ -17325,6 +17320,11 @@
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-serde-1a213f2cf3605870",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-serde-json-d93496d3f1da9e33",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-serde-1a213f2cf3605870",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -17624,7 +17624,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-mime-guess-30190c857650648a",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -17704,7 +17704,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-rust-embed-37e27a7dcddcdab3",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -17764,7 +17764,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-native-dialog-3da80d2c84fb218f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -18139,12 +18139,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-lazy-static-53c6d5a9dfbee53b",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-lazy-static-53c6d5a9dfbee53b",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -18439,12 +18439,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-image-61d6ef2c18531361",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-image-61d6ef2c18531361",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -19359,12 +19359,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-regex-96e9e9ae29cfe887",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-sys-d85556c459c5d1bc",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-regex-96e9e9ae29cfe887",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-sys-d85556c459c5d1bc",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -19489,12 +19489,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-percent-encoding-a16a6fe19ec6d40f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-form-urlencoded-cd7c1586d22f4d78",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-percent-encoding-a16a6fe19ec6d40f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-form-urlencoded-cd7c1586d22f4d78",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20399,7 +20399,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-toml-cf9e5ff97c8075d3",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20434,12 +20434,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-uuid-d5ceba36f174ce92",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-uuid-d5ceba36f174ce92",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-976a5aace45717af",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20464,12 +20464,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-serde-json-d93496d3f1da9e33",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-sys-d85556c459c5d1bc",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-serde-json-d93496d3f1da9e33",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-sys-d85556c459c5d1bc",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20499,7 +20499,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-wry-dc5fb636898ce17f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20704,7 +20704,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-notify-e75bf74f7970e7fc",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20774,11 +20774,6 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-walkdir-ea3dd2f5df3057af",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-walkdir-ea3dd2f5df3057af",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-jni-557e9be7038b4d54",
       "relationshipType": "DEPENDENCY_OF"
     },
@@ -20790,6 +20785,11 @@
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-walkdir-ea3dd2f5df3057af",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-rust-embed-utils-b2449f0853ea8f52",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-walkdir-ea3dd2f5df3057af",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20864,7 +20864,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-evalexpr-f2592a638af2be00",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20934,7 +20934,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-winres-f7c07e18588813bc",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -20969,7 +20969,7 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-webbrowser-fc3cb2c5161dfd23",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -21784,12 +21784,6 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-zmij-543586e348d6391a",
-      "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
-      "relationshipType": "OTHER",
-      "comment": "evident-by: indicates the package's existence is evident by the given file"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
       "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
       "relationshipType": "OTHER",
       "comment": "evident-by: indicates the package's existence is evident by the given file"
@@ -22965,6 +22959,12 @@
       "comment": "evident-by: indicates the package's existence is evident by the given file"
     },
     {
+      "spdxElementId": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
+      "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
+      "relationshipType": "OTHER",
+      "comment": "evident-by: indicates the package's existence is evident by the given file"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-rust-crate-phf-generator-dc46f59331f43eef",
       "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
       "relationshipType": "OTHER",
@@ -23760,7 +23760,7 @@
     },
     {
       "spdxElementId": "SPDXRef-DocumentRoot-Directory-.",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-54535a76150888c5",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-frontier-db6f4a086057417f",
       "relationshipType": "CONTAINS"
     },
     {
@@ -25265,7 +25265,7 @@
       "spdxDocument": "LICENSE/LICENSE-CARGO.spdx.json",
       "checksum": {
         "algorithm": "MD5",
-        "checksumValue": "a37a742ff59795783b80fdd337c20cfe"
+        "checksumValue": "44971151ff4be3a55d942ac253f36d2a"
       }
     }
   ]
