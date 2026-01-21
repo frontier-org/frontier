@@ -4,8 +4,6 @@
 @echo off
 set "MANIFEST=.frontier\Cargo.toml"
 
-if not exist ".frontier/target/dev_cache" ( mkdir ".frontier/target/dev_cache" )
-
 if "%~1"=="build" goto :BUILD
 if "%~1"=="dev" goto :DEV
 if "%~1"=="help" goto :HELP

@@ -39,6 +39,27 @@ pub struct RuntimeMeta {
     pub suppress_window: bool,
 }
 
+// Safely splits the command into parts, respecting quotes.
+fn split_shell_args(cmd: &str) -> Vec<String> {
+    let mut args = Vec::new();
+    let mut current = String::new();
+    let mut in_quotes = false;
+    for c in cmd.chars() {
+        if c == '"' {
+            in_quotes = !in_quotes;
+        } else if c == ' ' && !in_quotes {
+            if !current.is_empty() {
+                args.push(current.clone());
+                current.clear();
+            }
+        } else {
+            current.push(c);
+        }
+    }
+    if !current.is_empty() { args.push(current); }
+    args
+}
+
 // Load all module manifests from the modules directory
 pub fn load_modules(modules_path: &Path) -> HashMap<String, ModuleManifest> {
     let mut builders = HashMap::new();
@@ -101,39 +122,51 @@ fn process_single_file(
         .unwrap_or("");
 
     if let Some(rule) = &module.build {
-        let out_filename = if module.interpreter.is_some() {
-            file_path.file_name().unwrap().to_str().unwrap().to_string()
+        // Agnostic extension logic:
+        // If it's a JAR engine, use .jar. Otherwise, default to original or .exe.
+        let out_filename = if let Some(interp) = &module.interpreter {
+            if interp.contains("-jar") {
+                format!("{}.jar", stem)
+            } else {
+                file_path.file_name().unwrap().to_str().unwrap().to_string()
+            }
         } else {
             let exe_ext = if cfg!(windows) { "exe" } else { "" };
-            format!("{}.{}", stem, exe_ext)
+            if exe_ext.is_empty() { stem.to_string() } else { format!("{}.{}", stem, exe_ext) }
         };
 
         let out_path = assets_path.join(&out_filename);
-        let cmd_str = rule
-            .command
-            .replace("%IN%", file_path.to_str().unwrap())
-            .replace("%OUT%", out_path.to_str().unwrap());
+        
+        // Prepare paths for replacement
+        let in_str = file_path.to_str().unwrap_or("");
+        let out_str = out_path.to_str().unwrap_or("");
+        
+        // Split the command from manifest into parts (same as system.rs)
+        let cmd_parts: Vec<String> = split_shell_args(&rule.command)
+            .into_iter()
+            .map(|part| {
+                part.replace("%IN%", in_str).replace("%OUT%", out_str)
+            })
+            .collect();
+
+        if cmd_parts.is_empty() {
+            return;
+        }
 
         println!("   > Building {}", stem);
 
-        let status = if cfg!(windows) {
-            Command::new("cmd")
-                .args(["/C", &cmd_str])
-                .status()
-                .unwrap_or_else(|_| std::process::ExitStatus::default())
-        } else {
-            Command::new("sh")
-                .arg("-c")
-                .arg(&cmd_str)
-                .status()
-                .unwrap_or_else(|_| std::process::ExitStatus::default())
-        };
+        // Execute command as an array of arguments. 
+        // Rust handles spaces and batch files automatically on Windows.
+        let status = Command::new(&cmd_parts[0])
+            .args(&cmd_parts[1..])
+            .status()
+            .unwrap_or_else(|_| std::process::ExitStatus::default());
 
         if !status.success() {
             panic!("Failed to build {}", stem);
         }
 
-        // Generate metadata
+        // Generate metadata pointing to the correct final file (e.g. .jar)
         let meta = RuntimeMeta {
             trigger: stem.to_string(),
             filename: out_filename,
@@ -149,7 +182,6 @@ fn process_single_file(
         let out_filename = file_path.file_name().unwrap().to_str().unwrap();
         let _ = fs::copy(file_path, assets_path.join(out_filename));
         
-        // Generate metadata for interpreted files
         let meta = RuntimeMeta {
             trigger: stem.to_string(),
             filename: out_filename.to_string(),
