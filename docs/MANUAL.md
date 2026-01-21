@@ -18,8 +18,8 @@ iex(irm https://frontier-fw.dev/get.ps1)
 
 **Available Variables:**
 
-* **`$v`:** Specific version tag (e.g., `0.1.0`).
-* **`$p`:** Target directory (e.g., `MyProject` or `.`).
+* **`$v`:** Specific version tag (e.g., `'0.1.0'`).
+* **`$p`:** Target directory (e.g., `'MyProject'` or `'.'`).
 * **`$pr`:** Boolean (`$true`/`$false`) to force (or not) pre-release.
 * **`$ni`:** Boolean (`$true`) to skip `.gitignore` config.
 * **`$nu`:** Boolean (`$true`) to skip `.frontier update`.
