@@ -22,7 +22,7 @@
 powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 ```
 
-*For more information, refer to the [MANUAL.md installation section](./MANUAL.md#-1-installation).*
+*For more information, refer to the [MANUAL.md installation section](./MANUAL.md/#-1-installation).*
 
 ### Requirements
 
