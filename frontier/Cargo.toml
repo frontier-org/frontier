@@ -3,6 +3,7 @@
 
 [package]
 name = "frontier"
+version = "0.1.0"
 authors = ["The Frontier Framework Authors <https://github.com/frontier-org>"]
 license = "Apache-2.0 WITH LLVM-exception OR MIT"
 repository = "https://github.com/frontier-org/frontier"
