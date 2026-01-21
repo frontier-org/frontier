@@ -6,63 +6,90 @@
 
 > **💡 Example:** Check out this [example](https://github.com/frontier-org/features-example) repository to see how to use Frontier across several languages and all HTML functions.
 
-## 📂 1. Project Structure
+## 💿 1. Installation
+
+### Windows
+
+**Syntax:** `iex(irm https://frontier-fw.dev/get.ps1)`
+
+**Available Variables:**
+
+* `$v`: Specific version tag (e.g., `0.1.0`).
+* `$p`: Target directory (e.g., `MyProject` or `.`).
+* `$pr`: Boolean (`$true`/`$false`) to force (or not) pre-release.
+* `$ni`: Boolean (`$true`) to skip `.gitignore` config.
+* `$nu`: Boolean (`$true`) to skip `.frontier update`.
+* `$h`: Boolean (`$true`) to show this screen.
+
+**Example:**
+
+`$v='0.1.0'; $p='.'; $pr=$true; $ni=$true; $nu=$true; $h=$true; iex(irm https://frontier-fw.dev/get.ps1)`
+
+**Step-by-Step:**
+
+1. Open **PowerShell**.
+2. Set the variables before running the install command (e.g., `$v='0.1.0'`).
+3. Run the install command (e.g., `iex(irm https://frontier-fw.dev/get.ps1)`).
+4. Follow the installation instructions.
+
+## 📂 2. Project Structure
 
 A healthy Frontier project follows this structure:
 
 ```text
 MyProject/
 │
-├── .frontier/             # Framework (Rust, Cache, Build System)
+├── .frontier/            # Framework (Rust, Cache, Build System)
 │
 ├── app/
 |   |
-│   ├── backend/           # Your Scripts and Source Code
+│   ├── backend/          # Your Scripts and Source Code
 │   │   ├── code.c
 │   │   └── script.py
 │   │
-│   └── frontend/          # HTML, CSS, JS and Images
+│   └── frontend/         # HTML, CSS, JS and Images
 │       ├── icon.ico
 │       ├── index.html
 │       ├── script.js
 │       └── style.css
 │
-├── modules/               # Language Definitions (Compilers/Interpreters)
+├── modules/              # Language Definitions (Compilers/Interpreters)
 │   ├── mod_gcc/
 │   └── mod_python/
 │
-├── back.bat               # Direct Backend CLI
-├── front.bat              # Direct Frontend CLI
-├── frontier.bat           # Main CLI
-└── frontier.toml          # Project Settings
+├── back                  # Direct Backend CLI
+├── front                 # Direct Frontend CLI
+├── frontier              # Main CLI
+└── frontier.toml         # Project Settings
 ```
 
-## ⚙️ 2. Executable Configuration (`frontier.toml`)
+## ⚙️ 3. Executable Configuration (`frontier.toml`)
 
 This file controls frontier settings, and the metadata of the final `.exe` file generated on Windows.
 
 **File:** `frontier.toml`
 ```toml
 [app]
-name = "MySuperApp"         # Final file name (e.g. MySuperApp.exe)
-version = "1.0.0"           # Version (appears in File Properties)
-description = "Description" # File description
-copyright = "© 2025 Corp"   # Copyright
-author = "Dev Name"         # Author
-icon = "app/frontend/icon.ico" # EXE icon. MUST BE A VALID .ICO (don't rename png).
+name = "MySuperApp"               # Final file name (e.g. MySuperApp.exe)
+version = "1.0.0"                 # Version (appears in File Properties)
+description = "Description"       # File description
+copyright = "© 2025 Corp"         # Copyright
+author = "Dev Name"               # Author
+icon = "app/frontend/icon.ico"    # EXE icon. MUST BE A VALID .ICO (don't rename png).
 
 [security]
 # Enable opening in a Frontier app window for all pages.
 allowed_internal = [
     "https://github.com/frontier-org/frontier/*"
 ]
+
 # Enable opening in a Frontier app window for all pages.
 allowed_browser = [
     "https://github.com/*"
 ]
 ```
 
-## 🖥️ 3. Frontend & Window Management
+## 🖥️ 4. Frontend & Window Management
 
 Frontier treats HTML as the "window configuration". You control native window behavior using **Meta Tags** in the `<head>`.
 
@@ -231,8 +258,12 @@ name = "Readable Name"  # Module name
 version = "1.0.0"       # Version
 extension = "py"        # Extension this module controls
 
+# (Optional) Embbed extension in a final file if not a default binary (exe)
+# Use this for languages that require a wrapper (Java) or a final executable file (e.g. A Java JAR file)
+target_extension = "jar"
+
 # (Optional) Interpreter to run the final file
-# Use this for script languages (Python, JS, Bat) or Bytecode (Java)
+# Use this for script languages (Python, JS, Bat) or Bytecode (Java, e.g. "java -jar")
 interpreter = "python" 
 
 # (Optional) If true, hides the black console window when running

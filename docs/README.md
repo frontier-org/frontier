@@ -16,22 +16,13 @@
 
 ## How to Get Frontier?
 
-### Using Command
-
-1. Run the **command for your operating system**, in the working directory.
-
-**Windows:**
+**Windows**
 
 ```powershell
 powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
 ```
 
-2. Enter a name for the project folder, or leave it blank to use the current directory.
-
-### Using Frontier.zip
-
-1. Download [**Frontier-[Operating System].zip**](https://github.com/frontier-org/frontier/releases).
-2. Extract the files to the project folder.
+*For more information, refer to the [MANUAL.md](./MANUAL.md#-1-install) installation section.*
 
 ### Requirements
 
