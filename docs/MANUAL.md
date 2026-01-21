@@ -10,25 +10,31 @@
 
 ### Windows
 
-**Syntax:** `iex(irm https://frontier-fw.dev/get.ps1)`
+**Syntax:**
+
+```powershell
+iex(irm https://frontier-fw.dev/get.ps1)
+```
 
 **Available Variables:**
 
-* `$v`: Specific version tag (e.g., `0.1.0`).
-* `$p`: Target directory (e.g., `MyProject` or `.`).
-* `$pr`: Boolean (`$true`/`$false`) to force (or not) pre-release.
-* `$ni`: Boolean (`$true`) to skip `.gitignore` config.
-* `$nu`: Boolean (`$true`) to skip `.frontier update`.
-* `$h`: Boolean (`$true`) to show this screen.
+* **`$v`:** Specific version tag (e.g., `0.1.0`).
+* **`$p`:** Target directory (e.g., `MyProject` or `.`).
+* **`$pr`:** Boolean (`$true`/`$false`) to force (or not) pre-release.
+* **`$ni`:** Boolean (`$true`) to skip `.gitignore` config.
+* **`$nu`:** Boolean (`$true`) to skip `.frontier update`.
+* **`$h`:** Boolean (`$true`) to show this screen.
 
 **Example:**
 
-`$v='0.1.0'; $p='.'; $pr=$true; $ni=$true; $nu=$true; $h=$true; iex(irm https://frontier-fw.dev/get.ps1)`
+```powershell
+$v='0.1.0'; $p='.'; $pr=$true; $ni=$true; $nu=$true; $h=$true; iex(irm https://frontier-fw.dev/get.ps1)
+```
 
 **Step-by-Step:**
 
 1. Open **PowerShell**.
-2. Set the variables before running the install command (e.g., `$v='0.1.0'`).
+2. Set the variables before running the install command (e.g., `$v='0.1.0';`).
 3. Run the install command (e.g., `iex(irm https://frontier-fw.dev/get.ps1)`).
 4. Follow the installation instructions.
 
