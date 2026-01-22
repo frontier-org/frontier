@@ -3,14 +3,14 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": ".",
-  "documentNamespace": "https://anchore.com/syft/dir/328b1862-dc5c-4a25-af70-08c758357481",
+  "documentNamespace": "https://anchore.com/syft/dir/12acf899-aaa5-40d2-95fb-e6f218d6e52d",
   "creationInfo": {
     "licenseListVersion": "3.27",
     "creators": [
       "Organization: Anchore, Inc",
-      "Tool: syft-1.40.0"
+      "Tool: syft-1.40.1"
     ],
-    "created": "2026-01-21T04:32:27Z"
+    "created": "2026-01-22T21:34:31Z"
   },
   "packages": [
     {
@@ -8446,8 +8446,8 @@
     },
     {
       "name": "proc-macro2",
-      "SPDXID": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "versionInfo": "1.0.105",
+      "SPDXID": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "versionInfo": "1.0.106",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
@@ -8459,37 +8459,37 @@
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc-macro2:proc-macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc-macro2:proc-macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc-macro2:proc_macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc-macro2:proc_macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc_macro2:proc-macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc_macro2:proc-macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc_macro2:proc_macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc_macro2:proc_macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc:proc-macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc:proc-macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "SECURITY",
           "referenceType": "cpe23Type",
-          "referenceLocator": "cpe:2.3:a:proc:proc_macro2:1.0.105:*:*:*:*:*:*:*"
+          "referenceLocator": "cpe:2.3:a:proc:proc_macro2:1.0.106:*:*:*:*:*:*:*"
         },
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:cargo/proc-macro2@1.0.105"
+          "referenceLocator": "pkg:cargo/proc-macro2@1.0.106"
         }
       ]
     },
@@ -16568,11 +16568,11 @@
       "checksums": [
         {
           "algorithm": "SHA1",
-          "checksumValue": "20cc2d38e9d4b833dfe0b3f6e0b3734f20f2994f"
+          "checksumValue": "7f3ab19ed8fe453428d02a31b431daa12fff05f7"
         },
         {
           "algorithm": "SHA256",
-          "checksumValue": "dbc9ffbcbd428021a6a214b90329f89f9091db58c3ea5d0de8e2f374fe1c2074"
+          "checksumValue": "d6d20c014093b1b6b1b1fb394d27a46a135d87d33c069b86861cf6d2ecf69618"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -16612,11 +16612,11 @@
       "checksums": [
         {
           "algorithm": "SHA1",
-          "checksumValue": "de50bf8e2a8cd7d098cf28ec15a6e2a4b005b2eb"
+          "checksumValue": "31974640a5568cc38716b13ce13eb30ba426c0d7"
         },
         {
           "algorithm": "SHA256",
-          "checksumValue": "006d95e07a6b200da7d17df1d4cd25c9de2d3aa6a5339a42e338c3630844ef31"
+          "checksumValue": "d34fcc81c4b3d1c77404348b08ffe47b047ada12245d67ea6ed9e17fd2cf9a3f"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -18273,136 +18273,6 @@
       "relationshipType": "DEPENDENCY_OF"
     },
     {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-string-cache-codegen-06b747b4222a12a0",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-yoke-derive-075c6ce7b3155ee7",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-thiserror-impl-12fdce7421e6b26a",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-wasm-bindgen-macro-support-2c33dce6706e809c",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerofrom-derive-32a1934d33391087",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-html5ever-47fc47d2796f2888",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-4e1ce041bf55ddf7",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro-error-55361d9de4c250d4",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-foreign-types-macros-638f678dbd9de76a",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-macros-6887ab1488c21316",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-6fa9d5c9d9dff1d9",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-macros-91d125a6b91f0533",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro-error-attr-95b096dc908b245c",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerovec-derive-9781078edbf145a2",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-phf-macros-a706191097fbc5f4",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-serde-derive-ba2045ded8166145",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-gtk3-macros-bc80b222fe161940",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerocopy-derive-be4f6a238ec23176",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-quote-be55ad6dcf187864",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-glib-macros-c291ce01e5f17539",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-synstructure-ca75b88fde84791b",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-displaydoc-cc6f893586a0c04f",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-cssparser-d274b7f2dab28e04",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-derive-more-e7609d2df2c54449",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-num-enum-derive-eec1115433bc3620",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-rust-embed-impl-fbdb61bc0f17bb06",
-      "relationshipType": "DEPENDENCY_OF"
-    },
-    {
       "spdxElementId": "SPDXRef-Package-rust-crate-soup2-5f875389e25c171a",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-webkit2gtk-9861f9f5385f639b",
       "relationshipType": "DEPENDENCY_OF"
@@ -19654,12 +19524,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-unicode-ident-a96998582a1f5853",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-6fa9d5c9d9dff1d9",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-unicode-ident-a96998582a1f5853",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-6fa9d5c9d9dff1d9",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -19920,6 +19790,136 @@
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-once-cell-b7971eeab010746e",
       "relatedSpdxElement": "SPDXRef-Package-rust-crate-x11-dl-e669e6c338f90c38",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-string-cache-codegen-06b747b4222a12a0",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-yoke-derive-075c6ce7b3155ee7",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-thiserror-impl-12fdce7421e6b26a",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-wasm-bindgen-macro-support-2c33dce6706e809c",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerofrom-derive-32a1934d33391087",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-html5ever-47fc47d2796f2888",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-4e1ce041bf55ddf7",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro-error-55361d9de4c250d4",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-foreign-types-macros-638f678dbd9de76a",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-tao-macros-6887ab1488c21316",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-syn-6fa9d5c9d9dff1d9",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-webview2-com-macros-91d125a6b91f0533",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro-error-attr-95b096dc908b245c",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerovec-derive-9781078edbf145a2",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-phf-macros-a706191097fbc5f4",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-serde-derive-ba2045ded8166145",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-gtk3-macros-bc80b222fe161940",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-zerocopy-derive-be4f6a238ec23176",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-quote-be55ad6dcf187864",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-glib-macros-c291ce01e5f17539",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-synstructure-ca75b88fde84791b",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-displaydoc-cc6f893586a0c04f",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-cssparser-d274b7f2dab28e04",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-derive-more-e7609d2df2c54449",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-num-enum-derive-eec1115433bc3620",
+      "relationshipType": "DEPENDENCY_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-rust-embed-impl-fbdb61bc0f17bb06",
       "relationshipType": "DEPENDENCY_OF"
     },
     {
@@ -21855,12 +21855,6 @@
       "comment": "evident-by: indicates the package's existence is evident by the given file"
     },
     {
-      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
-      "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
-      "relationshipType": "OTHER",
-      "comment": "evident-by: indicates the package's existence is evident by the given file"
-    },
-    {
       "spdxElementId": "SPDXRef-Package-rust-crate-soup2-5f875389e25c171a",
       "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
       "relationshipType": "OTHER",
@@ -22672,6 +22666,12 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-rust-crate-once-cell-b7971eeab010746e",
+      "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
+      "relationshipType": "OTHER",
+      "comment": "evident-by: indicates the package's existence is evident by the given file"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
       "relatedSpdxElement": "SPDXRef-File-frontier-Cargo.lock-2c1917ac1cd62aea",
       "relationshipType": "OTHER",
       "comment": "evident-by: indicates the package's existence is evident by the given file"
@@ -24420,7 +24420,7 @@
     },
     {
       "spdxElementId": "SPDXRef-DocumentRoot-Directory-.",
-      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro2-5dac28729ee4eb6f",
+      "relatedSpdxElement": "SPDXRef-Package-rust-crate-proc-macro2-b8de1eca9bba8dc0",
       "relationshipType": "CONTAINS"
     },
     {
@@ -25265,7 +25265,7 @@
       "spdxDocument": "LICENSE/LICENSE-CARGO.spdx.json",
       "checksum": {
         "algorithm": "MD5",
-        "checksumValue": "aedf5e5eed9c4664165efd89e2d31e85"
+        "checksumValue": "76e8bdd7460273d9d7166b5b20848fad"
       }
     }
   ]
