@@ -29,15 +29,12 @@ jobs:
           mv LICENSE-APACHE LICENSE-MIT NOTICE LICENSE/
           mv docs LICENSE frontier/
 
-      - name: Windows Package Setup
+      - name: Create Windows Package
         run: |
+          shopt -s dotglob
           mkdir -p windows-package/.frontier/
           cp -r frontier/* windows-package/.frontier/
           mv cli/windows/* windows-package/
-
-      - name: Create ZIP files
-        run: |
-          shopt -s dotglob
           cd windows-package/
           zip -r ../Frontier-Windows.zip *
 
@@ -49,7 +46,6 @@ jobs:
             --url https://www.virustotal.com/api/v3/files \
             --header "x-apikey: ${{ secrets.VIRUSTOTAL_API_KEY }}" \
             --form "file=@Frontier-Windows.zip"
-          
           echo "REPORT_URL=https://www.virustotal.com/gui/file/$FILE_HASH" >> $GITHUB_ENV
 
       - name: Create Release and Upload File
