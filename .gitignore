@@ -1,12 +1,12 @@
 # Copyright (c) 2026 The Frontier Framework Authors
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception OR MIT
 
-.frontier/
-frontier/assets/
-frontier/target/
-app/
-dist/
-modules/
+/.frontier/
+/frontier/assets/
+/frontier/target/
+/app/
+/dist/
+/modules/
 /back.bat
 /front.bat
 /frontier.bat
