@@ -17,7 +17,7 @@ You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC 
 **Syntax:**
 
 ```powershell
-iex(irm https://frontier-fw.dev/get.ps1)
+iex (irm 'https://frontier-fw.dev/get.ps1')
 ```
 
 **Step-by-Step:**
@@ -29,7 +29,7 @@ iex(irm https://frontier-fw.dev/get.ps1)
 
 **Available Variables:**
 
-* **`$v`:** Specific version tag (e.g., `'0.1.0'`).
+* **`$v`:** Specific Frontier version tag (e.g., `'0.1.0'`).
 * **`$p`:** Target directory (e.g., `'MyProject'` or `'.'`).
 * **`$pr`:** Boolean (`$true`/`$false`) to force (or not) pre-release.
 * **`$ni`:** Boolean (`$true`) to skip `.gitignore` config.
@@ -39,7 +39,13 @@ iex(irm https://frontier-fw.dev/get.ps1)
 **Example:**
 
 ```powershell
-$v='0.1.0'; $p='.'; $pr=$true; $ni=$true; $nu=$true; $h=$true; iex(irm https://frontier-fw.dev/get.ps1)
+$p='my-app'; iex (irm 'https://frontier-fw.dev/win/get.ps1')
+```
+
+You can specify the installer version by `'https://frontier-fw.dev/win/v{version}/get.ps1'`, like:
+
+```powershell
+$v='0.2.0'; $p='.'; $ni=1; $nu=1; iex (irm 'https://frontier-fw.dev/win/v0.1.0/get.ps1')
 ```
 
 ## 📂 2. Project Structure
