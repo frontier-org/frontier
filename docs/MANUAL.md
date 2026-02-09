@@ -17,7 +17,7 @@ You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC 
 **Syntax:**
 
 ```powershell
-iex (irm 'https://frontier-fw.dev/get.ps1')
+iex (irm 'https://frontier-fw.dev/win/get.ps1')
 ```
 
 **Step-by-Step:**
