@@ -23,29 +23,28 @@ iex (irm 'https://frontier-fw.dev/get.ps1')
 **Step-by-Step:**
 
 1. Open **PowerShell**.
-2. Set the variables before running the install command (e.g., `$v='0.1.0';`).
-3. Run the install command (e.g., `iex(irm https://frontier-fw.dev/get.ps1)`).
-4. Follow the installation instructions.
+2. Run the **install command**.
+3. Follow the installation instructions.
 
 **Available Variables:**
 
-* **`$v`:** Specific Frontier version tag (e.g., `'0.1.0'`).
-* **`$p`:** Target directory (e.g., `'MyProject'` or `'.'`).
-* **`$pr`:** Boolean (`$true`/`$false`) to force (or not) pre-release.
-* **`$ni`:** Boolean (`$true`) to skip `.gitignore` config.
-* **`$nu`:** Boolean (`$true`) to skip `.frontier update`.
-* **`$h`:** Boolean (`$true`) to show this screen.
+* **`-Version <version>`:** Specific version tag (e.g., '0.1.0')
+* **`-Path <path>`:** Target directory (e.g., 'My App' or '.')
+* **`-PreRelease`:** Force use of pre-release versions
+* **`-NoGitignore`:** Skip '.gitignore' configuration
+* **`-NoUpdate`:** Skip '.\frontier update'
+* **`-Help`:** Show the help screen
 
 **Example:**
 
 ```powershell
-$p='my-app'; iex (irm 'https://frontier-fw.dev/win/get.ps1')
+iex "& { $(irm 'https://frontier-fw.dev/win/get.ps1') } -p 'My App' -ni"
 ```
 
-You can specify the installer version by `'https://frontier-fw.dev/win/v{version}/get.ps1'`, like:
+*You can specify the installer version by `'https://frontier-fw.dev/win/v{version}/get.ps1'`, like:*
 
 ```powershell
-$v='0.2.0'; $p='.'; $ni=1; $nu=1; iex (irm 'https://frontier-fw.dev/win/v0.1.0/get.ps1')
+iex "& { $(irm 'https://frontier-fw.dev/win/v0.1.0/get.ps1') } -Version 0.2.0 -Path '.' -NoGitignore -NoUpdate"
 ```
 
 ## 📂 2. Project Structure
