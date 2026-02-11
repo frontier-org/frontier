@@ -18,8 +18,8 @@
 
 ### Windows
 
-```powershell
-powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
+``` powershell
+irm "https://frontier-fw.dev/get.ps1" | iex
 ```
 
 *For more information about install or uses, refer to the [MANUAL.md](./MANUAL.md).*

@@ -16,9 +16,9 @@ You will need to have the [Rust](https://rust-lang.org/tools/install/) and MSVC 
 
 **Syntax:**
 
-```powershell
-iex (irm 'https://frontier-fw.dev/win/get.ps1')
-```
+``` powershell
+irm "https://frontier-fw.dev/win/get.ps1" | iex
+``` 
 
 **Step-by-Step:**
 
@@ -37,21 +37,21 @@ iex (irm 'https://frontier-fw.dev/win/get.ps1')
 
 **Example:**
 
-```powershell
+``` powershell
 iex "& { $(irm 'https://frontier-fw.dev/win/get.ps1') } -p 'My App' -ni"
-```
+``` 
 
 *You can specify the installer version by `'https://frontier-fw.dev/win/v{version}/get.ps1'`, like:*
 
-```powershell
+``` powershell
 iex "& { $(irm 'https://frontier-fw.dev/win/v0.1.0/get.ps1') } -Version 0.2.0 -Path '.' -NoGitignore -NoUpdate"
-```
+``` 
 
 ## 📂 2. Project Structure
 
 A healthy Frontier project follows this structure:
 
-```text
+``` text
 MyProject/
 │
 ├── .frontier/            # Framework (Rust, Cache, Build System)
@@ -76,14 +76,14 @@ MyProject/
 ├── front                 # Direct Frontend CLI
 ├── frontier              # Main CLI
 └── frontier.toml         # Project Settings
-```
+``` 
 
 ## ⚙️ 3. Executable Configuration (`frontier.toml`)
 
 This file controls frontier settings, and the metadata of the final `.exe` file generated on Windows.
 
 **File:** `frontier.toml`
-```toml
+``` toml
 [app]
 name = "MySuperApp"               # Final file name (e.g. MySuperApp.exe)
 version = "1.0.0"                 # Version (appears in File Properties)
@@ -102,7 +102,7 @@ allowed_internal = [
 allowed_browser = [
     "https://github.com/*"
 ]
-```
+``` 
 
 ## 🖥️ 4. Frontend & Window Management
 
@@ -137,7 +137,7 @@ In `x` and `y` tags, you can use variables:
 *   `win_h`: Window height.
 
 **Complete HTML Example:**
-```html
+``` html
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,20 +172,20 @@ In `x` and `y` tags, you can use variables:
     </script>
 </body>
 </html>
-```
+``` 
 
 ### Opening New Windows
 
 Frontier supports opening multiple windows. You can open secondary windows (popups) and configure them independently.
 
 #### Method 1: Simple Window Open
-```javascript
+``` javascript
 // Opens popup.html in a new native window with default configuration
 window.ipc.postMessage('open|popup.html');
-```
+``` 
 
 #### Method 2: Full Control with Frontier.spawn()
-```javascript
+``` javascript
 Frontier.spawn('popup.html', {
     title: 'Settings Window',
     id: 'settings_window',
@@ -209,13 +209,13 @@ Frontier.spawn('popup.html', {
     x: '(screen_w - win_w) / 2',
     y: '(screen_h - win_h) / 2'
 });
-```
+``` 
 
 #### Method 3: HTML Link with target="_blank"
-```html
+``` html
 <!-- Opens new window with default config -->
 <a href="frontier://app/popup.html" target="_blank">Open Settings</a>
-```
+``` 
 
 #### Rules for Multiple Windows
 - Each window has its own **DOM**, **CSS**, and **JavaScript context**
@@ -226,7 +226,7 @@ Frontier.spawn('popup.html', {
 
 #### Creating a Separate Window File
 Create `app/frontend/popup.html`:
-```html
+``` html
 <!DOCTYPE html>
 <html>
 <head>
@@ -246,7 +246,7 @@ Create `app/frontend/popup.html`:
     <script src="frontier-api.js"></script>
 </body>
 </html>
-```
+``` 
 
 ## 🧱 4. Backend Implementation
 
@@ -268,7 +268,7 @@ Create a folder in `modules/module_name/` and add a `manifest.toml`.
 
 ### `manifest.toml` Reference
 
-```toml
+``` toml
 name = "Readable Name"  # Module name
 version = "1.0.0"       # Version
 extension = "py"        # Extension this module controls
@@ -296,12 +296,12 @@ strategy = "interpreter"
 # %IN%  -> Path of source file (or project folder)
 # %OUT% -> Path where Frontier expects the final file
 command = "gcc %IN% -o %OUT%"
-```
+``` 
 
 ### Practical Examples
 
 **Python (Script):**
-```toml
+``` toml
 name = "Mod Python"
 version = "1.0.0"
 extension = "py"
@@ -309,10 +309,10 @@ interpreter = "python"
 
 [dev]
 strategy = "interpreter"
-```
+``` 
 
 **C (Native):**
-```toml
+``` toml
 name = "Mod GCC"
 version = "1.0.0"
 extension = "c"
@@ -323,10 +323,10 @@ strategy = "build"
 
 [build]
 command = "gcc %IN% -o %OUT%"
-```
+``` 
 
 **Batch (Script):**
-```toml
+``` toml
 name = "Mod Batch"
 version = "1.0.0"
 extension = "bat"
@@ -334,7 +334,7 @@ interpreter = "cmd /c"
 
 [dev]
 strategy = "interpreter"
-```
+``` 
 
 ## 🌐 6. URL Routing & Security
 
@@ -356,19 +356,19 @@ Frontier automatically categorizes all URLs into four types:
 Whitelist patterns work with two modes:
 
 **Exact URL Match** (no wildcard - restricts to exact path):
-```html
+``` html
 <!-- Allows ONLY https://mysite.com and https://mysite.com/ -->
 <meta name="frontier-allowed-internal" content="https://mysite.com">
-```
+``` 
 
 **Wildcard Match** (with `/*` - allows subpaths):
-```html
+``` html
 <!-- Allows https://api.example.com/users, /posts, /auth/login, etc. -->
 <meta name="frontier-allowed-internal" content="https://api.example.com/*">
-```
+``` 
 
 Complete example with multiple patterns:
-```html
+``` html
 <!-- Multiple patterns separated by commas -->
 <meta name="frontier-allowed-internal" content="https://mysite.com,https://api.example.com/*,https://docs.example.com">
 
@@ -377,7 +377,7 @@ Complete example with multiple patterns:
 
 <!-- Per-window override (ignores global security if true) -->
 <meta name="frontier-ignore-global-security" content="false">
-```
+``` 
 
 **Pattern Matching Rules:**
 | Pattern | Matches | Blocks |
@@ -400,17 +400,17 @@ This prevents issues like:
 - Accidental double-clicks creating duplicate windows
 
 **Example Scenario:**
-```
+``` 
 User clicks: https://github.com/
 GitHub redirects to: https://github.com/?locale=en-US
 Result: One tab opens (not two) because both URLs normalize to the same base
-```
+``` 
 
 ### Programmatic Window Opening (JavaScript)
 
 Use `Frontier.spawn()` to open new Frontier windows with full control:
 
-```javascript
+``` javascript
 Frontier.spawn('https://github.com/frontier-org', {
     title: 'Frontier Org',
     id: 'github_window',
@@ -440,7 +440,7 @@ Frontier.spawn('https://github.com/frontier-org', {
     x: '(screen_w - win_w) / 2',
     y: '(screen_h - win_h) / 2'
 });
-```
+``` 
 
 ## 💻 7. CLI (Command Line)
 

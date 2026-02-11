@@ -5,47 +5,47 @@
 ## Log Categories & Icons
 
 ### 📄 Window Management
-```text
+``` text
 📄 [WINDOW] teste.html         → Local file window opened
 📦 [SPAWN] https://example.com → New spawned window with config
-```
+``` 
 
 ### 📦 Asset Loading
-```text
+``` text
 📦 [ASSET] index.html (text/html)      → File successfully loaded (with MIME type)
 ❌ [ASSET] Not found: missing.js        → File not found error
-```
+``` 
 
 ### 🌐 Browser Routing
-```text
+``` text
 🌐 [BROWSER] Opening: https://github.com              → Opening in system browser
 ⏱️ [BROWSER] Deduped (within 2s): https://github.com → Deduplication prevented duplicate tab
-```
+``` 
 
 ### 📍 URL Routing & Security
-```text
+``` text
 📍 [ROUTING] Frontier: frontier://app/teste.html            → Internal Frontier protocol
 📍 [ROUTING] Internal (whitelisted): https://kaiohsg.dev   → Allowed internal navigation
 📍 [ROUTING] Browser (whitelisted): https://github.com     → External browser URL
 📍 [ROUTING] Blocked: https://suspicious.com              → Security-blocked URL
-```
+``` 
 
 ### 🚫 Security
-```text
+``` text
 🚫 [SECURITY] Blocked access to: https://malicious.com → Access denied by whitelist
-```
+``` 
 
 ### 💬 IPC Communication
-```text
+``` text
 💬 [IPC] open: teste.html           → Window.ipc.postMessage('open|teste.html')
 💬 [IPC] spawn: popup.html          → Window.ipc.postMessage('spawn|popup.html')
 💬 [IPC] exec: math 10 50           → Window.ipc.postMessage('math|10 50')
 💬 [IPC] exec: (no args)            → Command with no arguments
-```
+``` 
 
 ## Example Development Session
 
-```text
+``` text
 📄 [WINDOW] index.html
 📦 [ASSET] index.html (text/html)
 📦 [ASSET] style.css (text/css)
@@ -64,7 +64,7 @@
 📍 [ROUTING] Internal (whitelisted): https://kaiohsg.dev
 📍 [ROUTING] Browser (whitelisted): https://github.com
 🚫 [SECURITY] Blocked access to: https://malicious.com
-```
+``` 
 
 ## Log Behavior
 
@@ -93,9 +93,9 @@ The logging system helps debug:
 ## Implementation Details
 
 All logs use conditional compilation:
-```rust
+``` rust
 if sys_is_dev { eprintln!("📦 [ASSET] {} ({})", resource, mime); }
-```
+``` 
 
 This pattern ensures:
 1. **Zero overhead in production** - Conditions are evaluated at compile-time
